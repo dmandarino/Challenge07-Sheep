@@ -8,41 +8,46 @@
 
 #import "GameScene.h"
 
+
+
 @implementation GameScene
+CGFloat score = 0;
+SKLabelNode *scoreLabel;
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
+    bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    [self addChild:bgImage];
     
-    myLabel.text = @"Hello, World!";
-    myLabel.fontSize = 65;
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                   CGRectGetMidY(self.frame));
     
-    [self addChild:myLabel];
+    scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    scoreLabel.fontSize = 65;
+    scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame),
+                                   0);
+    [self addChild:scoreLabel];
+    
+    SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"testsheep.PNG"];
+    
+    sprite.xScale = 0.1;
+    sprite.yScale = 0.1;
+    sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    
+    
+    [self addChild:sprite];
+
 }
+
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
+    score = score + 1000;
     
-    for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInNode:self];
-        
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-        
-        sprite.xScale = 0.5;
-        sprite.yScale = 0.5;
-        sprite.position = location;
-        
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-        
-        [sprite runAction:[SKAction repeatActionForever:action]];
-        
-        [self addChild:sprite];
-    }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
+    score += 0.3;
+    scoreLabel.text =[NSString stringWithFormat:@"%.0f", score];
     /* Called before each frame is rendered */
 }
 

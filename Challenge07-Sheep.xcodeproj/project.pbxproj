@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06D499351A6C8B9F00329D2D /* testsheep.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 06D499341A6C8B9F00329D2D /* testsheep.PNG */; };
+		06E189CB1A6C8F99007AEF67 /* background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 06E189CA1A6C8F99007AEF67 /* background1.png */; };
 		5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFA1A6C013800BE3D59 /* main.m */; };
 		5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFD1A6C013800BE3D59 /* AppDelegate.m */; };
 		5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8D0001A6C013800BE3D59 /* GameScene.m */; };
@@ -29,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06D499341A6C8B9F00329D2D /* testsheep.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testsheep.PNG; sourceTree = "<group>"; };
+		06E189CA1A6C8F99007AEF67 /* background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background1.png; sourceTree = "<group>"; };
 		5AD8CFF51A6C013800BE3D59 /* Challenge07-Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Challenge07-Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8CFF91A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8CFFA1A6C013800BE3D59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 				5AD8D0051A6C013800BE3D59 /* GameViewController.m */,
 				5AD8D0071A6C013800BE3D59 /* Main.storyboard */,
 				5AD8D00A1A6C013800BE3D59 /* Images.xcassets */,
+				06D499341A6C8B9F00329D2D /* testsheep.PNG */,
+				06E189CA1A6C8F99007AEF67 /* background1.png */,
 				5AD8D00C1A6C013800BE3D59 /* LaunchScreen.xib */,
 				5AD8CFF81A6C013800BE3D59 /* Supporting Files */,
 			);
@@ -208,9 +214,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AD8D00E1A6C013800BE3D59 /* LaunchScreen.xib in Resources */,
+				06E189CB1A6C8F99007AEF67 /* background1.png in Resources */,
 				5AD8D00B1A6C013800BE3D59 /* Images.xcassets in Resources */,
 				5AD8D0031A6C013800BE3D59 /* GameScene.sks in Resources */,
 				5AD8D0091A6C013800BE3D59 /* Main.storyboard in Resources */,
+				06D499351A6C8B9F00329D2D /* testsheep.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +432,7 @@
 				5AD8D01F1A6C013800BE3D59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5AD8D0201A6C013800BE3D59 /* Build configuration list for PBXNativeTarget "Challenge07-SheepTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +441,7 @@
 				5AD8D0221A6C013800BE3D59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
