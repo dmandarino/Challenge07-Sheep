@@ -42,7 +42,10 @@
     skView.ignoresSiblingOrder = YES;
     
     // Create and configure the scene.
-    GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
+    //inverti a orientaçao do iphone qnd simulado
+    //GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
+    GameScene *scene = [GameScene sceneWithSize:(CGSizeMake(skView.frame.size.height, skView.frame.size.width))];
+    
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.

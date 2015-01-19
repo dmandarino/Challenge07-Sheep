@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		06D499351A6C8B9F00329D2D /* testsheep.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 06D499341A6C8B9F00329D2D /* testsheep.PNG */; };
 		06E189CB1A6C8F99007AEF67 /* background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 06E189CA1A6C8F99007AEF67 /* background1.png */; };
+		0866099E1A6D5A400094FD93 /* viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 0866099D1A6D5A400094FD93 /* viking.png */; };
+		086609A41A6D5A650094FD93 /* dragao.png in Resources */ = {isa = PBXBuildFile; fileRef = 0866099F1A6D5A650094FD93 /* dragao.png */; };
+		086609A51A6D5A650094FD93 /* dragao-fogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 086609A01A6D5A650094FD93 /* dragao-fogo.png */; };
+		086609A61A6D5A650094FD93 /* dragao-preparo.png in Resources */ = {isa = PBXBuildFile; fileRef = 086609A11A6D5A650094FD93 /* dragao-preparo.png */; };
+		086609A71A6D5A650094FD93 /* garras.png in Resources */ = {isa = PBXBuildFile; fileRef = 086609A21A6D5A650094FD93 /* garras.png */; };
+		086609A81A6D5A650094FD93 /* rabo.png in Resources */ = {isa = PBXBuildFile; fileRef = 086609A31A6D5A650094FD93 /* rabo.png */; };
 		5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFA1A6C013800BE3D59 /* main.m */; };
 		5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFD1A6C013800BE3D59 /* AppDelegate.m */; };
 		5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8D0001A6C013800BE3D59 /* GameScene.m */; };
@@ -33,6 +39,12 @@
 /* Begin PBXFileReference section */
 		06D499341A6C8B9F00329D2D /* testsheep.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testsheep.PNG; sourceTree = "<group>"; };
 		06E189CA1A6C8F99007AEF67 /* background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background1.png; sourceTree = "<group>"; };
+		0866099D1A6D5A400094FD93 /* viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viking.png; sourceTree = "<group>"; };
+		0866099F1A6D5A650094FD93 /* dragao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dragao.png; sourceTree = "<group>"; };
+		086609A01A6D5A650094FD93 /* dragao-fogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dragao-fogo.png"; sourceTree = "<group>"; };
+		086609A11A6D5A650094FD93 /* dragao-preparo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dragao-preparo.png"; sourceTree = "<group>"; };
+		086609A21A6D5A650094FD93 /* garras.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = garras.png; sourceTree = "<group>"; };
+		086609A31A6D5A650094FD93 /* rabo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rabo.png; sourceTree = "<group>"; };
 		5AD8CFF51A6C013800BE3D59 /* Challenge07-Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Challenge07-Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8CFF91A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8CFFA1A6C013800BE3D59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -99,8 +111,6 @@
 				5AD8D0051A6C013800BE3D59 /* GameViewController.m */,
 				5AD8D0071A6C013800BE3D59 /* Main.storyboard */,
 				5AD8D00A1A6C013800BE3D59 /* Images.xcassets */,
-				06D499341A6C8B9F00329D2D /* testsheep.PNG */,
-				06E189CA1A6C8F99007AEF67 /* background1.png */,
 				5AD8D00C1A6C013800BE3D59 /* LaunchScreen.xib */,
 				5AD8CFF81A6C013800BE3D59 /* Supporting Files */,
 			);
@@ -110,6 +120,14 @@
 		5AD8CFF81A6C013800BE3D59 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0866099F1A6D5A650094FD93 /* dragao.png */,
+				086609A01A6D5A650094FD93 /* dragao-fogo.png */,
+				086609A11A6D5A650094FD93 /* dragao-preparo.png */,
+				086609A21A6D5A650094FD93 /* garras.png */,
+				086609A31A6D5A650094FD93 /* rabo.png */,
+				06D499341A6C8B9F00329D2D /* testsheep.PNG */,
+				06E189CA1A6C8F99007AEF67 /* background1.png */,
+				0866099D1A6D5A400094FD93 /* viking.png */,
 				5AD8CFF91A6C013800BE3D59 /* Info.plist */,
 				5AD8CFFA1A6C013800BE3D59 /* main.m */,
 			);
@@ -214,11 +232,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AD8D00E1A6C013800BE3D59 /* LaunchScreen.xib in Resources */,
+				0866099E1A6D5A400094FD93 /* viking.png in Resources */,
 				06E189CB1A6C8F99007AEF67 /* background1.png in Resources */,
+				086609A41A6D5A650094FD93 /* dragao.png in Resources */,
 				5AD8D00B1A6C013800BE3D59 /* Images.xcassets in Resources */,
 				5AD8D0031A6C013800BE3D59 /* GameScene.sks in Resources */,
+				086609A51A6D5A650094FD93 /* dragao-fogo.png in Resources */,
+				086609A71A6D5A650094FD93 /* garras.png in Resources */,
+				086609A61A6D5A650094FD93 /* dragao-preparo.png in Resources */,
 				5AD8D0091A6C013800BE3D59 /* Main.storyboard in Resources */,
 				06D499351A6C8B9F00329D2D /* testsheep.PNG in Resources */,
+				086609A81A6D5A650094FD93 /* rabo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
