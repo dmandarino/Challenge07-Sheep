@@ -123,10 +123,10 @@ SKSpriteNode *sprite;
 
 - (void) prepareAttack {
     randomSide = arc4random_uniform(4);
-    up = [SKSpriteNode spriteNodeWithImageNamed:@"garras.png"];
-    down = [SKSpriteNode spriteNodeWithImageNamed:@"rabo.png"];
-    right = [SKSpriteNode spriteNodeWithImageNamed:@"dragao-preparo.png"];
-    left = [SKSpriteNode spriteNodeWithImageNamed:@"dragao-preparo.png"];
+    up = [SKSpriteNode spriteNodeWithImageNamed:@"claws.png"];
+    down = [SKSpriteNode spriteNodeWithImageNamed:@"tail.png"];
+    right = [SKSpriteNode spriteNodeWithImageNamed:@"dragon1-right.png"];
+    left = [SKSpriteNode spriteNodeWithImageNamed:@"dragon1-left.png"];
     attackDown = false;
     attackLeft = false;
     attackRight = false;
