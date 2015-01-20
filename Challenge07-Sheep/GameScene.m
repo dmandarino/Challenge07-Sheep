@@ -77,8 +77,22 @@ SKSpriteNode *sprite;
 
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint endPosition = [touch locationInView:touch.view];
+    
+    if (pointLocation.y < endPosition.y) {
+        // Down swipe
+        NSLog(@"PRA BAIXO");
+    } else {
+        // Up swipe
+        NSLog(@"PRA CIMA");
+    }
+}
+
 -(void)update:(CFTimeInterval)currentTime {
-    score += 0.05;
+    score += 0.1;
     scoreLabel.text =[NSString stringWithFormat:@"%.0f", score];
 
     /* Called before each frame is rendered */
@@ -154,7 +168,7 @@ SKSpriteNode *sprite;
 
     SKAction *attackLaunch= [SKAction sequence:@[
                                                //time after you want to fire a function
-                                               [SKAction waitForDuration:2],
+                                               [SKAction waitForDuration:arc4random()%2],
                                                [SKAction performSelector:@selector(attack)
                                                                 onTarget:self]
                                                
