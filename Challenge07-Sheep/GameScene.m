@@ -16,7 +16,17 @@ CGFloat score = 0;
 SKLabelNode *scoreLabel;
 CGPoint pointLocation;
 int counter = 0;
+int randomSide = 5;
 NSTimer *timer;
+bool attackLeft = false;
+bool attackRight = false;
+bool attackUp = false;
+bool attackDown = false;
+SKSpriteNode *up;
+SKSpriteNode *down;
+SKSpriteNode *right;
+SKSpriteNode *left;
+SKSpriteNode *sprite;
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
@@ -29,10 +39,10 @@ NSTimer *timer;
     
     scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     scoreLabel.fontSize = 15;
-    scoreLabel.position = CGPointMake((self.frame.size.width/2)-132, (self.frame.size.height/2)-85);
+    scoreLabel.position = CGPointMake((self.frame.size.width/8), (self.frame.size.height/2.8));
     [self addChild:scoreLabel];
     
-    SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"viking.png"];
+    sprite = [SKSpriteNode spriteNodeWithImageNamed:@"viking.png"];
     sprite.xScale = 0.2;
     sprite.yScale = 0.2;
     sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
@@ -43,20 +53,34 @@ NSTimer *timer;
     lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
     [self.view addGestureRecognizer:lpgr];
-
+    
+    
+    
+    SKAction *Timetofire= [SKAction sequence:@[
+                                               //time after you want to fire a function
+                                               [SKAction waitForDuration:4],
+                                               [SKAction performSelector:@selector(prepareAttack)
+                                                                onTarget:self]
+                                               
+                                               ]];
+    [self runAction:[SKAction repeatActionForever:Timetofire ]];
+    
 }
+
+
 
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
-    score = score + 1000;
     UITouch *touch = [[event allTouches] anyObject];
     pointLocation = [touch locationInView:touch.view];
+
 }
 
 -(void)update:(CFTimeInterval)currentTime {
     score += 0.05;
     scoreLabel.text =[NSString stringWithFormat:@"%.0f", score];
+
     /* Called before each frame is rendered */
 }
 
@@ -81,6 +105,79 @@ NSTimer *timer;
 
 - (void)incrementCounter {
     counter++;
+}
+
+- (void) prepareAttack {
+    randomSide = arc4random_uniform(4);
+    up = [SKSpriteNode spriteNodeWithImageNamed:@"garras.png"];
+    down = [SKSpriteNode spriteNodeWithImageNamed:@"rabo.png"];
+    right = [SKSpriteNode spriteNodeWithImageNamed:@"dragao-preparo.png"];
+    left = [SKSpriteNode spriteNodeWithImageNamed:@"dragao-preparo.png"];
+    attackDown = false;
+    attackLeft = false;
+    attackRight = false;
+    attackUp = false;
+    
+    [sprite removeAllChildren];
+    
+    switch (randomSide)
+    {
+        case 0:
+            up.position = CGPointMake(sprite.position.x - 300, sprite.position.y * 1.3);
+            up.xScale = 0.5;
+            up.yScale = 0.5;
+            [sprite addChild:up];
+            break;
+        case 1:
+
+            right.position = CGPointMake(sprite.position.x * 4, sprite.position.y/2);
+            right.xScale = 0.5;
+            right.yScale = 0.5;
+            [sprite addChild:right];
+            break;
+        case 2:
+            down.position = CGPointMake(sprite.position.x, -sprite.position.y);
+            down.xScale = 0.5;
+            down.yScale = 0.5;
+            [sprite addChild:down];
+            break;
+        case 3:
+            left.position = CGPointMake(-700, sprite.position.y/2);
+            left.xScale = 0.5;
+            left.yScale = 0.5;
+            [sprite addChild:left];
+            break;
+            
+            
+    }
+
+
+    SKAction *attackLaunch= [SKAction sequence:@[
+                                               //time after you want to fire a function
+                                               [SKAction waitForDuration:2],
+                                               [SKAction performSelector:@selector(attack)
+                                                                onTarget:self]
+                                               
+                                               ]];
+    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
+}
+- (void) attack {
+    switch (randomSide)
+    {
+        case 0:
+            attackUp = true;
+            break;
+        case 1:
+            attackRight = true;
+            break;
+        case 2:
+            attackDown = true;
+            break;
+        case 3:
+            attackLeft = true;
+            break;
+            
+    }
 }
 
 @end
