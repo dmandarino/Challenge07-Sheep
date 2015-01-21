@@ -11,7 +11,13 @@
 
 
 
-@implementation GameScene
+@implementation GameScene{
+    
+    SKSpriteNode *_dragon;
+    NSArray *_dragonFireFrames;
+    
+}
+
 CGFloat score = 0;
 SKLabelNode *scoreLabel;
 CGPoint pointLocation;
@@ -28,9 +34,45 @@ SKSpriteNode *right;
 SKSpriteNode *left;
 SKSpriteNode *sprite;
 SKAction *runAnimation;
+NSMutableArray *dragonFrames;
+SKTextureAtlas *dragonAnimatedAtlas;
+
+//NSMutableArray *walkFrames = [NSMutableArray array];
+//SKTextureAtlas *bearAnimatedAtlas = [SKTextureAtlas atlasNamed:@"BearImages"];
+//
+//int numImages = bearAnimatedAtlas.textureNames.count;
+//for (int i=1; i <= numImages/2; i++) {
+//    NSString *textureName = [NSString stringWithFormat:@"bear%d", i];
+//    SKTexture *temp = [bearAnimatedAtlas textureNamed:textureName];
+//    [walkFrames addObject:temp];
+//}
+//_bearWalkingFrames = walkFrames;
+//
+//SKTexture *temp = _bearWalkingFrames[0];
+//_bear = [SKSpriteNode spriteNodeWithTexture:temp];
+//_bear.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+//[self addChild:_bear];
+//[self walkingBear];
+//-(void)walkingBear
+//{
+//    NSLog(@"ENTREI NO WALKING");
+//    //This is our general runAction method to make our bear walk.
+//    [_bear runAction:[SKAction repeatActionForever:
+//                      [SKAction animateWithTextures:_bearWalkingFrames
+//                                       timePerFrame:0.1f
+//                                             resize:NO
+//                                            restore:YES]] withKey:@"walkingInPlaceBear"];
+//    return;
+//}
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
+    
+    
+    dragonFrames = [NSMutableArray array];
+    dragonAnimatedAtlas = [SKTextureAtlas atlasNamed:@"dragon"];
+    
+    [self prepareDragonImages];
     
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
@@ -68,7 +110,62 @@ SKAction *runAnimation;
 }
 
 
+-(void)prepareDragonImages{
+    int numImages = dragonAnimatedAtlas.textureNames.count;
+//    for (int i=1; i <= numImages/2; i++) {
+//        NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
+//        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
+//        [dragonFrames addObject:temp];
+//    }
+    
+    
+    NSString *textureName = [NSString stringWithFormat:@"dragon1"];
+    SKTexture *temp1 = [dragonAnimatedAtlas textureNamed:textureName];
+    [dragonFrames addObject:temp1];
+    textureName = [NSString stringWithFormat:@"dragon1"];
+    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
+    [dragonFrames addObject:temp1];
+    textureName = [NSString stringWithFormat:@"dragon2"];
+    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
+    [dragonFrames addObject:temp1];
+    textureName = [NSString stringWithFormat:@"dragon3"];
+    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
+    [dragonFrames addObject:temp1];
+    textureName = [NSString stringWithFormat:@"dragon4"];
+    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
+    [dragonFrames addObject:temp1];
+    textureName = [NSString stringWithFormat:@"dragon5"];
+    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
+    [dragonFrames addObject:temp1];
+    textureName = [NSString stringWithFormat:@"dragon6"];
+    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
+    [dragonFrames addObject:temp1];
+    textureName = [NSString stringWithFormat:@"dragon7"];
+    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
+    [dragonFrames addObject:temp1];
+    
+    
+    _dragonFireFrames = dragonFrames;
+    
+    SKTexture *temp = _dragonFireFrames[0];
+    _dragon = [SKSpriteNode spriteNodeWithTexture:temp];
+    _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-30, CGRectGetMidY(self.frame)-20);
+    _dragon.xScale = 0.4;
+    _dragon.yScale = 0.15;
 
+    [self addChild:_dragon];
+
+}
+
+-(void)attackingDragonFire
+{
+    [_dragon runAction:[SKAction repeatAction:[SKAction animateWithTextures:_dragonFireFrames
+                                                            timePerFrame:0.2f
+                                                                  resize:NO
+                                                                 restore:YES] count: 1]];
+
+        return;
+}
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
@@ -91,13 +188,6 @@ SKAction *runAnimation;
     }
 }
 
--(void)update:(CFTimeInterval)currentTime {
-    score += 0.1;
-    scoreLabel.text =[NSString stringWithFormat:@"%.0f", score];
-
-    /* Called before each frame is rendered */
-}
-
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     CGFloat x = pointLocation.x;
@@ -115,6 +205,14 @@ SKAction *runAnimation;
         }
     }
     NSLog(@"Pressed at x = %0.f and y = %0.f",x,y);
+}
+
+
+-(void)update:(CFTimeInterval)currentTime {
+    score += 0.1;
+    scoreLabel.text =[NSString stringWithFormat:@"%.0f", score];
+    
+    /* Called before each frame is rendered */
 }
 
 - (void)incrementCounter {
@@ -137,29 +235,32 @@ SKAction *runAnimation;
     switch (randomSide)
     {
         case 0:
-            up.position = CGPointMake(sprite.position.x - 300, sprite.position.y * 1.3);
-            up.xScale = 0.5;
-            up.yScale = 0.5;
-            [sprite addChild:up];
+            [self attackingDragonFire];
+//            up.position = CGPointMake(sprite.position.x - 300, sprite.position.y * 1.3);
+//            up.xScale = 0.5;
+//            up.yScale = 0.5;
+//            [sprite addChild:up];
             break;
         case 1:
-
-            right.position = CGPointMake(sprite.position.x * 4, sprite.position.y/2);
-            right.xScale = 0.5;
-            right.yScale = 0.5;
-            [sprite addChild:right];
+            [self attackingDragonFire];
+//            right.position = CGPointMake(sprite.position.x * 4, sprite.position.y/2);
+//            right.xScale = 0.5;
+//            right.yScale = 0.5;
+//            [sprite addChild:right];
             break;
         case 2:
-            down.position = CGPointMake(sprite.position.x, -sprite.position.y);
-            down.xScale = 0.5;
-            down.yScale = 0.5;
-            [sprite addChild:down];
+            [self attackingDragonFire];
+//            down.position = CGPointMake(sprite.position.x, -sprite.position.y);
+//            down.xScale = 0.5;
+//            down.yScale = 0.5;
+//            [sprite addChild:down];
             break;
         case 3:
-            left.position = CGPointMake(-700, sprite.position.y/2);
-            left.xScale = 0.5;
-            left.yScale = 0.5;
-            [sprite addChild:left];
+            [self attackingDragonFire];
+//            left.position = CGPointMake(-700, sprite.position.y/2);
+//            left.xScale = 0.5;
+//            left.yScale = 0.5;
+//            [sprite addChild:left];
             break;
             
             
@@ -193,5 +294,7 @@ SKAction *runAnimation;
             
     }
 }
+
+
 
 @end
