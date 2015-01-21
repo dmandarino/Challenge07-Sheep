@@ -222,8 +222,21 @@ NSArray *_clawsAttackingFrames;
         }
         if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
             [timer invalidate];
-            NSLog(@"Defend .. %d seconds", counter);
+            NSLog(@"Defend right.. %d seconds", counter);
         }
+    }else{
+        if(x>=100 && x<=260 && y>=100 && y<=230){
+            
+            if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+                counter = 1;
+                timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementCounter) userInfo:nil repeats:YES];
+            }
+            if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+                [timer invalidate];
+                NSLog(@"Defend left.. %d seconds", counter);
+            }
+        }
+        
     }
     NSLog(@"Pressed at x = %0.f and y = %0.f",x,y);
 }
