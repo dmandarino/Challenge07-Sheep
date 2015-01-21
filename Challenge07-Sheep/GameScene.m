@@ -27,6 +27,7 @@ SKSpriteNode *down;
 SKSpriteNode *right;
 SKSpriteNode *left;
 SKSpriteNode *sprite;
+SKAction *runAnimation;
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
@@ -53,7 +54,6 @@ SKSpriteNode *sprite;
     lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
     [self.view addGestureRecognizer:lpgr];
-    
     
     
     SKAction *Timetofire= [SKAction sequence:@[
@@ -85,7 +85,7 @@ SKSpriteNode *sprite;
     if (pointLocation.y < endPosition.y) {
         // Down swipe
         NSLog(@"PRA BAIXO");
-    } else {
+    } else if (pointLocation.y > endPosition.y){
         // Up swipe
         NSLog(@"PRA CIMA");
     }
@@ -125,8 +125,8 @@ SKSpriteNode *sprite;
     randomSide = arc4random_uniform(4);
     up = [SKSpriteNode spriteNodeWithImageNamed:@"claws.png"];
     down = [SKSpriteNode spriteNodeWithImageNamed:@"tail.png"];
-    right = [SKSpriteNode spriteNodeWithImageNamed:@"dragon1-right.png"];
-    left = [SKSpriteNode spriteNodeWithImageNamed:@"dragon1-left.png"];
+    right = [SKSpriteNode spriteNodeWithImageNamed:@"dragonRight-1.png"];
+    left = [SKSpriteNode spriteNodeWithImageNamed:@"dragonLeft-1.png"];
     attackDown = false;
     attackLeft = false;
     attackRight = false;
