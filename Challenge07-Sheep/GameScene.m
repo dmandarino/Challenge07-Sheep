@@ -11,12 +11,7 @@
 
 
 
-@implementation GameScene{
-    
-    SKSpriteNode *_dragon;
-    NSArray *_dragonFireFrames;
-    
-}
+@implementation GameScene
 
 CGFloat score = 0;
 SKLabelNode *scoreLabel;
@@ -28,14 +23,20 @@ bool attackLeft = false;
 bool attackRight = false;
 bool attackUp = false;
 bool attackDown = false;
-SKSpriteNode *up;
-SKSpriteNode *down;
-SKSpriteNode *right;
-SKSpriteNode *left;
+//SKSpriteNode *up;
+//SKSpriteNode *down;
+//SKSpriteNode *right;
+//SKSpriteNode *left;
 SKSpriteNode *sprite;
 SKAction *runAnimation;
 NSMutableArray *dragonFrames;
 SKTextureAtlas *dragonAnimatedAtlas;
+NSMutableArray *clawsFrames;
+SKTextureAtlas *clawsAnimatedAtlas;
+SKSpriteNode *_dragon;
+NSArray *_dragonFireFrames;
+SKSpriteNode *_claws;
+NSArray *_clawsAttackingFrames;
 
 //NSMutableArray *walkFrames = [NSMutableArray array];
 //SKTextureAtlas *bearAnimatedAtlas = [SKTextureAtlas atlasNamed:@"BearImages"];
@@ -68,11 +69,8 @@ SKTextureAtlas *dragonAnimatedAtlas;
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
     
-    
-    dragonFrames = [NSMutableArray array];
-    dragonAnimatedAtlas = [SKTextureAtlas atlasNamed:@"dragon"];
-    
     [self prepareDragonImages];
+    [self prepareClawsImages];
     
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
@@ -111,60 +109,87 @@ SKTextureAtlas *dragonAnimatedAtlas;
 
 
 -(void)prepareDragonImages{
+    dragonFrames = [NSMutableArray array];
+    dragonAnimatedAtlas = [SKTextureAtlas atlasNamed:@"dragon"];
+    
     int numImages = dragonAnimatedAtlas.textureNames.count;
-//    for (int i=1; i <= numImages/2; i++) {
-//        NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
-//        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
-//        [dragonFrames addObject:temp];
-//    }
-    
-    
-    NSString *textureName = [NSString stringWithFormat:@"dragon1"];
-    SKTexture *temp1 = [dragonAnimatedAtlas textureNamed:textureName];
-    [dragonFrames addObject:temp1];
-    textureName = [NSString stringWithFormat:@"dragon1"];
-    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
-    [dragonFrames addObject:temp1];
-    textureName = [NSString stringWithFormat:@"dragon2"];
-    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
-    [dragonFrames addObject:temp1];
-    textureName = [NSString stringWithFormat:@"dragon3"];
-    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
-    [dragonFrames addObject:temp1];
-    textureName = [NSString stringWithFormat:@"dragon4"];
-    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
-    [dragonFrames addObject:temp1];
-    textureName = [NSString stringWithFormat:@"dragon5"];
-    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
-    [dragonFrames addObject:temp1];
-    textureName = [NSString stringWithFormat:@"dragon6"];
-    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
-    [dragonFrames addObject:temp1];
-    textureName = [NSString stringWithFormat:@"dragon7"];
-    temp1 = [dragonAnimatedAtlas textureNamed:textureName];
-    [dragonFrames addObject:temp1];
-    
+    for (int i=1; i <= numImages; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
+        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
+        [dragonFrames addObject:temp];
+    }
     
     _dragonFireFrames = dragonFrames;
     
     SKTexture *temp = _dragonFireFrames[0];
     _dragon = [SKSpriteNode spriteNodeWithTexture:temp];
-    _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-30, CGRectGetMidY(self.frame)-20);
-    _dragon.xScale = 0.4;
+    _dragon.xScale = 0.5;
     _dragon.yScale = 0.15;
-
+    
     [self addChild:_dragon];
 
+ 
 }
 
--(void)attackingDragonFire
-{
+-(void)prepareClawsImages{
+    
+    clawsFrames = [NSMutableArray array];
+    clawsAnimatedAtlas = [SKTextureAtlas atlasNamed:@"claws"];
+
+    
+    int numImages = clawsAnimatedAtlas.textureNames.count;
+    for (int i=1; i<= numImages; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"claws%d", i];
+        SKTexture *temp = [clawsAnimatedAtlas textureNamed:textureName];
+        [clawsFrames addObject:temp];
+    }
+    
+    _clawsAttackingFrames = clawsFrames;
+    
+    SKTexture *temp = _clawsAttackingFrames[0];
+    _claws = [SKSpriteNode spriteNodeWithTexture:temp];
+    _claws.xScale = 0.3;
+    _claws.yScale = 0.3;
+    [self addChild:_claws];
+}
+
+-(void)attackingDragonFire: (BOOL)isRightSide{
+    
+    CGFloat multiplierForDirection;
+    
+    if (isRightSide) {
+        multiplierForDirection = 1;
+        _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-50, CGRectGetMidY(self.frame)-20);
+
+        
+    } else {
+        multiplierForDirection = -1;
+        _dragon.position = CGPointMake(CGRectGetMinX(self.frame)+50, CGRectGetMidY(self.frame)-20);
+
+    }
+    
+    _dragon.xScale = fabs(_dragon.xScale) * multiplierForDirection;
+
+
+    
     [_dragon runAction:[SKAction repeatAction:[SKAction animateWithTextures:_dragonFireFrames
                                                             timePerFrame:0.2f
                                                                   resize:NO
                                                                  restore:YES] count: 1]];
 
-        return;
+    return;
+}
+
+-(void)attackingClaws {
+    
+    _claws.position = CGPointMake(CGRectGetMinX(self.frame), CGRectGetMidY(self.frame));
+    
+    [_claws runAction:[SKAction repeatAction:[SKAction animateWithTextures:_clawsAttackingFrames
+                                                               timePerFrame:0.2f
+                                                                     resize:NO
+                                                                    restore:YES] count: 1]];
+    
+    return;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -220,61 +245,55 @@ SKTextureAtlas *dragonAnimatedAtlas;
 }
 
 - (void) prepareAttack {
-    randomSide = arc4random_uniform(4);
-    up = [SKSpriteNode spriteNodeWithImageNamed:@"claws.png"];
-    down = [SKSpriteNode spriteNodeWithImageNamed:@"tail.png"];
-    right = [SKSpriteNode spriteNodeWithImageNamed:@"dragonRight-1.png"];
-    left = [SKSpriteNode spriteNodeWithImageNamed:@"dragonLeft-1.png"];
+    randomSide = arc4random_uniform(3);
+//    up = [SKSpriteNode spriteNodeWithImageNamed:@"claws.png"];
+//    down = [SKSpriteNode spriteNodeWithImageNamed:@"tail.png"];
+//    right = [SKSpriteNode spriteNodeWithImageNamed:@"dragonRight-1.png"];
+//    left = [SKSpriteNode spriteNodeWithImageNamed:@"dragonLeft-1.png"];
     attackDown = false;
     attackLeft = false;
     attackRight = false;
     attackUp = false;
     
-    [sprite removeAllChildren];
+//    [sprite removeAllChildren];
     
     switch (randomSide)
     {
         case 0:
-            [self attackingDragonFire];
-//            up.position = CGPointMake(sprite.position.x - 300, sprite.position.y * 1.3);
-//            up.xScale = 0.5;
-//            up.yScale = 0.5;
-//            [sprite addChild:up];
+            [self attackingClaws];
+            
             break;
         case 1:
-            [self attackingDragonFire];
-//            right.position = CGPointMake(sprite.position.x * 4, sprite.position.y/2);
-//            right.xScale = 0.5;
-//            right.yScale = 0.5;
-//            [sprite addChild:right];
+            [self attackingDragonFire: TRUE];
+//            [self attackingClaws];
+
             break;
         case 2:
-            [self attackingDragonFire];
-//            down.position = CGPointMake(sprite.position.x, -sprite.position.y);
-//            down.xScale = 0.5;
-//            down.yScale = 0.5;
-//            [sprite addChild:down];
+             [self attackingDragonFire: NO];
+//            [self attackingClaws];
+            
             break;
         case 3:
-            [self attackingDragonFire];
-//            left.position = CGPointMake(-700, sprite.position.y/2);
-//            left.xScale = 0.5;
-//            left.yScale = 0.5;
-//            [sprite addChild:left];
+            //            [self attackingDragonFire: NO];
+            //            down.position = CGPointMake(sprite.position.x, -sprite.position.y);
+            //            down.xScale = 0.5;
+            //            down.yScale = 0.5;
+            //            [sprite addChild:down];
+
             break;
-            
+
             
     }
 
-
-    SKAction *attackLaunch= [SKAction sequence:@[
-                                               //time after you want to fire a function
-                                               [SKAction waitForDuration:arc4random()%2],
-                                               [SKAction performSelector:@selector(attack)
-                                                                onTarget:self]
-                                               
-                                               ]];
-    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
+//
+//    SKAction *attackLaunch= [SKAction sequence:@[
+//                                               //time after you want to fire a function
+//                                               [SKAction waitForDuration:arc4random()%2],
+//                                               [SKAction performSelector:@selector(attack)
+//                                                                onTarget:self]
+//                                               
+//                                               ]];
+//    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
 }
 - (void) attack {
     switch (randomSide)
