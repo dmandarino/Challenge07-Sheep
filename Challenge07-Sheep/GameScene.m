@@ -113,7 +113,7 @@ NSArray *_clawsAttackingFrames;
     dragonAnimatedAtlas = [SKTextureAtlas atlasNamed:@"dragon"];
     
     int numImages = dragonAnimatedAtlas.textureNames.count;
-    for (int i=1; i <= numImages; i++) {
+    for (int i=1; i <= numImages/2; i++) {
         NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
@@ -134,13 +134,11 @@ NSArray *_clawsAttackingFrames;
 -(void)prepareClawsImages{
     
     clawsFrames = [NSMutableArray array];
-    clawsAnimatedAtlas = [SKTextureAtlas atlasNamed:@"claws"];
-
     
-    int numImages = clawsAnimatedAtlas.textureNames.count;
-    for (int i=1; i<= numImages; i++) {
+    int numImages = dragonAnimatedAtlas.textureNames.count;
+    for (int i=1; i<= numImages/2; i++) {
         NSString *textureName = [NSString stringWithFormat:@"claws%d", i];
-        SKTexture *temp = [clawsAnimatedAtlas textureNamed:textureName];
+        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [clawsFrames addObject:temp];
     }
     
@@ -148,7 +146,8 @@ NSArray *_clawsAttackingFrames;
     
     SKTexture *temp = _clawsAttackingFrames[0];
     _claws = [SKSpriteNode spriteNodeWithTexture:temp];
-    _claws.xScale = 0.3;
+    _claws.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+60);
+    _claws.xScale = 0.2;
     _claws.yScale = 0.3;
     [self addChild:_claws];
 }
@@ -181,11 +180,8 @@ NSArray *_clawsAttackingFrames;
 }
 
 -(void)attackingClaws {
-    
-    _claws.position = CGPointMake(CGRectGetMinX(self.frame), CGRectGetMidY(self.frame));
-    
     [_claws runAction:[SKAction repeatAction:[SKAction animateWithTextures:_clawsAttackingFrames
-                                                               timePerFrame:0.2f
+                                                               timePerFrame:0.3f
                                                                      resize:NO
                                                                     restore:YES] count: 1]];
     
