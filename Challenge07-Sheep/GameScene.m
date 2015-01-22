@@ -13,8 +13,6 @@
 
 @implementation GameScene
 
-
-SKLabelNode *lifeLabel;
 CGFloat score = 0;
 SKLabelNode *scoreLabel;
 CGPoint pointLocation;
@@ -25,10 +23,10 @@ bool attackLeft = false;
 bool attackRight = false;
 bool attackUp = false;
 bool attackDown = false;
-//SKSpriteNode *up;
-//SKSpriteNode *down;
-//SKSpriteNode *right;
-//SKSpriteNode *left;
+bool defenseRight = false;
+bool defenseLeft = false;
+bool defenseUp = false;
+
 SKSpriteNode *sprite;
 SKAction *runAnimation;
 NSMutableArray *dragonFrames;
@@ -41,16 +39,40 @@ SKSpriteNode *_claws;
 NSArray *_clawsAttackingFrames;
 
 
+
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
     
     [self prepareDragonImages];
     [self prepareClawsImages];
+    [self prepareGameBackground];
+    [self setLongPress];
     
+    
+    SKAction *Timetofire= [SKAction sequence:@[
+                                               //time after you want to fire a function
+                                               [SKAction waitForDuration:4],
+                                               [SKAction performSelector:@selector(prepareAttack)
+                                                                onTarget:self]
+                                               
+                                               ]];
+    [self runAction:[SKAction repeatActionForever:Timetofire ]];
+    
+}
+-(void)setLongPress{
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 0.1; //seconds
+    lpgr.delegate = self;
+    [self.view addGestureRecognizer:lpgr];
+}
+
+-(void)prepareGameBackground{
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:bgImage];
+    
     
     scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     scoreLabel.fontSize = 15;
@@ -62,76 +84,42 @@ NSArray *_clawsAttackingFrames;
     sprite.yScale = 0.2;
     sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:sprite];
-    
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                                          initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 0.5; //seconds
-    lpgr.delegate = self;
-    [self.view addGestureRecognizer:lpgr];
-    
-    
-    SKAction *Timetofire= [SKAction sequence:@[
-                                               //time after you want to fire a function
-                                               [SKAction waitForDuration:4],
-                                               [SKAction performSelector:@selector(prepareAttack)
-                                                                onTarget:self]
-                                               
-                                               ]];
-    [self runAction:[SKAction repeatActionForever:Timetofire ]];
-
-    SKSpriteNode *heartImage = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
-    heartImage.xScale = 0.01;
-    heartImage.yScale = 0.01;
-    heartImage.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+75);
-    [self addChild:heartImage];
-   
-    lifeLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    lifeLabel.text = @"3";
-    lifeLabel.fontColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
-    lifeLabel.fontSize = 20;
-    lifeLabel.position = CGPointMake(CGRectGetMidX(self.frame)-118, CGRectGetMidY(self.frame)+68);
-    
-    [self addChild: lifeLabel];
-
 }
-
 
 -(void)prepareDragonImages{
     dragonFrames = [NSMutableArray array];
     dragonAnimatedAtlas = [SKTextureAtlas atlasNamed:@"dragon"];
     
     int numImages = dragonAnimatedAtlas.textureNames.count;
-
-    for (int i=1; i <= numImages/2; i++) {
-        NSString *textureName = [NSString stringWithFormat:@"dragao%d", i];
-        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
-        [dragonFrames addObject:temp];
-    }
-
-    for (int i=1; i <= 4; i++) {
-        NSString *textureName = [NSString stringWithFormat:@"dragao7"];
+    for (int i = 1; i <= numImages/2; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
     }
     
-    for (int i=7; i >= 1; i--) {
-        NSString *textureName = [NSString stringWithFormat:@"dragao%d", i];
+    for (int i=1; i <= 2; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"dragon%d", 7];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
     }
-    NSLog(@"num de img no animated = %d", dragonFrames.count);
+    
+    for (int i=numImages/2; i >=1; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
+        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
+        [dragonFrames addObject:temp];
+    }
     
     
     _dragonFireFrames = dragonFrames;
     
     SKTexture *temp = _dragonFireFrames[0];
     _dragon = [SKSpriteNode spriteNodeWithTexture:temp];
-    _dragon.xScale = 0.1;
-    _dragon.yScale = 0.1;
+    _dragon.xScale = 0.5;
+    _dragon.yScale = 0.15;
     
     [self addChild:_dragon];
-
- 
+    
+    
 }
 
 -(void)prepareClawsImages{
@@ -144,17 +132,12 @@ NSArray *_clawsAttackingFrames;
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [clawsFrames addObject:temp];
     }
-    for (int i=7; i> 1; i--) {
-        NSString *textureName = [NSString stringWithFormat:@"claws%d", i];
-        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
-        [clawsFrames addObject:temp];
-    }
     
     _clawsAttackingFrames = clawsFrames;
     
     SKTexture *temp = _clawsAttackingFrames[0];
     _claws = [SKSpriteNode spriteNodeWithTexture:temp];
-    _claws.position = CGPointMake(CGRectGetMidX(self.frame)+20, CGRectGetMidY(self.frame)+60);
+    _claws.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+60);
     _claws.xScale = 0.2;
     _claws.yScale = 0.3;
     [self addChild:_claws];
@@ -166,30 +149,32 @@ NSArray *_clawsAttackingFrames;
     
     if (isRightSide) {
         multiplierForDirection = 1;
-        _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-75, CGRectGetMidY(self.frame)-20);
+        _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-90, CGRectGetMidY(self.frame)-20);
+        
         
     } else {
         multiplierForDirection = -1;
-        _dragon.position = CGPointMake(CGRectGetMinX(self.frame)+75, CGRectGetMidY(self.frame)-20);
+        _dragon.position = CGPointMake(CGRectGetMinX(self.frame)+90, CGRectGetMidY(self.frame)-20);
+        
     }
     
     _dragon.xScale = fabs(_dragon.xScale) * multiplierForDirection;
-
-
+    
+    
     
     [_dragon runAction:[SKAction repeatAction:[SKAction animateWithTextures:_dragonFireFrames
-                                                            timePerFrame:0.2f
-                                                                  resize:NO
-                                                                 restore:YES] count: 1]];
-
+                                                               timePerFrame:0.2f
+                                                                     resize:NO
+                                                                    restore:YES] count: 1]];
+    
     return;
 }
 
 -(void)attackingClaws {
     [_claws runAction:[SKAction repeatAction:[SKAction animateWithTextures:_clawsAttackingFrames
-                                                               timePerFrame:0.3f
-                                                                     resize:NO
-                                                                    restore:YES] count: 1]];
+                                                              timePerFrame:0.3f
+                                                                    resize:NO
+                                                                   restore:YES] count: 1]];
     
     return;
 }
@@ -198,7 +183,7 @@ NSArray *_clawsAttackingFrames;
     /* Called when a touch begins */
     UITouch *touch = [[event allTouches] anyObject];
     pointLocation = [touch locationInView:touch.view];
-
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -211,42 +196,76 @@ NSArray *_clawsAttackingFrames;
         NSLog(@"PRA BAIXO");
     } else if (pointLocation.y > endPosition.y){
         // Up swipe
+        defenseUp = true;
         NSLog(@"PRA CIMA");
     }
 }
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+
 {
+    
     CGFloat x = pointLocation.x;
+    
     CGFloat y = pointLocation.y;
     
-    if( x>=290 && x<=450 && y>=100 && y<=230){
     
+    
+    if( x>=290 && x<=450 && y>=100 && y<=230){
+        
+        
+        
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+            
+            defenseRight = true;
+            
             counter = 1;
+            
             timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementCounter) userInfo:nil repeats:YES];
+            
         }
+        
         if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+            
+            defenseRight = false;
+            
             [timer invalidate];
-            NSLog(@"Defend right.. %d seconds", counter);
+            
+            //            NSLog(@"Defend right.. %d seconds", counter);
+            
         }
+        
     }else{
+        
         if(x>=100 && x<=260 && y>=100 && y<=230){
             
+            
+            
             if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+                
                 counter = 1;
+                defenseLeft = true;
                 timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementCounter) userInfo:nil repeats:YES];
+                
             }
+            
             if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+                
+                defenseLeft = false;
+                
                 [timer invalidate];
-                NSLog(@"Defend left.. %d seconds", counter);
+                
+                //                NSLog(@"Defend left.. %d seconds", counter);
+                
             }
+            
         }
         
     }
-    NSLog(@"Pressed at x = %0.f and y = %0.f",x,y);
+    
+    //    NSLog(@"Pressed at x = %0.f and y = %0.f",x,y);
+    
 }
-
 
 -(void)update:(CFTimeInterval)currentTime {
     score += 0.1;
@@ -261,17 +280,8 @@ NSArray *_clawsAttackingFrames;
 
 - (void) prepareAttack {
     randomSide = arc4random_uniform(3);
-//    up = [SKSpriteNode spriteNodeWithImageNamed:@"claws.png"];
-//    down = [SKSpriteNode spriteNodeWithImageNamed:@"tail.png"];
-//    right = [SKSpriteNode spriteNodeWithImageNamed:@"dragonRight-1.png"];
-//    left = [SKSpriteNode spriteNodeWithImageNamed:@"dragonLeft-1.png"];
-    attackDown = false;
-    attackLeft = false;
-    attackRight = false;
-    attackUp = false;
-    
-//    [sprite removeAllChildren];
-    
+    NSLog(@"começou ANIMAÇÃO");
+    defenseUp = false;
     switch (randomSide)
     {
         case 0:
@@ -280,10 +290,12 @@ NSArray *_clawsAttackingFrames;
             break;
         case 1:
             [self attackingDragonFire: TRUE];
-
+            //            [self attackingClaws];
+            
             break;
         case 2:
-             [self attackingDragonFire: NO];
+            [self attackingDragonFire: NO];
+            //            [self attackingClaws];
             
             break;
         case 3:
@@ -292,65 +304,60 @@ NSArray *_clawsAttackingFrames;
             //            down.xScale = 0.5;
             //            down.yScale = 0.5;
             //            [sprite addChild:down];
-
+            
             break;
-
+            
             
     }
-
-//
-//    SKAction *attackLaunch= [SKAction sequence:@[
-//                                               //time after you want to fire a function
-//                                               [SKAction waitForDuration:arc4random()%2],
-//                                               [SKAction performSelector:@selector(attack)
-//                                                                onTarget:self]
-//                                               
-//                                               ]];
-//    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
+    
+    
+    SKAction *attackLaunch= [SKAction sequence:@[
+                                                 //time after you want to fire a function
+                                                 [SKAction waitForDuration:1],
+                                                 [SKAction performSelector:@selector(attack)
+                                                                  onTarget:self]
+                                                 
+                                                 ]];
+    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
 }
 - (void) attack {
+    NSLog(@"começou ataque");
+    //NSLog(@"attack began! DefenseTeste: %d attack: %d, %d, %d", defenseTest, attackUp, attackRight, attackLeft);
     switch (randomSide)
     {
         case 0:
             attackUp = true;
-//            if(defenseUp != attackUp){
-                [self damageTaken];
-//            }
+            if(defenseUp != attackUp){
+                NSLog(@"DEAAAAD BITCH");
+            }
             attackUp = false;
             break;
         case 1:
             attackRight = true;
-//            if(defenseRight != attackRight){
-                [self damageTaken];
-//            }
+            if(defenseRight != attackRight){
+                NSLog(@"DEAAAAD BITCH");
+            }
             attackRight = false;
             break;
         case 2:
             attackLeft = true;
-//            if(defenseLeft != attackLeft){
-               [self damageTaken];
-//            }
+            if(defenseLeft != attackLeft){
+                NSLog(@"DEAAAAD BITCH");
+            }
             attackLeft = false;
             break;
         case 3:
-            attackLeft = true;
+            //            attackDown = true;
+            //            if(defenseTest != attackDown){
+            //                NSLog(@"DEAAAAD BITCH");
+            //            }
+            //            attackDown = false;
             break;
             
     }
-}
--(void)damageTaken{
-    int life = lifeLabel.text.intValue;
-    life --;
-    lifeLabel.text = [NSString stringWithFormat:@"%d", life];
-    if(life == 0 )
-        [self endGame];
+    
 }
 
--(void)endGame{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You Loose!" message:[NSString stringWithFormat:@"%@", scoreLabel.text]
-        delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Say Hello",nil];
-    [alert show];
-}
 
 
 @end
