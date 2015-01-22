@@ -113,8 +113,8 @@ NSArray *_clawsAttackingFrames;
     dragonAnimatedAtlas = [SKTextureAtlas atlasNamed:@"dragon"];
     
     int numImages = dragonAnimatedAtlas.textureNames.count;
-    for (int i=1; i <= numImages/2; i++) {
-        NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
+    for (int i=1; i <= numImages/3; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"dragao%d", i];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
     }
