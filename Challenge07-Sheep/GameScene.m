@@ -23,10 +23,10 @@ bool attackLeft = false;
 bool attackRight = false;
 bool attackUp = false;
 bool attackDown = false;
-//SKSpriteNode *up;
-//SKSpriteNode *down;
-//SKSpriteNode *right;
-//SKSpriteNode *left;
+bool defenseRight = false;
+bool defenseLeft = false;
+bool defenseUp = false;
+
 SKSpriteNode *sprite;
 SKAction *runAnimation;
 NSMutableArray *dragonFrames;
@@ -38,33 +38,7 @@ NSArray *_dragonFireFrames;
 SKSpriteNode *_claws;
 NSArray *_clawsAttackingFrames;
 
-//NSMutableArray *walkFrames = [NSMutableArray array];
-//SKTextureAtlas *bearAnimatedAtlas = [SKTextureAtlas atlasNamed:@"BearImages"];
-//
-//int numImages = bearAnimatedAtlas.textureNames.count;
-//for (int i=1; i <= numImages/2; i++) {
-//    NSString *textureName = [NSString stringWithFormat:@"bear%d", i];
-//    SKTexture *temp = [bearAnimatedAtlas textureNamed:textureName];
-//    [walkFrames addObject:temp];
-//}
-//_bearWalkingFrames = walkFrames;
-//
-//SKTexture *temp = _bearWalkingFrames[0];
-//_bear = [SKSpriteNode spriteNodeWithTexture:temp];
-//_bear.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-//[self addChild:_bear];
-//[self walkingBear];
-//-(void)walkingBear
-//{
-//    NSLog(@"ENTREI NO WALKING");
-//    //This is our general runAction method to make our bear walk.
-//    [_bear runAction:[SKAction repeatActionForever:
-//                      [SKAction animateWithTextures:_bearWalkingFrames
-//                                       timePerFrame:0.1f
-//                                             resize:NO
-//                                            restore:YES]] withKey:@"walkingInPlaceBear"];
-//    return;
-//}
+
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
@@ -91,14 +65,14 @@ NSArray *_clawsAttackingFrames;
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 0.5; //seconds
+    lpgr.minimumPressDuration = 0.1; //seconds
     lpgr.delegate = self;
     [self.view addGestureRecognizer:lpgr];
     
     
     SKAction *Timetofire= [SKAction sequence:@[
                                                //time after you want to fire a function
-                                               [SKAction waitForDuration:4],
+                                               [SKAction waitForDuration:3],
                                                [SKAction performSelector:@selector(prepareAttack)
                                                                 onTarget:self]
                                                
@@ -113,7 +87,7 @@ NSArray *_clawsAttackingFrames;
     dragonAnimatedAtlas = [SKTextureAtlas atlasNamed:@"dragon"];
     
     int numImages = dragonAnimatedAtlas.textureNames.count;
-    for (int i=1; i <= numImages/2; i++) {
+    for (int i = 1; i <= numImages/2; i++) {
         NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
@@ -158,12 +132,12 @@ NSArray *_clawsAttackingFrames;
     
     if (isRightSide) {
         multiplierForDirection = 1;
-        _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-50, CGRectGetMidY(self.frame)-20);
+        _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-90, CGRectGetMidY(self.frame)-20);
 
         
     } else {
         multiplierForDirection = -1;
-        _dragon.position = CGPointMake(CGRectGetMinX(self.frame)+50, CGRectGetMidY(self.frame)-20);
+        _dragon.position = CGPointMake(CGRectGetMinX(self.frame)+90, CGRectGetMidY(self.frame)-20);
 
     }
     
@@ -205,29 +179,78 @@ NSArray *_clawsAttackingFrames;
         NSLog(@"PRA BAIXO");
     } else if (pointLocation.y > endPosition.y){
         // Up swipe
+        defenseUp = true;
         NSLog(@"PRA CIMA");
     }
 }
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+
 {
+    
     CGFloat x = pointLocation.x;
+    
     CGFloat y = pointLocation.y;
     
-    if( x>=290 && x<=450 && y>=100 && y<=230){
     
+    
+    if( x>=290 && x<=450 && y>=100 && y<=230){
+        
+        
+        
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+            
+            defenseRight = true;
+            
             counter = 1;
+            
             timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementCounter) userInfo:nil repeats:YES];
+            
         }
+        
         if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+            
+            defenseRight = false;
+            
             [timer invalidate];
-            NSLog(@"Defend .. %d seconds", counter);
+            
+//            NSLog(@"Defend right.. %d seconds", counter);
+            
         }
+        
+    }else{
+        
+        if(x>=100 && x<=260 && y>=100 && y<=230){
+            
+            
+            
+            if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+                
+                counter = 1;
+                defenseLeft = true;
+                timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementCounter) userInfo:nil repeats:YES];
+                
+            }
+            
+            if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+            
+                defenseLeft = false;
+                
+                [timer invalidate];
+                
+//                NSLog(@"Defend left.. %d seconds", counter);
+                
+            }
+            
+        }
+        
+        
+        
     }
-    NSLog(@"Pressed at x = %0.f and y = %0.f",x,y);
+    
+//    NSLog(@"Pressed at x = %0.f and y = %0.f",x,y);
+    
 }
-
 
 -(void)update:(CFTimeInterval)currentTime {
     score += 0.1;
@@ -242,17 +265,8 @@ NSArray *_clawsAttackingFrames;
 
 - (void) prepareAttack {
     randomSide = arc4random_uniform(3);
-//    up = [SKSpriteNode spriteNodeWithImageNamed:@"claws.png"];
-//    down = [SKSpriteNode spriteNodeWithImageNamed:@"tail.png"];
-//    right = [SKSpriteNode spriteNodeWithImageNamed:@"dragonRight-1.png"];
-//    left = [SKSpriteNode spriteNodeWithImageNamed:@"dragonLeft-1.png"];
-    attackDown = false;
-    attackLeft = false;
-    attackRight = false;
-    attackUp = false;
-    
-//    [sprite removeAllChildren];
-    
+    NSLog(@"começou ANIMAÇÃO");
+    defenseUp = false;
     switch (randomSide)
     {
         case 0:
@@ -281,33 +295,52 @@ NSArray *_clawsAttackingFrames;
             
     }
 
-//
-//    SKAction *attackLaunch= [SKAction sequence:@[
-//                                               //time after you want to fire a function
-//                                               [SKAction waitForDuration:arc4random()%2],
-//                                               [SKAction performSelector:@selector(attack)
-//                                                                onTarget:self]
-//                                               
-//                                               ]];
-//    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
+
+    SKAction *attackLaunch= [SKAction sequence:@[
+                                               //time after you want to fire a function
+                                               [SKAction waitForDuration:1],
+                                               [SKAction performSelector:@selector(attack)
+                                                                onTarget:self]
+                                               
+                                               ]];
+    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
 }
 - (void) attack {
+    NSLog(@"começou ataque");
+    //NSLog(@"attack began! DefenseTeste: %d attack: %d, %d, %d", defenseTest, attackUp, attackRight, attackLeft);
     switch (randomSide)
     {
         case 0:
             attackUp = true;
+            if(defenseUp != attackUp){
+                NSLog(@"DEAAAAD BITCH");
+            }
+            attackUp = false;
             break;
         case 1:
             attackRight = true;
+            if(defenseRight != attackRight){
+                NSLog(@"DEAAAAD BITCH");
+            }
+            attackRight = false;
             break;
         case 2:
-            attackDown = true;
+            attackLeft = true;
+            if(defenseLeft != attackLeft){
+                NSLog(@"DEAAAAD BITCH");
+            }
+            attackLeft = false;
             break;
         case 3:
-            attackLeft = true;
+//            attackDown = true;
+//            if(defenseTest != attackDown){
+//                NSLog(@"DEAAAAD BITCH");
+//            }
+//            attackDown = false;
             break;
             
     }
+
 }
 
 

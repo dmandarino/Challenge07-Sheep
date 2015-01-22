@@ -10,28 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Challenge07-Sheep/GameScene.m"
-            timestampString = "443418407.302267"
+            timestampString = "443636811.385123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "-didMoveToView:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Challenge07-Sheep/GameScene.m"
-            timestampString = "443418407.302267"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "-prepareAttack"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "-prepareDragonImages"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
