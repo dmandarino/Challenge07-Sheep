@@ -50,6 +50,8 @@ NSArray *_clawsAttackingFrames;
     
     [self prepareDragonImages];
     
+    [self setPressRegoganizer];
+    
     SKAction *Timetofire= [SKAction sequence:@[
                                                //time after you want to fire a function
                                                [SKAction waitForDuration:4],
@@ -59,6 +61,14 @@ NSArray *_clawsAttackingFrames;
                                                ]];
     [self runAction:[SKAction repeatActionForever:Timetofire ]];
     
+}
+
+-(void)setPressRegoganizer{
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                        initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 0.1; //seconds
+    lpgr.delegate = self;
+    [self.view addGestureRecognizer:lpgr];
 }
 
 -(void)prepareGameBackground{
