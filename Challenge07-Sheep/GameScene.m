@@ -45,7 +45,29 @@ NSArray *_clawsAttackingFrames;
     
     [self prepareDragonImages];
     [self prepareClawsImages];
+    [self prepareGameBackground];
+    [self setLongPress];
     
+    
+    SKAction *Timetofire= [SKAction sequence:@[
+                                               //time after you want to fire a function
+                                               [SKAction waitForDuration:4],
+                                               [SKAction performSelector:@selector(prepareAttack)
+                                                                onTarget:self]
+                                               
+                                               ]];
+    [self runAction:[SKAction repeatActionForever:Timetofire ]];
+    
+}
+-(void)setLongPress{
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 0.1; //seconds
+    lpgr.delegate = self;
+    [self.view addGestureRecognizer:lpgr];
+}
+
+-(void)prepareGameBackground{
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
@@ -62,25 +84,7 @@ NSArray *_clawsAttackingFrames;
     sprite.yScale = 0.2;
     sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:sprite];
-    
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                                          initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 0.1; //seconds
-    lpgr.delegate = self;
-    [self.view addGestureRecognizer:lpgr];
-    
-    
-    SKAction *Timetofire= [SKAction sequence:@[
-                                               //time after you want to fire a function
-                                               [SKAction waitForDuration:3],
-                                               [SKAction performSelector:@selector(prepareAttack)
-                                                                onTarget:self]
-                                               
-                                               ]];
-    [self runAction:[SKAction repeatActionForever:Timetofire ]];
-    
 }
-
 
 -(void)prepareDragonImages{
     dragonFrames = [NSMutableArray array];
@@ -92,6 +96,19 @@ NSArray *_clawsAttackingFrames;
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
     }
+  
+    for (int i=1; i <= 2; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"dragon%d", 7];
+        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
+        [dragonFrames addObject:temp];
+    }
+    
+    for (int i=numImages/2; i >=1; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
+        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
+        [dragonFrames addObject:temp];
+    }
+    
     
     _dragonFireFrames = dragonFrames;
     
@@ -115,7 +132,7 @@ NSArray *_clawsAttackingFrames;
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [clawsFrames addObject:temp];
     }
-    
+        
     _clawsAttackingFrames = clawsFrames;
     
     SKTexture *temp = _clawsAttackingFrames[0];
@@ -243,8 +260,6 @@ NSArray *_clawsAttackingFrames;
             }
             
         }
-        
-        
         
     }
     
