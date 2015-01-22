@@ -13,6 +13,8 @@
 
 @implementation GameScene
 
+
+SKLabelNode *lifeLabel;
 CGFloat score = 0;
 SKLabelNode *scoreLabel;
 CGPoint pointLocation;
@@ -38,33 +40,6 @@ NSArray *_dragonFireFrames;
 SKSpriteNode *_claws;
 NSArray *_clawsAttackingFrames;
 
-//NSMutableArray *walkFrames = [NSMutableArray array];
-//SKTextureAtlas *bearAnimatedAtlas = [SKTextureAtlas atlasNamed:@"BearImages"];
-//
-//int numImages = bearAnimatedAtlas.textureNames.count;
-//for (int i=1; i <= numImages/2; i++) {
-//    NSString *textureName = [NSString stringWithFormat:@"bear%d", i];
-//    SKTexture *temp = [bearAnimatedAtlas textureNamed:textureName];
-//    [walkFrames addObject:temp];
-//}
-//_bearWalkingFrames = walkFrames;
-//
-//SKTexture *temp = _bearWalkingFrames[0];
-//_bear = [SKSpriteNode spriteNodeWithTexture:temp];
-//_bear.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-//[self addChild:_bear];
-//[self walkingBear];
-//-(void)walkingBear
-//{
-//    NSLog(@"ENTREI NO WALKING");
-//    //This is our general runAction method to make our bear walk.
-//    [_bear runAction:[SKAction repeatActionForever:
-//                      [SKAction animateWithTextures:_bearWalkingFrames
-//                                       timePerFrame:0.1f
-//                                             resize:NO
-//                                            restore:YES]] withKey:@"walkingInPlaceBear"];
-//    return;
-//}
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
@@ -76,7 +51,6 @@ NSArray *_clawsAttackingFrames;
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:bgImage];
-    
     
     scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     scoreLabel.fontSize = 15;
@@ -104,7 +78,21 @@ NSArray *_clawsAttackingFrames;
                                                
                                                ]];
     [self runAction:[SKAction repeatActionForever:Timetofire ]];
+
+    SKSpriteNode *heartImage = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
+    heartImage.xScale = 0.01;
+    heartImage.yScale = 0.01;
+    heartImage.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+75);
+    [self addChild:heartImage];
+   
+    lifeLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    lifeLabel.text = @"3";
+    lifeLabel.fontColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    lifeLabel.fontSize = 20;
+    lifeLabel.position = CGPointMake(CGRectGetMidX(self.frame)-118, CGRectGetMidY(self.frame)+68);
     
+    [self addChild: lifeLabel];
+
 }
 
 
@@ -178,13 +166,11 @@ NSArray *_clawsAttackingFrames;
     
     if (isRightSide) {
         multiplierForDirection = 1;
-        _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-80, CGRectGetMidY(self.frame)-20);
-
+        _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-75, CGRectGetMidY(self.frame)-20);
         
     } else {
         multiplierForDirection = -1;
-        _dragon.position = CGPointMake(CGRectGetMinX(self.frame)+80, CGRectGetMidY(self.frame)+20);
-
+        _dragon.position = CGPointMake(CGRectGetMinX(self.frame)+75, CGRectGetMidY(self.frame)-20);
     }
     
     _dragon.xScale = fabs(_dragon.xScale) * multiplierForDirection;
@@ -294,12 +280,10 @@ NSArray *_clawsAttackingFrames;
             break;
         case 1:
             [self attackingDragonFire: TRUE];
-//            [self attackingClaws];
 
             break;
         case 2:
              [self attackingDragonFire: NO];
-//            [self attackingClaws];
             
             break;
         case 3:
@@ -329,12 +313,24 @@ NSArray *_clawsAttackingFrames;
     {
         case 0:
             attackUp = true;
+//            if(defenseUp != attackUp){
+                [self damageTaken];
+//            }
+            attackUp = false;
             break;
         case 1:
             attackRight = true;
+//            if(defenseRight != attackRight){
+                [self damageTaken];
+//            }
+            attackRight = false;
             break;
         case 2:
-            attackDown = true;
+            attackLeft = true;
+//            if(defenseLeft != attackLeft){
+               [self damageTaken];
+//            }
+            attackLeft = false;
             break;
         case 3:
             attackLeft = true;
@@ -342,7 +338,19 @@ NSArray *_clawsAttackingFrames;
             
     }
 }
+-(void)damageTaken{
+    int life = lifeLabel.text.intValue;
+    life --;
+    lifeLabel.text = [NSString stringWithFormat:@"%d", life];
+    if(life == 0 )
+        [self endGame];
+}
 
+-(void)endGame{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You Loose!" message:[NSString stringWithFormat:@"%@", scoreLabel.text]
+        delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Say Hello",nil];
+    [alert show];
+}
 
 
 @end
