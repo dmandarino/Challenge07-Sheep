@@ -113,18 +113,33 @@ NSArray *_clawsAttackingFrames;
     dragonAnimatedAtlas = [SKTextureAtlas atlasNamed:@"dragon"];
     
     int numImages = dragonAnimatedAtlas.textureNames.count;
-    for (int i=1; i <= numImages/3; i++) {
+
+    for (int i=1; i <= numImages/2; i++) {
         NSString *textureName = [NSString stringWithFormat:@"dragao%d", i];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
     }
+
+    for (int i=1; i <= 4; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"dragao7"];
+        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
+        [dragonFrames addObject:temp];
+    }
+    
+    for (int i=7; i >= 1; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"dragao%d", i];
+        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
+        [dragonFrames addObject:temp];
+    }
+    NSLog(@"num de img no animated = %d", dragonFrames.count);
+    
     
     _dragonFireFrames = dragonFrames;
     
     SKTexture *temp = _dragonFireFrames[0];
     _dragon = [SKSpriteNode spriteNodeWithTexture:temp];
-    _dragon.xScale = 0.5;
-    _dragon.yScale = 0.15;
+    _dragon.xScale = 0.1;
+    _dragon.yScale = 0.1;
     
     [self addChild:_dragon];
 
@@ -141,12 +156,17 @@ NSArray *_clawsAttackingFrames;
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [clawsFrames addObject:temp];
     }
+    for (int i=7; i> 1; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"claws%d", i];
+        SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
+        [clawsFrames addObject:temp];
+    }
     
     _clawsAttackingFrames = clawsFrames;
     
     SKTexture *temp = _clawsAttackingFrames[0];
     _claws = [SKSpriteNode spriteNodeWithTexture:temp];
-    _claws.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+60);
+    _claws.position = CGPointMake(CGRectGetMidX(self.frame)+20, CGRectGetMidY(self.frame)+60);
     _claws.xScale = 0.2;
     _claws.yScale = 0.3;
     [self addChild:_claws];
@@ -158,12 +178,12 @@ NSArray *_clawsAttackingFrames;
     
     if (isRightSide) {
         multiplierForDirection = 1;
-        _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-50, CGRectGetMidY(self.frame)-20);
+        _dragon.position = CGPointMake(CGRectGetMaxX(self.frame)-80, CGRectGetMidY(self.frame)-20);
 
         
     } else {
         multiplierForDirection = -1;
-        _dragon.position = CGPointMake(CGRectGetMinX(self.frame)+50, CGRectGetMidY(self.frame)-20);
+        _dragon.position = CGPointMake(CGRectGetMinX(self.frame)+80, CGRectGetMidY(self.frame)+20);
 
     }
     
