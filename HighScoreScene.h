@@ -9,7 +9,5 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface HighScoreScene : SKScene
-@property int Score;
-
 
 @end

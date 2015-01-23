@@ -12,19 +12,28 @@
 
 SKLabelNode *scoreLabel;
 
--(void)didMoveToView:(SKView *)view {
+-(void) didMoveToView:(SKView *)view {
+    
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
-    bgImage.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:bgImage];
+    
+    SKLabelNode *titleLabel;
+    titleLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    titleLabel.fontSize = 50;
+    titleLabel.text = @"Score";
+    titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+40);
+    [self addChild:titleLabel];
+
     
     scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     scoreLabel.fontSize = 50;
-    scoreLabel.text = [NSString stringWithFormat:@"%d", _Score];
-    scoreLabel.fontColor = [SKColor blackColor];
     scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:scoreLabel];
-   
+
+    
 }
+
 
 @end
