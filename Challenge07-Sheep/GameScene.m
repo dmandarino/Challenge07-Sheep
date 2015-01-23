@@ -8,7 +8,7 @@
 
 #import "GameScene.h"
 #import "GameViewController.h"
-//#import "HighScoreScene.h"
+#import "HighScoreScene.h"
 
 
 
@@ -477,20 +477,23 @@ SKTexture *sheepSheep;
         
     int newLife = life.text.intValue;
     newLife --;
-    [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
-
+   
     [sprite runAction: pulseRed];
     life.text = [NSString stringWithFormat:@"%d", newLife];
-    if ( newLife ==0 )
+    if ( newLife ==0 ){
         [self endGame];
+        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.wav" waitForCompletion:NO]];
+    } else {
+        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+    }
 }
 
 -(void) endGame {
-//    SKTransition *reveal = [SKTransition fadeWithDuration:3];
-//    
-//    HighScoreScene *scene = [HighScoreScene sceneWithSize:self.view.bounds.size];
-//    scene.scaleMode = SKSceneScaleModeAspectFill;
-//    [self.view presentScene:scene transition:reveal];
+    SKTransition *reveal = [SKTransition fadeWithDuration:3];
+    
+    HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    [self.view presentScene:scene transition:reveal];
 }
 
 @end
