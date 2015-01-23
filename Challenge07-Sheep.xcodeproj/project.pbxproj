@@ -20,6 +20,7 @@
 		5A06651F1A71792000163B47 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A06651D1A71792000163B47 /* heart.png */; };
 		5A0665201A71792000163B47 /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A06651E1A71792000163B47 /* wood.png */; };
 		5A0665651A71AC5700163B47 /* animation.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5A0665641A71AC5700163B47 /* animation.atlas */; };
+		5A06657C1A72C27200163B47 /* HighScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A06657B1A72C27200163B47 /* HighScoreScene.m */; };
 		5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFA1A6C013800BE3D59 /* main.m */; };
 		5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFD1A6C013800BE3D59 /* AppDelegate.m */; };
 		5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8D0001A6C013800BE3D59 /* GameScene.m */; };
@@ -56,6 +57,8 @@
 		5A06651D1A71792000163B47 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		5A06651E1A71792000163B47 /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
 		5A0665641A71AC5700163B47 /* animation.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animation.atlas; sourceTree = "<group>"; };
+		5A06657A1A72C27200163B47 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreScene.h; sourceTree = "<group>"; };
+		5A06657B1A72C27200163B47 /* HighScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreScene.m; sourceTree = "<group>"; };
 		5AD8CFF51A6C013800BE3D59 /* Challenge07-Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Challenge07-Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8CFF91A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8CFFA1A6C013800BE3D59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -114,6 +117,8 @@
 		5AD8CFF71A6C013800BE3D59 /* Challenge07-Sheep */ = {
 			isa = PBXGroup;
 			children = (
+				5A06657A1A72C27200163B47 /* HighScoreScene.h */,
+				5A06657B1A72C27200163B47 /* HighScoreScene.m */,
 				5AD8CFFC1A6C013800BE3D59 /* AppDelegate.h */,
 				5AD8CFFD1A6C013800BE3D59 /* AppDelegate.m */,
 				5AD8CFFF1A6C013800BE3D59 /* GameScene.h */,
@@ -289,6 +294,7 @@
 				5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */,
 				5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */,
 				5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */,
+				5A06657C1A72C27200163B47 /* HighScoreScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
