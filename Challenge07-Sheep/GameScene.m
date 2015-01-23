@@ -150,19 +150,19 @@ SKTexture *sheepSheep;
     int numImages = dragonAnimatedAtlas.textureNames.count;
     
     for (int i = 1; i <= numImages/2; i++) {
-        NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
+        NSString *textureName = [NSString stringWithFormat:@"dragao%d", i];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
     }
     
     for (int i=1; i <= 2; i++) {
-        NSString *textureName = [NSString stringWithFormat:@"dragon%d", 7];
+        NSString *textureName = [NSString stringWithFormat:@"dragao%d",8];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
     }
     
     for (int i=numImages/2; i >=1; i--) {
-        NSString *textureName = [NSString stringWithFormat:@"dragon%d", i];
+        NSString *textureName = [NSString stringWithFormat:@"dragao%d", i];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [dragonFrames addObject:temp];
     }
@@ -189,7 +189,7 @@ SKTexture *sheepSheep;
     
     
     for (int i=1; i<= 2; i++) {
-        NSString *textureName = [NSString stringWithFormat:@"claws%d", 7];
+        NSString *textureName = [NSString stringWithFormat:@"claws%d",8];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [clawsFrames addObject:temp];
     }
@@ -469,7 +469,6 @@ SKTexture *sheepSheep;
 
 
 -(void) getBonusScore {
-    int actualScore = scoreLabel.text.intValue;
     score += 50;
 }
 
