@@ -83,6 +83,20 @@ SKTexture *sheepSheep;
                                                                 onTarget:self]]];
     [self runAction:[SKAction repeatActionForever:LevelUp ]];
     
+    SKAction *wait = [SKAction waitForDuration:10.0];
+    SKAction *performSelector = [SKAction performSelector:@selector(playEffectBgSounds) onTarget:self];
+    SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
+    SKAction *repeat   = [SKAction repeatActionForever:sequence];
+    [self runAction:repeat];
+
+    
+}
+
+-(void)playEffectBgSounds{
+    
+    //Play Sound
+    [self runAction:[SKAction playSoundFileNamed:@"backgroundMusic.wav" waitForCompletion:NO]];
+    
 }
 
 -(void)setPressRegoganizer{
@@ -463,6 +477,8 @@ SKTexture *sheepSheep;
         
     int newLife = life.text.intValue;
     newLife --;
+    [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+
     [sprite runAction: pulseRed];
     life.text = [NSString stringWithFormat:@"%d", newLife];
     if ( newLife ==0 )

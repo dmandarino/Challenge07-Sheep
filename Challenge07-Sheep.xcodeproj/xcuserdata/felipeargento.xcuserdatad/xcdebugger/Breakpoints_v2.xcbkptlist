@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Challenge07-Sheep/GameScene.m"
-            timestampString = "443715678.30173"
+            timestampString = "443727146.193857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "394"
-            endingLineNumber = "394"
-            landmarkName = "-attack"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "-prepareAttack"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
