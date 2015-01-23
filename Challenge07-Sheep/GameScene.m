@@ -8,6 +8,7 @@
 
 #import "GameScene.h"
 #import "GameViewController.h"
+#import "HighScoreScene.h"
 
 
 
@@ -396,30 +397,31 @@ SKTexture *sheepSheep;
     
     sprite.texture = sheepSheep;
    
-    BOOL defended = true;
-    
     switch (randomSide)
     {
         case 0:
             attackUp = true;
             if(defenseUp != attackUp)
                 [self damageTaken];
+            else
+                [self getBonusScore];
             attackUp = false;
-            defended = false;
             break;
         case 1:
             attackRight = true;
             if(defenseRight != attackRight)
                 [self damageTaken];
+            else
+                [self getBonusScore];
             attackRight = false;
-            defended = false;
             break;
         case 2:
             attackLeft = true;
             if(defenseLeft != attackLeft)
                 [self damageTaken];
+            else
+                [self getBonusScore];
             attackLeft = false;
-            defended = false;
             break;
             //        case 3:
             //            //            attackDown = true;
@@ -454,8 +456,7 @@ SKTexture *sheepSheep;
 
 -(void) getBonusScore {
     int actualScore = scoreLabel.text.intValue;
-    actualScore += 50;
-    scoreLabel.text = [NSString stringWithFormat:@"%d", actualScore];
+    score += 50;
 }
 
 -(void) damageTaken {
@@ -469,7 +470,11 @@ SKTexture *sheepSheep;
 }
 
 -(void) endGame {
-
+    SKTransition *reveal = [SKTransition fadeWithDuration:3];
+    
+    HighScoreScene *scene = [HighScoreScene sceneWithSize:self.view.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    [self.view presentScene:scene transition:reveal];
 }
 
 @end
