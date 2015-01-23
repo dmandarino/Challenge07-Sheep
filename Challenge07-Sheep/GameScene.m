@@ -20,6 +20,8 @@ SKLabelNode *scoreLabel;
 CGPoint pointLocation;
 int counter = 0;
 int randomSide;
+float level = 0.2f;
+float speed = 4.0f;
 NSTimer *timer;
 bool attackLeft = false;
 bool attackRight = false;
@@ -68,12 +70,17 @@ SKTexture *sheepSheep;
     
     SKAction *Timetofire= [SKAction sequence:@[
                                                //time after you want to fire a function
-                                               [SKAction waitForDuration:4],
+                                               [SKAction waitForDuration:speed],
                                                [SKAction performSelector:@selector(prepareAttack)
-                                                                onTarget:self]
-                                               
-                                               ]];
+                                                                onTarget:self]]];
     [self runAction:[SKAction repeatActionForever:Timetofire ]];
+    
+    SKAction *LevelUp= [SKAction sequence:@[
+                                               //time after you want to fire a function
+                                               [SKAction waitForDuration:0.1f],
+                                               [SKAction performSelector:@selector(levelUp)
+                                                                onTarget:self]]];
+    [self runAction:[SKAction repeatActionForever:LevelUp ]];
     
 }
 
@@ -213,6 +220,7 @@ SKTexture *sheepSheep;
     _dragon.hidden = false;
     [_dragon runAction:[SKAction repeatAction:[SKAction animateWithTextures:_dragonFireFrames
                                                                timePerFrame:0.1f
+
                                                                      resize:NO
                                                                     restore:YES] count: 1]];
     
@@ -385,11 +393,11 @@ SKTexture *sheepSheep;
     [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
 }
 - (void) attack {
-    //    NSLog(@"começou ataque");
-    //NSLog(@"attack began! DefenseTeste: %d attack: %d, %d, %d", defenseTest, attackUp, attackRight, attackLeft);
     
     sprite.texture = sheepSheep;
    
+    BOOL defended = true;
+    
     switch (randomSide)
     {
         case 0:
@@ -399,18 +407,21 @@ SKTexture *sheepSheep;
             }
                 [self damageTaken];
             attackUp = false;
+            defended = false;
             break;
         case 1:
             attackRight = true;
             if(defenseRight != attackRight)
                 [self damageTaken];
             attackRight = false;
+            defended = false;
             break;
         case 2:
             attackLeft = true;
             if(defenseLeft != attackLeft)
                 [self damageTaken];
             attackLeft = false;
+            defended = false;
             break;
             //        case 3:
             //            //            attackDown = true;
@@ -422,6 +433,31 @@ SKTexture *sheepSheep;
             
     }
     
+}
+-(void) levelUp {
+//    if ( scoreLabel.text.intValue % 20 == 0.0 && scoreLabel.text.intValue > 20){
+//        level -= 0.002f;
+//        speed -= 0.05;
+//    
+//    NSLog([NSString stringWithFormat:@"%f", level]);
+//    
+//    SKAction *Timetofire= [SKAction sequence:@[
+//                                               //time after you want to fire a function
+//                                               [SKAction waitForDuration:5],
+//                                               [SKAction performSelector:@selector(prepareAttack)
+//                                                                onTarget:self]]];
+//    [self runAction:[SKAction repeatActionForever:Timetofire ]];
+//
+//        
+//    }
+//    
+}
+
+
+-(void) getBonusScore {
+    int actualScore = scoreLabel.text.intValue;
+    actualScore += 50;
+    scoreLabel.text = [NSString stringWithFormat:@"%d", actualScore];
 }
 
 -(void) damageTaken {
@@ -435,7 +471,7 @@ SKTexture *sheepSheep;
 }
 
 -(void) endGame {
-    
+
 }
 
 @end
