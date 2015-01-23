@@ -21,6 +21,8 @@
 		5A0665201A71792000163B47 /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A06651E1A71792000163B47 /* wood.png */; };
 		5A06657C1A72C27200163B47 /* HighScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A06657B1A72C27200163B47 /* HighScoreScene.m */; };
 		5A06658E1A72CC4000163B47 /* animation.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5A06658D1A72CC4000163B47 /* animation.atlas */; };
+		5A0665901A72D17100163B47 /* BackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A06658F1A72D17100163B47 /* BackButton.png */; };
+		5A59671C1A72D7A300F8CBD2 /* retryButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A59671B1A72D7A300F8CBD2 /* retryButton.png */; };
 		5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFA1A6C013800BE3D59 /* main.m */; };
 		5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFD1A6C013800BE3D59 /* AppDelegate.m */; };
 		5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8D0001A6C013800BE3D59 /* GameScene.m */; };
@@ -59,6 +61,8 @@
 		5A06657A1A72C27200163B47 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreScene.h; sourceTree = "<group>"; };
 		5A06657B1A72C27200163B47 /* HighScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreScene.m; sourceTree = "<group>"; };
 		5A06658D1A72CC4000163B47 /* animation.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animation.atlas; sourceTree = "<group>"; };
+		5A06658F1A72D17100163B47 /* BackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackButton.png; sourceTree = "<group>"; };
+		5A59671B1A72D7A300F8CBD2 /* retryButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retryButton.png; sourceTree = "<group>"; };
 		5AD8CFF51A6C013800BE3D59 /* Challenge07-Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Challenge07-Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8CFF91A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8CFFA1A6C013800BE3D59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -137,6 +141,8 @@
 		5AD8CFF81A6C013800BE3D59 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5A06658F1A72D17100163B47 /* BackButton.png */,
+				5A59671B1A72D7A300F8CBD2 /* retryButton.png */,
 				5A06658D1A72CC4000163B47 /* animation.atlas */,
 				06C303101A72BCB900FFDF7F /* dyingSheep.wav */,
 				06C303111A72BCB900FFDF7F /* backgroundMusic.wav */,
@@ -223,10 +229,11 @@
 				TargetAttributes = {
 					5AD8CFF41A6C013800BE3D59 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 26KBC7ZFTX;
+						DevelopmentTeam = N3GG8VLR9P;
 					};
 					5AD8D0121A6C013800BE3D59 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = N3GG8VLR9P;
 						TestTargetID = 5AD8CFF41A6C013800BE3D59;
 					};
 				};
@@ -258,6 +265,7 @@
 				5AD8D00E1A6C013800BE3D59 /* LaunchScreen.xib in Resources */,
 				065006D31A7288E800A5ED8F /* sheep.png in Resources */,
 				0866099E1A6D5A400094FD93 /* viking.png in Resources */,
+				5A0665901A72D17100163B47 /* BackButton.png in Resources */,
 				5A06651F1A71792000163B47 /* heart.png in Resources */,
 				065006D41A7288E800A5ED8F /* sheepDir.png in Resources */,
 				06E189CB1A6C8F99007AEF67 /* background1.png in Resources */,
@@ -270,6 +278,7 @@
 				5A0665201A71792000163B47 /* wood.png in Resources */,
 				065006D51A7288E800A5ED8F /* sheepUp.png in Resources */,
 				06C303151A72BCB900FFDF7F /* ImSheep.mp3 in Resources */,
+				5A59671C1A72D7A300F8CBD2 /* retryButton.png in Resources */,
 				5AD8D0031A6C013800BE3D59 /* GameScene.sks in Resources */,
 				5AD8D0091A6C013800BE3D59 /* Main.storyboard in Resources */,
 				06D499351A6C8B9F00329D2D /* testsheep.PNG in Resources */,

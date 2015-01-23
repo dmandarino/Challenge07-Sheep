@@ -31,12 +31,12 @@ SKLabelNode *scoreLabel;
     scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:scoreLabel];
 
-    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"BackButton.png"];
-    backButtonNode.position = CGPointMake(CGRectGetMinX(self.frame)+30, CGRectGetMidY(self.frame)-60);
+    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"retryButton.png"];
+    backButtonNode.position = CGPointMake(CGRectGetMinX(self.frame)+60, CGRectGetMidY(self.frame)-60);
     backButtonNode.name = @"backButtonNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
-    backButtonNode.xScale = 0.5;
-    backButtonNode.yScale = 0.5;
+    backButtonNode.xScale = 0.4;
+    backButtonNode.yScale = 0.4;
     [self addChild: backButtonNode];
 }
 
