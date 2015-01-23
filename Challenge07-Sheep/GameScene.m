@@ -402,9 +402,7 @@ SKTexture *sheepSheep;
     {
         case 0:
             attackUp = true;
-            if(defenseUp != attackUp){
-                
-            }
+            if(defenseUp != attackUp)
                 [self damageTaken];
             attackUp = false;
             defended = false;
