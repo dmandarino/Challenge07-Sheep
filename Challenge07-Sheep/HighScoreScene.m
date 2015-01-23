@@ -7,6 +7,7 @@
 //
 
 #import "HighScoreScene.h"
+#import "GameScene.h"
 
 @implementation HighScoreScene
 SKLabelNode *scoreLabel;
@@ -30,7 +31,29 @@ SKLabelNode *scoreLabel;
     scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:scoreLabel];
 
+    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"BackButton.png"];
+    backButtonNode.position = CGPointMake(CGRectGetMinX(self.frame)+30, CGRectGetMidY(self.frame)-60);
+    backButtonNode.name = @"backButtonNode";//how the node is identified later
+    backButtonNode.zPosition = 1.0;
+    backButtonNode.xScale = 0.5;
+    backButtonNode.yScale = 0.5;
+    [self addChild: backButtonNode];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
     
+    //if fire button touched, bring the rain
+    if ([node.name isEqualToString:@"backButtonNode"]) {
+        SKTransition *reveal = [SKTransition fadeWithDuration:3];
+        
+        GameScene *scene = [GameScene sceneWithSize:self.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [self.view presentScene:scene transition:reveal];
+    }
 }
 
 @end

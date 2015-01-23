@@ -54,14 +54,13 @@ SKTexture *sheepSheep;
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
     
-    
     [self prepareGameBackground];
     
     [self prepareDragonImages];
     
     [self setPressRegoganizer];
    
-    
+    score = 0;
     
     pulseRed = [SKAction sequence:@[
                                     
