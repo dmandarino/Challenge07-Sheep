@@ -8,7 +8,7 @@
 
 #import "GameScene.h"
 #import "GameViewController.h"
-#import "HighScoreScene.h"
+//#import "HighScoreScene.h"
 
 
 
@@ -470,11 +470,11 @@ SKTexture *sheepSheep;
 }
 
 -(void) endGame {
-    SKTransition *reveal = [SKTransition fadeWithDuration:3];
-    
-    HighScoreScene *scene = [HighScoreScene sceneWithSize:self.view.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    [self.view presentScene:scene transition:reveal];
+//    SKTransition *reveal = [SKTransition fadeWithDuration:3];
+//    
+//    HighScoreScene *scene = [HighScoreScene sceneWithSize:self.view.bounds.size];
+//    scene.scaleMode = SKSceneScaleModeAspectFill;
+//    [self.view presentScene:scene transition:reveal];
 }
 
 @end
