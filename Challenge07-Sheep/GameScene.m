@@ -39,7 +39,13 @@ SKSpriteNode *_dragon;
 NSArray *_dragonFireFrames;
 SKSpriteNode *_claws;
 NSArray *_clawsAttackingFrames;
+SKAction *pulseRed;
 
+
+SKTexture *sheepDir;
+SKTexture *sheepEsq;
+SKTexture *sheepUp;
+SKTexture *sheepSheep;
 
 
 -(void)didMoveToView:(SKView *)view {
@@ -51,6 +57,14 @@ NSArray *_clawsAttackingFrames;
     [self prepareDragonImages];
     
     [self setPressRegoganizer];
+   
+    
+    
+    pulseRed = [SKAction sequence:@[
+                                    
+                                    [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
+                                    [SKAction waitForDuration:0.1],
+                                    [SKAction colorizeWithColorBlendFactor:0.0 duration:0.15]]];
     
     SKAction *Timetofire= [SKAction sequence:@[
                                                //time after you want to fire a function
@@ -83,7 +97,12 @@ NSArray *_clawsAttackingFrames;
     scoreLabel.position = CGPointMake((self.frame.size.width/8), (self.frame.size.height/2.8));
     [self addChild:scoreLabel];
     
-    sprite = [SKSpriteNode spriteNodeWithImageNamed:@"viking.png"];
+    sheepSheep = [SKTexture textureWithImageNamed:@"sheep.png"];
+    sheepEsq = [SKTexture textureWithImageNamed:@"sheetEsq.png"];
+    sheepDir = [SKTexture textureWithImageNamed:@"sheepDir.png"];
+    sheepUp = [SKTexture textureWithImageNamed:@"sheepUp.png"];
+    sprite = [SKSpriteNode spriteNodeWithTexture:sheepSheep];
+   
     sprite.xScale = 0.2;
     sprite.yScale = 0.2;
     sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
@@ -133,6 +152,7 @@ NSArray *_clawsAttackingFrames;
     _dragon = [SKSpriteNode spriteNodeWithTexture:temp];
     _dragon.xScale = 0.1;
     _dragon.yScale = 0.1;
+    _dragon.hidden = true;
     
     [self addChild:_dragon];
     
@@ -153,7 +173,7 @@ NSArray *_clawsAttackingFrames;
     }
     
     
-    for (int i=numImages/2; i>1; i--) {
+    for (int i=numImages/2; i>=1; i--) {
         NSString *textureName = [NSString stringWithFormat:@"claws%d", i];
         SKTexture *temp = [dragonAnimatedAtlas textureNamed:textureName];
         [clawsFrames addObject:temp];
@@ -166,6 +186,7 @@ NSArray *_clawsAttackingFrames;
     _claws.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+75);
     _claws.xScale = 0.1;
     _claws.yScale = 0.1;
+    _claws.hidden = true;
     [self addChild:_claws];
     
     
@@ -189,9 +210,9 @@ NSArray *_clawsAttackingFrames;
     _dragon.xScale = fabs(_dragon.xScale) * multiplierForDirection;
     
     
-    
+    _dragon.hidden = false;
     [_dragon runAction:[SKAction repeatAction:[SKAction animateWithTextures:_dragonFireFrames
-                                                               timePerFrame:0.2f
+                                                               timePerFrame:0.1f
                                                                      resize:NO
                                                                     restore:YES] count: 1]];
     
@@ -199,8 +220,10 @@ NSArray *_clawsAttackingFrames;
 }
 
 -(void) attackingClaws {
+    
+    _claws.hidden = false;
     [_claws runAction:[SKAction repeatAction:[SKAction animateWithTextures:_clawsAttackingFrames
-                                                              timePerFrame:0.2f
+                                                              timePerFrame:0.1f
                                                                     resize:YES
                                                                    restore:YES] count: 1]];
     return;
@@ -222,10 +245,13 @@ NSArray *_clawsAttackingFrames;
     if (pointLocation.y < endPosition.y) {
         // Down swipe
         NSLog(@"PRA BAIXO");
-        defenseUp = true;
+        
     } else if (pointLocation.y > endPosition.y){
         // Up swipe
         NSLog(@"PRA CIMA");
+        
+        sprite.texture = sheepUp;
+        defenseUp = true;
     }
 }
 
@@ -246,6 +272,7 @@ NSArray *_clawsAttackingFrames;
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
             
             defenseRight = true;
+            sprite.texture = sheepDir;
             
             counter = 1;
             
@@ -255,6 +282,7 @@ NSArray *_clawsAttackingFrames;
         
         if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
             
+            sprite.texture = sheepSheep;
             defenseRight = false;
             
             [timer invalidate];
@@ -273,6 +301,9 @@ NSArray *_clawsAttackingFrames;
                 
                 counter = 1;
                 defenseLeft = true;
+                
+                sprite.texture = sheepEsq;
+                
                 timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementCounter) userInfo:nil repeats:YES];
                 
             }
@@ -280,6 +311,8 @@ NSArray *_clawsAttackingFrames;
             if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
                 
                 defenseLeft = false;
+                
+                sprite.texture = sheepSheep;
                 
                 [timer invalidate];
                 
@@ -307,9 +340,12 @@ NSArray *_clawsAttackingFrames;
 }
 
 - (void) prepareAttack {
+    _dragon.hidden = true;
+    _claws.hidden = true;
     randomSide = arc4random_uniform(3);
     NSLog(@"começou ANIMAÇÃO");
     defenseUp = false;
+    
     switch (randomSide)
     {
         case 0:
@@ -351,11 +387,16 @@ NSArray *_clawsAttackingFrames;
 - (void) attack {
     //    NSLog(@"começou ataque");
     //NSLog(@"attack began! DefenseTeste: %d attack: %d, %d, %d", defenseTest, attackUp, attackRight, attackLeft);
+    
+    sprite.texture = sheepSheep;
+   
     switch (randomSide)
     {
         case 0:
             attackUp = true;
-            if(defenseUp != attackUp)
+            if(defenseUp != attackUp){
+                
+            }
                 [self damageTaken];
             attackUp = false;
             break;
@@ -384,8 +425,10 @@ NSArray *_clawsAttackingFrames;
 }
 
 -(void) damageTaken {
+        
     int newLife = life.text.intValue;
     newLife --;
+    [sprite runAction: pulseRed];
     life.text = [NSString stringWithFormat:@"%d", newLife];
     if ( newLife ==0 )
         [self endGame];

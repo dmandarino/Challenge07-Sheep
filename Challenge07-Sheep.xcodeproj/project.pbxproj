@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		065006D31A7288E800A5ED8F /* sheep.png in Resources */ = {isa = PBXBuildFile; fileRef = 065006CF1A7288E800A5ED8F /* sheep.png */; };
+		065006D41A7288E800A5ED8F /* sheepDir.png in Resources */ = {isa = PBXBuildFile; fileRef = 065006D01A7288E800A5ED8F /* sheepDir.png */; };
+		065006D51A7288E800A5ED8F /* sheepUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 065006D11A7288E800A5ED8F /* sheepUp.png */; };
+		065006D61A7288E800A5ED8F /* sheetEsq.png in Resources */ = {isa = PBXBuildFile; fileRef = 065006D21A7288E800A5ED8F /* sheetEsq.png */; };
 		06D499351A6C8B9F00329D2D /* testsheep.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 06D499341A6C8B9F00329D2D /* testsheep.PNG */; };
 		06E189CB1A6C8F99007AEF67 /* background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 06E189CA1A6C8F99007AEF67 /* background1.png */; };
 		0866099E1A6D5A400094FD93 /* viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 0866099D1A6D5A400094FD93 /* viking.png */; };
@@ -36,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		065006CF1A7288E800A5ED8F /* sheep.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheep.png; sourceTree = "<group>"; };
+		065006D01A7288E800A5ED8F /* sheepDir.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheepDir.png; sourceTree = "<group>"; };
+		065006D11A7288E800A5ED8F /* sheepUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheepUp.png; sourceTree = "<group>"; };
+		065006D21A7288E800A5ED8F /* sheetEsq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheetEsq.png; sourceTree = "<group>"; };
 		06D499341A6C8B9F00329D2D /* testsheep.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testsheep.PNG; sourceTree = "<group>"; };
 		06E189CA1A6C8F99007AEF67 /* background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background1.png; sourceTree = "<group>"; };
 		0866099D1A6D5A400094FD93 /* viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viking.png; sourceTree = "<group>"; };
@@ -118,6 +126,10 @@
 		5AD8CFF81A6C013800BE3D59 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				065006CF1A7288E800A5ED8F /* sheep.png */,
+				065006D01A7288E800A5ED8F /* sheepDir.png */,
+				065006D11A7288E800A5ED8F /* sheepUp.png */,
+				065006D21A7288E800A5ED8F /* sheetEsq.png */,
 				5A0665641A71AC5700163B47 /* animation.atlas */,
 				5A06651D1A71792000163B47 /* heart.png */,
 				5A06651E1A71792000163B47 /* wood.png */,
@@ -230,13 +242,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AD8D00E1A6C013800BE3D59 /* LaunchScreen.xib in Resources */,
+				065006D31A7288E800A5ED8F /* sheep.png in Resources */,
 				0866099E1A6D5A400094FD93 /* viking.png in Resources */,
 				5A06651F1A71792000163B47 /* heart.png in Resources */,
 				5A0665651A71AC5700163B47 /* animation.atlas in Resources */,
+				065006D41A7288E800A5ED8F /* sheepDir.png in Resources */,
 				06E189CB1A6C8F99007AEF67 /* background1.png in Resources */,
 				5AD8D0401A6F277B00BE3D59 /* tail.png in Resources */,
 				5AD8D00B1A6C013800BE3D59 /* Images.xcassets in Resources */,
+				065006D61A7288E800A5ED8F /* sheetEsq.png in Resources */,
 				5A0665201A71792000163B47 /* wood.png in Resources */,
+				065006D51A7288E800A5ED8F /* sheepUp.png in Resources */,
 				5AD8D0031A6C013800BE3D59 /* GameScene.sks in Resources */,
 				5AD8D0091A6C013800BE3D59 /* Main.storyboard in Resources */,
 				06D499351A6C8B9F00329D2D /* testsheep.PNG in Resources */,
