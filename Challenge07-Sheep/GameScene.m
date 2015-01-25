@@ -45,6 +45,16 @@ SKSpriteNode *_claws;
 NSArray *_clawsAttackingFrames;
 SKAction *pulseRed;
 
+SKSpriteNode *card;
+SKTexture *cardHeart;
+SKTexture *cardCoin;
+SKTexture *cardSuper;
+SKTexture *cardBonus;
+SKAction *cardMove;
+SKAction *sheepSuper;
+int cardStatus;
+bool invencible;
+SKLabelNode *msgLabel;
 
 SKTexture *sheepDir;
 SKTexture *sheepEsq;
@@ -63,6 +73,8 @@ SKTexture *sheepSheep;
     
     [self setPressRegoganizer];
     
+    [self prepareCards];
+    
     [RWGameData sharedGameData].score = 0;
     
     pulseRed = [SKAction sequence:@[
@@ -70,6 +82,13 @@ SKTexture *sheepSheep;
                                     [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
                                     [SKAction waitForDuration:0.1],
                                     [SKAction colorizeWithColorBlendFactor:0.0 duration:0.15]]];
+    
+    sheepSuper = [SKAction sequence:@[
+                                    [SKAction colorizeWithColor:[SKColor blueColor] colorBlendFactor:1.0 duration:3.15],
+                                    [SKAction waitForDuration:3.1],
+                                    [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]
+                                    ]];
+    
     
     SKAction *Timetofire= [SKAction sequence:@[
                                                //time after you want to fire a function
@@ -109,12 +128,76 @@ SKTexture *sheepSheep;
     [self.view addGestureRecognizer:lpgr];
 }
 
+-(void)prepareCards{
+    cardHeart = [SKTexture textureWithImageNamed:@"cardHeart.png"];
+    cardCoin = [SKTexture textureWithImageNamed:@"cardCoin.png"];
+    cardSuper = [SKTexture textureWithImageNamed:@"cardSuper.png"];
+    cardBonus = [SKTexture textureWithImageNamed:@"cardBonus.png"];
+    card = [SKSpriteNode spriteNodeWithTexture:cardHeart];
+    cardStatus = 0;
+    card.name = @"cardNode";
+    card.xScale = 0.04;
+    card.yScale = 0.04;
+    card.position = CGPointMake(350, 170);// Y varia de 390 ateh 175 nao visivel
+    cardMove = [SKAction moveToY:170 duration:4];
+    invencible = false;
+    
+    [self addChild: card];
+}
+
+-(void)chooseCard{
+    int randomCard = arc4random_uniform(4);
+    
+    switch (randomCard)
+    {
+        case 0:
+            card.texture = cardHeart;
+            cardStatus = 0;
+            break;
+        case 1:
+            card.texture = cardCoin;
+            cardStatus = 1;
+            break;
+        case 2:
+            card.texture = cardSuper;
+            cardStatus = 2;
+            break;
+        case 3:
+            card.texture = cardBonus;
+            cardStatus = 3;
+            break;
+    }
+    
+}
+
+-(void)randomFallCard{
+    int randomFall = arc4random_uniform(1);//probabilidade de cair carta
+    int randomX = arc4random_uniform(290);
+    randomX = randomX + 15;
+    
+    if (randomFall == 0 && card.position.y == 170 && invencible == false) {
+        [self chooseCard];
+        card.xScale = 0.04;
+        card.yScale = 0.04;
+        card.position = CGPointMake(randomX, 380);
+        [card runAction:cardMove];
+    }
+    
+}
+
 -(void)prepareGameBackground{
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:bgImage];
     
+    
+    msgLabel= [SKLabelNode labelNodeWithFontNamed:@"HoeflerText-BlackItalic"];
+    msgLabel.fontSize = 20;
+    msgLabel.fontColor = [SKColor blueColor];
+    msgLabel.position = CGPointMake((self.frame.size.width/2), (self.frame.size.height/2+45));
+    msgLabel.text = @"";
+    [self addChild:msgLabel];
     
     scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     scoreLabel.fontSize = 15;
@@ -257,8 +340,46 @@ SKTexture *sheepSheep;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     /* Called when a touch begins */
-    UITouch *touch = [[event allTouches] anyObject];
+    UITouch *touch = [touches anyObject];
     pointLocation = [touch locationInView:touch.view];
+    
+    UITouch *touch1 = [touches anyObject];
+    CGPoint location = [touch1 locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    
+    //if fire button touched, bring the rain
+    if ([node.name isEqualToString:@"cardNode"]) {
+        
+        switch (cardStatus) {
+            case 0://heart
+                NSLog(@"heart");
+                int newLife = life.text.intValue;
+                newLife++;
+                life.text = [NSString stringWithFormat:@"%d", newLife];
+                card.position = CGPointMake(350, 170);
+                break;
+            case 1://coin
+                NSLog(@"coin");
+                card.position = CGPointMake(350, 170);
+                break;
+            case 2://super
+                NSLog(@"super");
+                invencible = true;
+                msgLabel.text = @"Super Invencible Sheep";
+                card.position = CGPointMake(350, 170);
+                [sprite runAction: sheepSuper];
+                [sprite runAction:sheepSuper completion:^{
+                    msgLabel.text = @"";
+                    invencible = false;
+                }];
+                break;
+            case 3://bonus
+                NSLog(@"bonus");
+                [RWGameData sharedGameData].score += 250;
+                card.position = CGPointMake(350, 170);
+                break;
+        }
+    }
     
 }
 
@@ -273,7 +394,7 @@ SKTexture *sheepSheep;
         
     } else if (pointLocation.y > endPosition.y){
         // Up swipe
-        NSLog(@"PRA CIMA");
+        //NSLog(@"PRA CIMA");
         
         sprite.texture = sheepUp;
         defenseUp = true;
@@ -370,8 +491,9 @@ SKTexture *sheepSheep;
     _dragon.hidden = true;
     _claws.hidden = true;
     randomSide = arc4random_uniform(3);
-    NSLog(@"começou ANIMAÇÃO");
     defenseUp = false;
+    
+    [self randomFallCard];
     
     switch (randomSide)
     {
@@ -403,12 +525,12 @@ SKTexture *sheepSheep;
 - (void) attack {
     
     sprite.texture = sheepSheep;
-   
+    
     switch (randomSide)
     {
         case 0:
             attackUp = true;
-            if(defenseUp != attackUp)
+            if(defenseUp != attackUp && invencible == false)
                 [self damageTaken];
             else
                 [self getBonusScore];
@@ -416,7 +538,7 @@ SKTexture *sheepSheep;
             break;
         case 1:
             attackRight = true;
-            if(defenseRight != attackRight)
+            if(defenseRight != attackRight && invencible == false)
                 [self damageTaken];
             else
                 [self getBonusScore];
@@ -424,7 +546,7 @@ SKTexture *sheepSheep;
             break;
         case 2:
             attackLeft = true;
-            if(defenseLeft != attackLeft)
+            if(defenseLeft != attackLeft && invencible == false)
                 [self damageTaken];
             else
                 [self getBonusScore];
