@@ -9,6 +9,7 @@
 #import "GameScene.h"
 #import "GameViewController.h"
 #import "HighScoreScene.h"
+#import "RWGameData.h"
 
 
 
@@ -16,7 +17,7 @@
 
 SKLabelNode *life;
 
-CGFloat score = 0;
+//CGFloat score = 0;
 SKLabelNode *scoreLabel;
 CGPoint pointLocation;
 int counter = 0;
@@ -58,9 +59,11 @@ SKTexture *sheepSheep;
     
     [self prepareDragonImages];
     
+    [self showHighScore];
+    
     [self setPressRegoganizer];
-   
-    score = 0;
+    
+    [RWGameData sharedGameData].score = 0;
     
     pulseRed = [SKAction sequence:@[
                                     
@@ -350,11 +353,13 @@ SKTexture *sheepSheep;
     
 }
 
--(void)update:(CFTimeInterval)currentTime {
-    score += 0.1;
-    scoreLabel.text =[NSString stringWithFormat:@"%.0f", score];
+-(void)update:(NSTimeInterval)currentTime {
+    [RWGameData sharedGameData].score += 0.1;
+    scoreLabel.text = [NSString stringWithFormat:@"%.0f pt", [RWGameData sharedGameData].score];
+
+    if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore)
+        scoreLabel.fontColor = [SKColor yellowColor];
     
-    /* Called before each frame is rendered */
 }
 
 - (void)incrementCounter {
@@ -376,23 +381,12 @@ SKTexture *sheepSheep;
             break;
         case 1:
             [self attackingDragonFire: TRUE];
-            //            [self attackingClaws];
             
             break;
         case 2:
             [self attackingDragonFire: NO];
-            //            [self attackingClaws];
             
             break;
-            //        case 3:
-            //            //            [self attackingDragonFire: NO];
-            //            //            down.position = CGPointMake(sprite.position.x, -sprite.position.y);
-            //            //            down.xScale = 0.5;
-            //            //            down.yScale = 0.5;
-            //            //            [sprite addChild:down];
-            //
-            //            break;
-            //
             
     }
     
@@ -448,27 +442,30 @@ SKTexture *sheepSheep;
     
 }
 -(void) levelUp {
-//    if ( scoreLabel.text.intValue % 20 == 0.0 && scoreLabel.text.intValue > 20){
-//        level -= 0.002f;
-//        speed -= 0.05;
-//    
-//    NSLog([NSString stringWithFormat:@"%f", level]);
-//    
-//    SKAction *Timetofire= [SKAction sequence:@[
-//                                               //time after you want to fire a function
-//                                               [SKAction waitForDuration:5],
-//                                               [SKAction performSelector:@selector(prepareAttack)
-//                                                                onTarget:self]]];
-//    [self runAction:[SKAction repeatActionForever:Timetofire ]];
-//
-//        
-//    }
-//    
+    
 }
 
+-(void) showHighScore {
+    SKLabelNode *highScoreTitle = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    highScoreTitle.fontSize = 10;
+    highScoreTitle.fontColor = [SKColor redColor];
+    highScoreTitle.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+70);
+    highScoreTitle.text = @"High Score";
+    [self addChild:highScoreTitle];
+    
+    
+    SKLabelNode *highScore;
+    highScore = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    highScore.fontSize = 10;
+    highScore.fontColor = [SKColor redColor];
+    highScore.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+60);
+    highScore.text = [NSMutableString stringWithFormat:@"%.0f",[RWGameData sharedGameData].highScore];
+    [self addChild:highScore];
+    
+}
 
 -(void) getBonusScore {
-    score += 50;
+    [RWGameData sharedGameData].score += 50;
 }
 
 -(void) damageTaken {
@@ -487,11 +484,22 @@ SKTexture *sheepSheep;
 }
 
 -(void) endGame {
+    [self prepareSaveGame];
+
     SKTransition *reveal = [SKTransition fadeWithDuration:3];
     
     HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     [self.view presentScene:scene transition:reveal];
+    
+}
+
+-(void) prepareSaveGame {
+    
+
+    [RWGameData sharedGameData].highScore = MAX([RWGameData sharedGameData].score,
+                                                [RWGameData sharedGameData].highScore);
+    [[RWGameData sharedGameData] save];
 }
 
 @end
