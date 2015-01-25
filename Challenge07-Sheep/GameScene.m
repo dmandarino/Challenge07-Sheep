@@ -78,16 +78,14 @@ SKTexture *sheepSheep;
     [RWGameData sharedGameData].score = 0;
     
     pulseRed = [SKAction sequence:@[
-                                    
                                     [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
                                     [SKAction waitForDuration:0.1],
                                     [SKAction colorizeWithColorBlendFactor:0.0 duration:0.15]]];
     
     sheepSuper = [SKAction sequence:@[
-                                    [SKAction colorizeWithColor:[SKColor blueColor] colorBlendFactor:1.0 duration:3.15],
+                                    [SKAction colorizeWithColor:[SKColor cyanColor] colorBlendFactor:1.0 duration:3.15],
                                     [SKAction waitForDuration:3.1],
-                                    [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]
-                                    ]];
+                                    [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]]];
     
     
     SKAction *Timetofire= [SKAction sequence:@[
