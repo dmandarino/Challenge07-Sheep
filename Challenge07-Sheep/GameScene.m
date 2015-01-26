@@ -22,8 +22,7 @@ SKLabelNode *scoreLabel;
 CGPoint pointLocation;
 int counter = 0;
 int randomSide;
-float level = 0.2f;
-float speed = 4.0f;
+int levelCount = 0;
 NSTimer *timer;
 bool attackLeft = false;
 bool attackRight = false;
@@ -50,8 +49,13 @@ SKTexture *cardHeart;
 SKTexture *cardCoin;
 SKTexture *cardSuper;
 SKTexture *cardBonus;
+
 SKAction *cardMove;
 SKAction *sheepSuper;
+SKAction *Level2;
+SKAction *Level3;
+SKAction *Level4;
+
 int cardStatus;
 bool invencible;
 SKLabelNode *msgLabel;
@@ -88,26 +92,13 @@ SKTexture *sheepSheep;
                                     [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]]];
     
     
-    SKAction *Timetofire= [SKAction sequence:@[
+    SKAction *Level1= [SKAction sequence:@[
                                                //time after you want to fire a function
-                                               [SKAction waitForDuration:speed],
+                                               [SKAction waitForDuration:4],
                                                [SKAction performSelector:@selector(prepareAttack)
                                                                 onTarget:self]]];
-    [self runAction:[SKAction repeatActionForever:Timetofire ]];
-    
-    SKAction *LevelUp= [SKAction sequence:@[
-                                               //time after you want to fire a function
-                                               [SKAction waitForDuration:0.1f],
-                                               [SKAction performSelector:@selector(levelUp)
-                                                                onTarget:self]]];
-    [self runAction:[SKAction repeatActionForever:LevelUp ]];
-    
-    SKAction *wait = [SKAction waitForDuration:10.0];
-    SKAction *performSelector = [SKAction performSelector:@selector(playEffectBgSounds) onTarget:self];
-    SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
-    SKAction *repeat   = [SKAction repeatActionForever:sequence];
-    [self runAction:repeat];
 
+    [self runAction:[SKAction repeatActionForever:Level1 ]];
     
 }
 
@@ -597,6 +588,7 @@ SKTexture *sheepSheep;
     life.text = [NSString stringWithFormat:@"%d", newLife];
     if ( newLife ==0 ){
         [self endGame];
+
         [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
     } else {
         [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];

@@ -55,7 +55,7 @@
     return backButtonNode;
 }
 -(SKSpriteNode *) createScoreButton {
-    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"more.png"];
+    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"highscoreButton.png"];
     backButtonNode.position = CGPointMake(self.size.width/2, self.size.height/2 - 60);
     backButtonNode.name = @"highScoreNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
@@ -73,6 +73,13 @@
     bgImage.size = CGSizeMake(self.size.height, self.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:bgImage];
+
+    SKSpriteNode *sheep = [SKSpriteNode spriteNodeWithImageNamed:@"nakedSheep.png"];
+    sheep.xScale = 0.05;
+    sheep.yScale = 0.05;
+    sheep.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 40);
+    [self addChild:sheep];
+    
 }
 
 
