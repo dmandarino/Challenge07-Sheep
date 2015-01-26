@@ -363,7 +363,7 @@ SKTexture *sheepSheep;
             case 2://super
                 NSLog(@"super");
                 invencible = true;
-                msgLabel.text = @"Super Invencible Sheep";
+                msgLabel.text = @"Super Invincible Sheep";
                 card.position = CGPointMake(350, 170);
                 [sprite runAction: sheepSuper];
                 [sprite runAction:sheepSuper completion:^{

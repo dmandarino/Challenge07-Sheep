@@ -45,7 +45,7 @@ SKLabelNode *scoreLabel;
 }
 
 -(SKSpriteNode *) createBackButton {
-    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"retryButton.png"];
+    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play.png"];
     backButtonNode.position = CGPointMake(CGRectGetMinX(self.frame)+60, CGRectGetMidY(self.frame)-60);
     backButtonNode.name = @"backButtonNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
