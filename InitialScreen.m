@@ -49,8 +49,8 @@
     backButtonNode.position = CGPointMake(self.size.width/2, self.size.height/2);
     backButtonNode.name = @"backButtonNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
-    backButtonNode.xScale = 0.4;
-    backButtonNode.yScale = 0.4;
+    backButtonNode.xScale = 0.6;
+    backButtonNode.yScale = 0.6;
     
     return backButtonNode;
 }
