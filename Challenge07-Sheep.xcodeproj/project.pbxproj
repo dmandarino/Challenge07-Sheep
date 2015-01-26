@@ -34,6 +34,10 @@
 		5A7259001A76BDB100430536 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7258FF1A76BDB100430536 /* home.png */; };
 		5A7259021A76C3F500430536 /* retry.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7259011A76C3F500430536 /* retry.png */; };
 		5A7259041A76C54000430536 /* play2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7259031A76C54000430536 /* play2.png */; };
+		5A72590F1A76DE1000430536 /* cardBonus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A72590B1A76DE1000430536 /* cardBonus.png */; };
+		5A7259101A76DE1000430536 /* cardCoin.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A72590C1A76DE1000430536 /* cardCoin.png */; };
+		5A7259111A76DE1000430536 /* cardHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A72590D1A76DE1000430536 /* cardHeart.png */; };
+		5A7259121A76DE1000430536 /* cardSuper.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A72590E1A76DE1000430536 /* cardSuper.png */; };
 		5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFA1A6C013800BE3D59 /* main.m */; };
 		5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFD1A6C013800BE3D59 /* AppDelegate.m */; };
 		5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8D0001A6C013800BE3D59 /* GameScene.m */; };
@@ -87,6 +91,10 @@
 		5A7258FF1A76BDB100430536 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		5A7259011A76C3F500430536 /* retry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retry.png; sourceTree = "<group>"; };
 		5A7259031A76C54000430536 /* play2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play2.png; sourceTree = "<group>"; };
+		5A72590B1A76DE1000430536 /* cardBonus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardBonus.png; sourceTree = "<group>"; };
+		5A72590C1A76DE1000430536 /* cardCoin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardCoin.png; sourceTree = "<group>"; };
+		5A72590D1A76DE1000430536 /* cardHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardHeart.png; sourceTree = "<group>"; };
+		5A72590E1A76DE1000430536 /* cardSuper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardSuper.png; sourceTree = "<group>"; };
 		5AD8CFF51A6C013800BE3D59 /* Challenge07-Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Challenge07-Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8CFF91A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8CFFA1A6C013800BE3D59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -195,6 +203,10 @@
 		5AD8CFF81A6C013800BE3D59 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5A72590B1A76DE1000430536 /* cardBonus.png */,
+				5A72590C1A76DE1000430536 /* cardCoin.png */,
+				5A72590D1A76DE1000430536 /* cardHeart.png */,
+				5A72590E1A76DE1000430536 /* cardSuper.png */,
 				5A7258FD1A76B9C100430536 /* wooden.png */,
 				06C303391A75D58400FFDF7F /* sounds */,
 				06C303381A75D57100FFDF7F /* buttons */,
@@ -322,11 +334,14 @@
 				08B1D9B71A76C0BE00788575 /* store.wav in Resources */,
 				5A7258FE1A76B9C100430536 /* wooden.png in Resources */,
 				08B1D9B61A76C0BE00788575 /* initialScreen.mp3 in Resources */,
+				5A72590F1A76DE1000430536 /* cardBonus.png in Resources */,
 				5A06651F1A71792000163B47 /* heart.png in Resources */,
 				5A7259041A76C54000430536 /* play2.png in Resources */,
 				089AD9371A76D1090045F73C /* coins.png in Resources */,
 				5A7258FC1A76B89F00430536 /* cart.png in Resources */,
 				5A7258FA1A76B5BA00430536 /* ranking.png in Resources */,
+				5A7259101A76DE1000430536 /* cardCoin.png in Resources */,
+				5A7259111A76DE1000430536 /* cardHeart.png in Resources */,
 				065006D41A7288E800A5ED8F /* sheepDir.png in Resources */,
 				5A7259001A76BDB100430536 /* home.png in Resources */,
 				06E189CB1A6C8F99007AEF67 /* background1.png in Resources */,
@@ -337,6 +352,7 @@
 				08B1D9B51A76C0BE00788575 /* death.wav in Resources */,
 				5A06658E1A72CC4000163B47 /* animation.atlas in Resources */,
 				065006D61A7288E800A5ED8F /* sheetEsq.png in Resources */,
+				5A7259121A76DE1000430536 /* cardSuper.png in Resources */,
 				5A0665201A71792000163B47 /* wood.png in Resources */,
 				06C3033E1A75D8F400FFDF7F /* play.png in Resources */,
 				065006D51A7288E800A5ED8F /* sheepUp.png in Resources */,
