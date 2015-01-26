@@ -11,7 +11,6 @@
 		065006D41A7288E800A5ED8F /* sheepDir.png in Resources */ = {isa = PBXBuildFile; fileRef = 065006D01A7288E800A5ED8F /* sheepDir.png */; };
 		065006D51A7288E800A5ED8F /* sheepUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 065006D11A7288E800A5ED8F /* sheepUp.png */; };
 		065006D61A7288E800A5ED8F /* sheetEsq.png in Resources */ = {isa = PBXBuildFile; fileRef = 065006D21A7288E800A5ED8F /* sheetEsq.png */; };
-		06C303131A72BCB900FFDF7F /* dyingSheep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 06C303101A72BCB900FFDF7F /* dyingSheep.wav */; };
 		06C303141A72BCB900FFDF7F /* backgroundMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 06C303111A72BCB900FFDF7F /* backgroundMusic.wav */; };
 		06C303151A72BCB900FFDF7F /* ImSheep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06C303121A72BCB900FFDF7F /* ImSheep.mp3 */; };
 		06C303371A75D3EA00FFDF7F /* RWGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C303361A75D3EA00FFDF7F /* RWGameData.m */; };
@@ -27,6 +26,11 @@
 		5A06658E1A72CC4000163B47 /* animation.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5A06658D1A72CC4000163B47 /* animation.atlas */; };
 		5A0665901A72D17100163B47 /* BackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A06658F1A72D17100163B47 /* BackButton.png */; };
 		5A59671C1A72D7A300F8CBD2 /* retryButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A59671B1A72D7A300F8CBD2 /* retryButton.png */; };
+		5A7258F61A76B27100430536 /* dyingSheep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5A7258F51A76B27100430536 /* dyingSheep.mp3 */; };
+		5A7258FA1A76B5BA00430536 /* ranking.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7258F91A76B5BA00430536 /* ranking.png */; };
+		5A7258FC1A76B89F00430536 /* cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7258FB1A76B89F00430536 /* cart.png */; };
+		5A7258FE1A76B9C100430536 /* wooden.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7258FD1A76B9C100430536 /* wooden.png */; };
+		5A7259001A76BDB100430536 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7258FF1A76BDB100430536 /* home.png */; };
 		5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFA1A6C013800BE3D59 /* main.m */; };
 		5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFD1A6C013800BE3D59 /* AppDelegate.m */; };
 		5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8D0001A6C013800BE3D59 /* GameScene.m */; };
@@ -54,7 +58,6 @@
 		065006D01A7288E800A5ED8F /* sheepDir.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheepDir.png; sourceTree = "<group>"; };
 		065006D11A7288E800A5ED8F /* sheepUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheepUp.png; sourceTree = "<group>"; };
 		065006D21A7288E800A5ED8F /* sheetEsq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheetEsq.png; sourceTree = "<group>"; };
-		06C303101A72BCB900FFDF7F /* dyingSheep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dyingSheep.wav; sourceTree = "<group>"; };
 		06C303111A72BCB900FFDF7F /* backgroundMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = backgroundMusic.wav; sourceTree = "<group>"; };
 		06C303121A72BCB900FFDF7F /* ImSheep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ImSheep.mp3; sourceTree = "<group>"; };
 		06C303351A75D3EA00FFDF7F /* RWGameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWGameData.h; sourceTree = "<group>"; };
@@ -73,6 +76,11 @@
 		5A06658D1A72CC4000163B47 /* animation.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animation.atlas; sourceTree = "<group>"; };
 		5A06658F1A72D17100163B47 /* BackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackButton.png; sourceTree = "<group>"; };
 		5A59671B1A72D7A300F8CBD2 /* retryButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retryButton.png; sourceTree = "<group>"; };
+		5A7258F51A76B27100430536 /* dyingSheep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dyingSheep.mp3; sourceTree = "<group>"; };
+		5A7258F91A76B5BA00430536 /* ranking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ranking.png; sourceTree = "<group>"; };
+		5A7258FB1A76B89F00430536 /* cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cart.png; sourceTree = "<group>"; };
+		5A7258FD1A76B9C100430536 /* wooden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wooden.png; sourceTree = "<group>"; };
+		5A7258FF1A76BDB100430536 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		5AD8CFF51A6C013800BE3D59 /* Challenge07-Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Challenge07-Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8CFF91A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8CFFA1A6C013800BE3D59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -113,8 +121,11 @@
 		06C303381A75D57100FFDF7F /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				5A7258FF1A76BDB100430536 /* home.png */,
 				06C3033D1A75D8F400FFDF7F /* play.png */,
+				5A7258FB1A76B89F00430536 /* cart.png */,
 				06C3033F1A75D8FC00FFDF7F /* more.png */,
+				5A7258F91A76B5BA00430536 /* ranking.png */,
 				5A06658F1A72D17100163B47 /* BackButton.png */,
 				5A59671B1A72D7A300F8CBD2 /* retryButton.png */,
 			);
@@ -124,7 +135,7 @@
 		06C303391A75D58400FFDF7F /* sounds */ = {
 			isa = PBXGroup;
 			children = (
-				06C303101A72BCB900FFDF7F /* dyingSheep.wav */,
+				5A7258F51A76B27100430536 /* dyingSheep.mp3 */,
 				06C303111A72BCB900FFDF7F /* backgroundMusic.wav */,
 				06C303121A72BCB900FFDF7F /* ImSheep.mp3 */,
 			);
@@ -176,6 +187,7 @@
 		5AD8CFF81A6C013800BE3D59 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5A7258FD1A76B9C100430536 /* wooden.png */,
 				06C303391A75D58400FFDF7F /* sounds */,
 				06C303381A75D57100FFDF7F /* buttons */,
 				5A06658D1A72CC4000163B47 /* animation.atlas */,
@@ -298,13 +310,17 @@
 				065006D31A7288E800A5ED8F /* sheep.png in Resources */,
 				0866099E1A6D5A400094FD93 /* viking.png in Resources */,
 				5A0665901A72D17100163B47 /* BackButton.png in Resources */,
+				5A7258FE1A76B9C100430536 /* wooden.png in Resources */,
 				5A06651F1A71792000163B47 /* heart.png in Resources */,
+				5A7258FC1A76B89F00430536 /* cart.png in Resources */,
+				5A7258FA1A76B5BA00430536 /* ranking.png in Resources */,
 				065006D41A7288E800A5ED8F /* sheepDir.png in Resources */,
 				06C303401A75D8FC00FFDF7F /* more.png in Resources */,
+				5A7259001A76BDB100430536 /* home.png in Resources */,
 				06E189CB1A6C8F99007AEF67 /* background1.png in Resources */,
+				5A7258F61A76B27100430536 /* dyingSheep.mp3 in Resources */,
 				5AD8D0401A6F277B00BE3D59 /* tail.png in Resources */,
 				06C303141A72BCB900FFDF7F /* backgroundMusic.wav in Resources */,
-				06C303131A72BCB900FFDF7F /* dyingSheep.wav in Resources */,
 				5AD8D00B1A6C013800BE3D59 /* Images.xcassets in Resources */,
 				5A06658E1A72CC4000163B47 /* animation.atlas in Resources */,
 				065006D61A7288E800A5ED8F /* sheetEsq.png in Resources */,

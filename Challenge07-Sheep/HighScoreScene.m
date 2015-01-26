@@ -9,6 +9,7 @@
 #import "HighScoreScene.h"
 #import "GameScene.h"
 #import "RWGameData.h"
+#import "InitialScreen.h"
 
 @implementation HighScoreScene
 SKLabelNode *scoreLabel;
@@ -16,8 +17,11 @@ SKLabelNode *scoreLabel;
 -(void) didMoveToView:(SKView *)view {
     [self createBackground];
     
-    SKSpriteNode *backButtonNode = [self createBackButton];
-    [self addChild: backButtonNode];
+    SKSpriteNode *retryButtonNode = [self createRetryButton];
+    [self addChild: retryButtonNode];
+    
+    SKSpriteNode *homeButtonNode = [self createHomeButton];
+    [self addChild: homeButtonNode];
     
     [self showHighScore];
     
@@ -35,22 +39,39 @@ SKLabelNode *scoreLabel;
     SKNode *node = [self nodeAtPoint:location];
     
     //if fire button touched, bring the rain
-    if ([node.name isEqualToString:@"backButtonNode"]) {
+    if ([node.name isEqualToString:@"retryButtonNode"]) {
         SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];
         
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:reveal];
+    } else if ([node.name isEqualToString:@"homeButtonNode"]) {
+        SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];
+        
+        InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [self.view presentScene:scene transition:reveal];
     }
 }
 
--(SKSpriteNode *) createBackButton {
-    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play.png"];
+-(SKSpriteNode *) createRetryButton {
+    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"retry.png"];
     backButtonNode.position = CGPointMake(CGRectGetMinX(self.frame)+60, CGRectGetMidY(self.frame)-60);
-    backButtonNode.name = @"backButtonNode";//how the node is identified later
+    backButtonNode.name = @"retryButtonNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
-    backButtonNode.xScale = 0.4;
-    backButtonNode.yScale = 0.4;
+    backButtonNode.xScale = 0.45;
+    backButtonNode.yScale = 0.45;
+    
+    return backButtonNode;
+}
+
+-(SKSpriteNode *) createHomeButton {
+    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"home.png"];
+    backButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)+120, CGRectGetMidY(self.frame)-60);
+    backButtonNode.name = @"homeButtonNode";//how the node is identified later
+    backButtonNode.zPosition = 1.0;
+    backButtonNode.xScale = 0.2;
+    backButtonNode.yScale = 0.2;
     
     return backButtonNode;
 }

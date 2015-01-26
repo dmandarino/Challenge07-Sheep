@@ -15,13 +15,15 @@
 -(void) didMoveToView:(SKView *)view {
     [self createBackground];
     
-    SKSpriteNode *backButtonNode = [self createBackButton];
+    SKSpriteNode *backButtonNode = [self createPlayButton];
     [self addChild: backButtonNode];
     
     SKSpriteNode *scoreButtonNode = [self createScoreButton];
     [self addChild: scoreButtonNode];
 
-
+    
+    SKSpriteNode *shopButtonNode = [self createShopButton];
+    [self addChild: shopButtonNode];
 }
 
 
@@ -44,9 +46,9 @@
     }
 }
 
--(SKSpriteNode *) createBackButton {
+-(SKSpriteNode *) createPlayButton {
     SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play.png"];
-    backButtonNode.position = CGPointMake(self.size.width/2, self.size.height/2);
+    backButtonNode.position = CGPointMake(self.size.width/2, self.size.height/2 - 60);
     backButtonNode.name = @"backButtonNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
     backButtonNode.xScale = 0.6;
@@ -55,16 +57,25 @@
     return backButtonNode;
 }
 -(SKSpriteNode *) createScoreButton {
-    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"highscoreButton.png"];
-    backButtonNode.position = CGPointMake(self.size.width/2, self.size.height/2 - 60);
+    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"ranking.png"];
+    backButtonNode.position = CGPointMake(self.size.width/2 + 120 , self.size.height/2 - 60);
     backButtonNode.name = @"highScoreNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
-    backButtonNode.xScale = 0.4;
-    backButtonNode.yScale = 0.4;
+    backButtonNode.xScale = 0.25;
+    backButtonNode.yScale = 0.25;
     
     return backButtonNode;
 }
-
+-(SKSpriteNode *) createShopButton {
+    SKSpriteNode *backShopNode = [SKSpriteNode spriteNodeWithImageNamed:@"cart.png"];
+    backShopNode.position = CGPointMake(self.size.width/2 - 120 , self.size.height/2 - 60);
+    backShopNode.name = @"shopNode";//how the node is identified later
+    backShopNode.zPosition = 1.0;
+    backShopNode.xScale = 0.25;
+    backShopNode.yScale = 0.25;
+    
+    return backShopNode;
+}
 
 
 
@@ -77,13 +88,13 @@
     SKSpriteNode *sheep = [SKSpriteNode spriteNodeWithImageNamed:@"nakedSheep.png"];
     sheep.xScale = 0.05;
     sheep.yScale = 0.05;
-    sheep.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 40);
+    sheep.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 15);
     [self addChild:sheep];
     
     SKSpriteNode *woodenSign = [SKSpriteNode spriteNodeWithImageNamed:@"wooden.png"];
-    woodenSign.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 70);
-    woodenSign.xScale = 0.1;
-    woodenSign.yScale = 0.1;
+    woodenSign.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 40);
+    woodenSign.xScale = 0.3;
+    woodenSign.yScale = 0.3;
     [self addChild: woodenSign];
     
 }
