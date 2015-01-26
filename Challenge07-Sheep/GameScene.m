@@ -114,7 +114,7 @@ SKTexture *sheepSheep;
 -(void)playEffectBgSounds{
     
     //Play Sound
-//    [self runAction:[SKAction playSoundFileNamed:@"backgroundMusic.wav" waitForCompletion:NO]];
+    [self runAction:[SKAction playSoundFileNamed:@"backgroundMusic.wav" waitForCompletion:NO]];
     
 }
 
@@ -597,9 +597,9 @@ SKTexture *sheepSheep;
     life.text = [NSString stringWithFormat:@"%d", newLife];
     if ( newLife ==0 ){
         [self endGame];
-//        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.wav" waitForCompletion:NO]];
+        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
     } else {
-//        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
     }
 }
 
