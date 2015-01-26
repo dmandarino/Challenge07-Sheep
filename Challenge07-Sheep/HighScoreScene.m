@@ -55,25 +55,29 @@ SKLabelNode *scoreLabel;
 }
 
 -(SKSpriteNode *) createRetryButton {
-    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"retry.png"];
-    backButtonNode.position = CGPointMake(CGRectGetMinX(self.frame)+60, CGRectGetMidY(self.frame)-60);
-    backButtonNode.name = @"retryButtonNode";//how the node is identified later
-    backButtonNode.zPosition = 1.0;
-    backButtonNode.xScale = 0.45;
-    backButtonNode.yScale = 0.45;
+    SKSpriteNode *retryButtonNode;
+    if ([RWGameData sharedGameData].score > 0 )
+       retryButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"retry.png"];
+    else
+       retryButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play2.png"]; 
+    retryButtonNode.position = CGPointMake(CGRectGetMinX(self.frame)+40, CGRectGetMidY(self.frame)-60);
+    retryButtonNode.name = @"retryButtonNode";//how the node is identified later
+    retryButtonNode.zPosition = 1.0;
+    retryButtonNode.xScale = 0.2;
+    retryButtonNode.yScale = 0.2;
     
-    return backButtonNode;
+    return retryButtonNode;
 }
 
 -(SKSpriteNode *) createHomeButton {
-    SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"home.png"];
-    backButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)+120, CGRectGetMidY(self.frame)-60);
-    backButtonNode.name = @"homeButtonNode";//how the node is identified later
-    backButtonNode.zPosition = 1.0;
-    backButtonNode.xScale = 0.2;
-    backButtonNode.yScale = 0.2;
+    SKSpriteNode *homeButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"home.png"];
+    homeButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)+120, CGRectGetMidY(self.frame)-60);
+    homeButtonNode.name = @"homeButtonNode";//how the node is identified later
+    homeButtonNode.zPosition = 1.0;
+    homeButtonNode.xScale = 0.2;
+    homeButtonNode.yScale = 0.2;
     
-    return backButtonNode;
+    return homeButtonNode;
 }
 
 -(void) showScore {

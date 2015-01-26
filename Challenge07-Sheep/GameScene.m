@@ -216,7 +216,7 @@ SKTexture *sheepSheep;
     
     life= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     life.fontSize = 20;
-    life.text = @"3";
+    life.text = @"1";
     life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
     life.fontColor = [SKColor blackColor];
     [self addChild:life];
