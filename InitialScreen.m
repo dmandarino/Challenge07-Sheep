@@ -80,6 +80,12 @@
     sheep.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 40);
     [self addChild:sheep];
     
+    SKSpriteNode *woodenSign = [SKSpriteNode spriteNodeWithImageNamed:@"wooden.png"];
+    woodenSign.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 70);
+    woodenSign.xScale = 0.1;
+    woodenSign.yScale = 0.1;
+    [self addChild: woodenSign];
+    
 }
 
 

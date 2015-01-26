@@ -22,7 +22,6 @@ SKLabelNode *scoreLabel;
 CGPoint pointLocation;
 int counter = 0;
 int randomSide;
-int levelCount = 0;
 NSTimer *timer;
 bool attackLeft = false;
 bool attackRight = false;
@@ -31,6 +30,7 @@ bool attackDown = false;
 bool defenseRight = false;
 bool defenseLeft = false;
 bool defenseUp = false;
+bool playing  = true;
 
 SKSpriteNode *sprite;
 SKAction *runAnimation;
@@ -71,6 +71,8 @@ SKTexture *sheepSheep;
     
     [self prepareGameBackground];
     
+    [self playEffectBgSounds];
+    
     [self prepareDragonImages];
     
     [self showHighScore];
@@ -80,6 +82,8 @@ SKTexture *sheepSheep;
     [self prepareCards];
     
     [RWGameData sharedGameData].score = 0;
+    
+    playing = true;
     
     pulseRed = [SKAction sequence:@[
                                     [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
@@ -464,7 +468,8 @@ SKTexture *sheepSheep;
 }
 
 -(void)update:(NSTimeInterval)currentTime {
-    [RWGameData sharedGameData].score += 0.1;
+    if(playing)
+        [RWGameData sharedGameData].score += 0.1;
     scoreLabel.text = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].score];
 
     if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore)
@@ -597,7 +602,7 @@ SKTexture *sheepSheep;
 
 -(void) endGame {
     [self prepareSaveGame];
-
+    playing = false;
     SKTransition *reveal = [SKTransition fadeWithDuration:3];
     
     HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
