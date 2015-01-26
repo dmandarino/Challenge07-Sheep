@@ -203,7 +203,7 @@ SKTexture *sheepSheep;
     
     coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     coinsLabel.fontSize = 12;
-    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-107, CGRectGetMidY(self.frame)+45);
+    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+45);
     coinsLabel.fontColor = [SKColor blackColor];
     [self addChild:coinsLabel];
     
