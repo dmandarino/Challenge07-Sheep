@@ -24,8 +24,17 @@
     
     SKSpriteNode *shopButtonNode = [self createShopButton];
     [self addChild: shopButtonNode];
+    
+    
+    [self playEffectBgSounds];
 }
 
+-(void)playEffectBgSounds{
+    
+    //Play Sound
+    [self runAction:[SKAction playSoundFileNamed:@"initialScreen.mp3" waitForCompletion:NO]];
+    
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

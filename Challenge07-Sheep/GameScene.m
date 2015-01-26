@@ -18,7 +18,10 @@
 SKLabelNode *life;
 
 //CGFloat score = 0;
+float gameCoins;
 SKLabelNode *scoreLabel;
+SKLabelNode *coinsLabel;
+SKSpriteNode *coinsImg;
 CGPoint pointLocation;
 int counter = 0;
 int randomSide;
@@ -184,6 +187,7 @@ SKTexture *sheepSheep;
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:bgImage];
     
+    gameCoins = 0;
     
     msgLabel= [SKLabelNode labelNodeWithFontNamed:@"HoeflerText-BlackItalic"];
     msgLabel.fontSize = 20;
@@ -196,6 +200,18 @@ SKTexture *sheepSheep;
     scoreLabel.fontSize = 15;
     scoreLabel.position = CGPointMake((self.frame.size.width/8), (self.frame.size.height/2.8));
     [self addChild:scoreLabel];
+    
+    coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    coinsLabel.fontSize = 12;
+    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-107, CGRectGetMidY(self.frame)+45);
+    coinsLabel.fontColor = [SKColor blackColor];
+    [self addChild:coinsLabel];
+    
+    coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
+    coinsImg.xScale = 0.05;
+    coinsImg.yScale = 0.05;
+    coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)+52);
+    [self addChild:coinsImg];
     
     sheepSheep = [SKTexture textureWithImageNamed:@"sheep.png"];
     sheepEsq = [SKTexture textureWithImageNamed:@"sheetEsq.png"];
@@ -353,6 +369,7 @@ SKTexture *sheepSheep;
                 break;
             case 1://coin
                 NSLog(@"coin");
+                gameCoins+=10;
                 card.position = CGPointMake(350, 170);
                 break;
             case 2://super
@@ -468,12 +485,16 @@ SKTexture *sheepSheep;
 }
 
 -(void)update:(NSTimeInterval)currentTime {
-    if(playing)
+    if(playing){
         [RWGameData sharedGameData].score += 0.1;
-    scoreLabel.text = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].score];
+        scoreLabel.text = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].score];
+    
+        gameCoins += 0.005;
+        coinsLabel.text = [NSString stringWithFormat:@"%.0f", gameCoins];
 
-    if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore)
-        scoreLabel.fontColor = [SKColor redColor];
+        if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore)
+            scoreLabel.fontColor = [SKColor redColor];
+    }
     
 }
 
@@ -604,14 +625,16 @@ SKTexture *sheepSheep;
     [self prepareSaveGame];
     playing = false;
     SKTransition *reveal = [SKTransition fadeWithDuration:3];
-    
     HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
+    
     [self.view presentScene:scene transition:reveal];
     
 }
 
 -(void) prepareSaveGame {
+    
+    [RWGameData sharedGameData].coins += gameCoins;
 
     scoreLabel.fontColor = [SKColor blackColor];
     

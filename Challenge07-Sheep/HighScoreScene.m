@@ -27,6 +27,8 @@ SKLabelNode *scoreLabel;
     
     [self showScore];
     
+    [self showCoins];
+    
     [self rankingScore];
     
 }
@@ -67,6 +69,25 @@ SKLabelNode *scoreLabel;
     retryButtonNode.yScale = 0.2;
     
     return retryButtonNode;
+}
+
+-(void) showCoins{
+    
+    SKLabelNode *coinsLabel;
+    SKSpriteNode *coinsImg;
+    
+    coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    coinsLabel.fontSize = 12;
+    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+64);
+    coinsLabel.fontColor = [SKColor blackColor];
+    coinsLabel.text = [NSString stringWithFormat:@"%.0f",[RWGameData sharedGameData].coins];
+    [self addChild:coinsLabel];
+    
+    coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
+    coinsImg.xScale = 0.05;
+    coinsImg.yScale = 0.05;
+    coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+71);
+    [self addChild:coinsImg];
 }
 
 -(SKSpriteNode *) createHomeButton {

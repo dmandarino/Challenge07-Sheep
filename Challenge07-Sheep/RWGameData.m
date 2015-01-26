@@ -12,6 +12,7 @@
 
 static NSString* const SSGameDataHighScoreKey = @"highScore";
 static NSString* const SSGameDataRankingKey = @"ranking";
+static NSString* const SSGameDataCoinsKey = @"coins";
 static NSString* const SSGameDataTopScore1Key = @"topScore1";
 static NSString* const SSGameDataTopScore2Key = @"topScore2";
 static NSString* const SSGameDataTopScore3Key = @"topScore3";
@@ -21,6 +22,7 @@ static NSString* const SSGameDataTopScore5Key = @"topScore5";
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeDouble:self.highScore forKey: SSGameDataHighScoreKey];
+    [encoder encodeDouble:self.coins     forKey: SSGameDataCoinsKey];
     [encoder encodeDouble:self.topScore1 forKey: SSGameDataTopScore1Key];
     [encoder encodeDouble:self.topScore2 forKey: SSGameDataTopScore2Key];
     [encoder encodeDouble:self.topScore3 forKey: SSGameDataTopScore3Key];
@@ -55,6 +57,7 @@ static NSString* const SSGameDataTopScore5Key = @"topScore5";
         _topScore3 = [decoder decodeDoubleForKey: SSGameDataTopScore3Key];
         _topScore4 = [decoder decodeDoubleForKey: SSGameDataTopScore4Key];
         _topScore5 = [decoder decodeDoubleForKey: SSGameDataTopScore5Key];
+        _coins     = [decoder decodeDoubleForKey: SSGameDataCoinsKey];
     }
     return self;
 }

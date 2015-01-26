@@ -12,6 +12,8 @@
 
 @property (assign, nonatomic) float score;
 
+@property (assign, nonatomic) float coins;
+
 @property (assign, nonatomic) float highScore;
 
 @property (assign, nonatomic) float topScore1;
