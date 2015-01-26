@@ -14,7 +14,12 @@
 
 @property (assign, nonatomic) float highScore;
 
-@property (assign, nonatomic) NSMutableArray *ranking;
+@property (assign, nonatomic) float topScore1;
+@property (assign, nonatomic) float topScore2;
+@property (assign, nonatomic) float topScore3;
+@property (assign, nonatomic) float topScore4;
+@property (assign, nonatomic) float topScore5;
+
 
 +(instancetype)sharedGameData;
 -(void)reset;

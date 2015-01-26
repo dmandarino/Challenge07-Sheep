@@ -12,10 +12,20 @@
 
 static NSString* const SSGameDataHighScoreKey = @"highScore";
 static NSString* const SSGameDataRankingKey = @"ranking";
+static NSString* const SSGameDataTopScore1Key = @"topScore1";
+static NSString* const SSGameDataTopScore2Key = @"topScore2";
+static NSString* const SSGameDataTopScore3Key = @"topScore3";
+static NSString* const SSGameDataTopScore4Key = @"topScore4";
+static NSString* const SSGameDataTopScore5Key = @"topScore5";
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeDouble:self.highScore forKey: SSGameDataHighScoreKey];
+    [encoder encodeDouble:self.topScore1 forKey: SSGameDataTopScore1Key];
+    [encoder encodeDouble:self.topScore2 forKey: SSGameDataTopScore2Key];
+    [encoder encodeDouble:self.topScore3 forKey: SSGameDataTopScore3Key];
+    [encoder encodeDouble:self.topScore4 forKey: SSGameDataTopScore4Key];
+    [encoder encodeDouble:self.topScore5 forKey: SSGameDataTopScore5Key];
 }
 
 + (instancetype)sharedGameData {
@@ -40,7 +50,11 @@ static NSString* const SSGameDataRankingKey = @"ranking";
     self = [self init];
     if (self) {
         _highScore = [decoder decodeDoubleForKey: SSGameDataHighScoreKey];
-        _ranking = [decoder decodeObjectForKey:SSGameDataRankingKey];
+        _topScore1 = [decoder decodeDoubleForKey: SSGameDataTopScore1Key];
+        _topScore2 = [decoder decodeDoubleForKey: SSGameDataTopScore2Key];
+        _topScore3 = [decoder decodeDoubleForKey: SSGameDataTopScore3Key];
+        _topScore4 = [decoder decodeDoubleForKey: SSGameDataTopScore4Key];
+        _topScore5 = [decoder decodeDoubleForKey: SSGameDataTopScore5Key];
     }
     return self;
 }

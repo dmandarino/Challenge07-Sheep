@@ -114,7 +114,7 @@ SKTexture *sheepSheep;
 -(void)playEffectBgSounds{
     
     //Play Sound
-    [self runAction:[SKAction playSoundFileNamed:@"backgroundMusic.wav" waitForCompletion:NO]];
+//    [self runAction:[SKAction playSoundFileNamed:@"backgroundMusic.wav" waitForCompletion:NO]];
     
 }
 
@@ -134,8 +134,8 @@ SKTexture *sheepSheep;
     card = [SKSpriteNode spriteNodeWithTexture:cardHeart];
     cardStatus = 0;
     card.name = @"cardNode";
-    card.xScale = 0.04;
-    card.yScale = 0.04;
+    card.xScale = 0.08;
+    card.yScale = 0.08;
     card.position = CGPointMake(350, 170);// Y varia de 390 ateh 175 nao visivel
     cardMove = [SKAction moveToY:170 duration:4];
     invencible = false;
@@ -175,8 +175,8 @@ SKTexture *sheepSheep;
     
     if (randomFall == 0 && card.position.y == 170 && invencible == false) {
         [self chooseCard];
-        card.xScale = 0.04;
-        card.yScale = 0.04;
+        card.xScale = 0.06;
+        card.yScale = 0.06;
         card.position = CGPointMake(randomX, 380);
         [card runAction:cardMove];
     }
@@ -474,10 +474,10 @@ SKTexture *sheepSheep;
 
 -(void)update:(NSTimeInterval)currentTime {
     [RWGameData sharedGameData].score += 0.1;
-    scoreLabel.text = [NSString stringWithFormat:@"%.0f pt", [RWGameData sharedGameData].score];
+    scoreLabel.text = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].score];
 
     if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore)
-        scoreLabel.fontColor = [SKColor yellowColor];
+        scoreLabel.fontColor = [SKColor redColor];
     
 }
 
@@ -597,9 +597,9 @@ SKTexture *sheepSheep;
     life.text = [NSString stringWithFormat:@"%d", newLife];
     if ( newLife ==0 ){
         [self endGame];
-        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.wav" waitForCompletion:NO]];
+//        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.wav" waitForCompletion:NO]];
     } else {
-        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+//        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
     }
 }
 
@@ -615,11 +615,40 @@ SKTexture *sheepSheep;
 }
 
 -(void) prepareSaveGame {
-    
 
+    scoreLabel.fontColor = [SKColor blackColor];
+    
+    if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore)
+        scoreLabel.fontColor = [SKColor redColor];
+    
+    [self setRanking];
+    
     [RWGameData sharedGameData].highScore = MAX([RWGameData sharedGameData].score,
                                                 [RWGameData sharedGameData].highScore);
     [[RWGameData sharedGameData] save];
+}
+
+-(void) setRanking {
+    
+    NSMutableArray *scoreList = [NSMutableArray array];
+    
+    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].score]];
+    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore1]];
+    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore2]];
+    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore3]];
+    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore4]];
+    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore5]];
+    
+    NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+    [scoreList sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
+    
+    
+    [RWGameData sharedGameData].topScore1 = [[scoreList objectAtIndex:0] floatValue];
+    [RWGameData sharedGameData].topScore2 = [[scoreList objectAtIndex:1] floatValue];
+    [RWGameData sharedGameData].topScore3 = [[scoreList objectAtIndex:2] floatValue];
+    [RWGameData sharedGameData].topScore4 = [[scoreList objectAtIndex:3] floatValue];
+    [RWGameData sharedGameData].topScore5 = [[scoreList objectAtIndex:4] floatValue];
+    
 }
 
 @end
