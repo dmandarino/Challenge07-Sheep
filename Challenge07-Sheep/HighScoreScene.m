@@ -31,6 +31,8 @@ SKLabelNode *scoreLabel;
     
     [self rankingScore];
     
+    [self playEffectBgSounds];
+    
 }
 
 
@@ -42,12 +44,14 @@ SKLabelNode *scoreLabel;
     
     //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"retryButtonNode"]) {
+        [_player stop];
         SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];
         
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:reveal];
     } else if ([node.name isEqualToString:@"homeButtonNode"]) {
+        [_player stop];
         SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];
         
         InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
@@ -201,6 +205,18 @@ SKLabelNode *scoreLabel;
     bgImage.size = CGSizeMake(self.size.height, self.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:bgImage];
+}
+
+-(void)playEffectBgSounds{
+    
+    //Play Sound
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+                                         pathForResource:@"backgroundMusic"
+                                         ofType:@"wav"]];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    _player.numberOfLoops = -1;
+    
+    [_player play];
 }
 
 @end

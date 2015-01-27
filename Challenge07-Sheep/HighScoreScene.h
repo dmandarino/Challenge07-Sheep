@@ -7,7 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface HighScoreScene : SKScene
+@property AVAudioPlayer *player;
 
 @end
