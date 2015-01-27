@@ -112,8 +112,13 @@ SKTexture *sheepSheep;
 -(void)playEffectBgSounds{
     
     //Play Sound
-    [self runAction:[SKAction playSoundFileNamed:@"backgroundMusic.wav" waitForCompletion:NO]];
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+                                         pathForResource:@"backgroundMusic"
+                                         ofType:@"wav"]];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    _player.numberOfLoops = -1;
     
+    [_player play];
 }
 
 -(void)setPressRegoganizer{
@@ -622,6 +627,7 @@ SKTexture *sheepSheep;
 }
 
 -(void) endGame {
+    [_player stop];
     [self prepareSaveGame];
     playing = false;
     SKTransition *reveal = [SKTransition fadeWithDuration:3];

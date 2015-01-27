@@ -86,7 +86,7 @@
 		5A72590C1A76DE1000430536 /* cardCoin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardCoin.png; sourceTree = "<group>"; };
 		5A72590D1A76DE1000430536 /* cardHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardHeart.png; sourceTree = "<group>"; };
 		5A72590E1A76DE1000430536 /* cardSuper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardSuper.png; sourceTree = "<group>"; };
-		5AD8CFF51A6C013800BE3D59 /* Challenge07-Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Challenge07-Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AD8CFF51A6C013800BE3D59 /* Ipp The Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ipp The Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8CFF91A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8CFFA1A6C013800BE3D59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5AD8CFFC1A6C013800BE3D59 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		5AD8CFF61A6C013800BE3D59 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5AD8CFF51A6C013800BE3D59 /* Challenge07-Sheep.app */,
+				5AD8CFF51A6C013800BE3D59 /* Ipp The Sheep.app */,
 				5AD8D0131A6C013800BE3D59 /* Challenge07-SheepTests.xctest */,
 			);
 			name = Products;
@@ -247,7 +247,7 @@
 			);
 			name = "Challenge07-Sheep";
 			productName = "Challenge07-Sheep";
-			productReference = 5AD8CFF51A6C013800BE3D59 /* Challenge07-Sheep.app */;
+			productReference = 5AD8CFF51A6C013800BE3D59 /* Ipp The Sheep.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5AD8D0121A6C013800BE3D59 /* Challenge07-SheepTests */ = {
@@ -486,12 +486,13 @@
 		5AD8D01E1A6C013800BE3D59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Challenge07-Sheep/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Ipp The Sheep";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -499,12 +500,13 @@
 		5AD8D01F1A6C013800BE3D59 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Challenge07-Sheep/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Ipp The Sheep";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;

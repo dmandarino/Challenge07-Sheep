@@ -9,6 +9,7 @@
 #import "InitialScreen.h"
 #import "GameScene.h"
 #import "HighScoreScene.h"
+
 @implementation InitialScreen
 
 
@@ -32,8 +33,13 @@
 -(void)playEffectBgSounds{
     
     //Play Sound
-    [self runAction:[SKAction playSoundFileNamed:@"initialScreen.mp3" waitForCompletion:NO]];
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+                                         pathForResource:@"initialScreen"
+                                         ofType:@"mp3"]];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    _player.numberOfLoops = -1;
     
+    [_player play];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

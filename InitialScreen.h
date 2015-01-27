@@ -7,7 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface InitialScreen : SKScene
+
+@property AVAudioPlayer *player;
 
 @end

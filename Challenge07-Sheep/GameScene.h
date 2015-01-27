@@ -7,7 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface GameScene : SKScene <UIGestureRecognizerDelegate>
+@property AVAudioPlayer *player;
 
 @end
