@@ -9,6 +9,7 @@
 #import "InitialScreen.h"
 #import "GameScene.h"
 #import "HighScoreScene.h"
+#import "Store.h"
 
 @implementation InitialScreen
 
@@ -54,10 +55,18 @@
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
-    }else if ([node.name isEqualToString:@"highScoreNode"]){
-        HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+    }else{
+        if ([node.name isEqualToString:@"highScoreNode"]){
+            HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+        }else{
+            if([node.name isEqualToString:@"shopNode"]){
+                Store *scene = [Store sceneWithSize:self.size];
+                scene.scaleMode = SKSceneScaleModeAspectFill;
+                [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+            }
+        }
     }
 }
 
