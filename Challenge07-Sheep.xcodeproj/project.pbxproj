@@ -38,6 +38,7 @@
 		5A7259101A76DE1000430536 /* cardCoin.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A72590C1A76DE1000430536 /* cardCoin.png */; };
 		5A7259111A76DE1000430536 /* cardHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A72590D1A76DE1000430536 /* cardHeart.png */; };
 		5A7259121A76DE1000430536 /* cardSuper.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A72590E1A76DE1000430536 /* cardSuper.png */; };
+		5AA813041A77F38600D6156E /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AA813031A77F38600D6156E /* help.png */; };
 		5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFA1A6C013800BE3D59 /* main.m */; };
 		5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFD1A6C013800BE3D59 /* AppDelegate.m */; };
 		5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8D0001A6C013800BE3D59 /* GameScene.m */; };
@@ -96,6 +97,7 @@
 		5A72590C1A76DE1000430536 /* cardCoin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardCoin.png; sourceTree = "<group>"; };
 		5A72590D1A76DE1000430536 /* cardHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardHeart.png; sourceTree = "<group>"; };
 		5A72590E1A76DE1000430536 /* cardSuper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardSuper.png; sourceTree = "<group>"; };
+		5AA813031A77F38600D6156E /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		5AD8CFF51A6C013800BE3D59 /* Ipp The Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ipp The Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8CFF91A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8CFFA1A6C013800BE3D59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 		5AD8CFF81A6C013800BE3D59 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5AA813031A77F38600D6156E /* help.png */,
 				08B5928C1A77DB5F00979D23 /* nakedSheep.png */,
 				06C3035B1A77E41600FFDF7F /* tutorial.png */,
 				5A72590B1A76DE1000430536 /* cardBonus.png */,
@@ -338,6 +341,7 @@
 				5A06651F1A71792000163B47 /* heart.png in Resources */,
 				5A7259041A76C54000430536 /* play2.png in Resources */,
 				06C3035C1A77E41600FFDF7F /* tutorial.png in Resources */,
+				5AA813041A77F38600D6156E /* help.png in Resources */,
 				089AD9371A76D1090045F73C /* coins.png in Resources */,
 				5A7258FC1A76B89F00430536 /* cart.png in Resources */,
 				5A7258FA1A76B5BA00430536 /* ranking.png in Resources */,
