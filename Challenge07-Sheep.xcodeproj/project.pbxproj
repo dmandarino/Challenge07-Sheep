@@ -16,6 +16,8 @@
 		06C303371A75D3EA00FFDF7F /* RWGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C303361A75D3EA00FFDF7F /* RWGameData.m */; };
 		06C3033C1A75D5C200FFDF7F /* InitialScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C3033B1A75D5C200FFDF7F /* InitialScreen.m */; };
 		06C3033E1A75D8F400FFDF7F /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C3033D1A75D8F400FFDF7F /* play.png */; };
+		06C303581A77D94400FFDF7F /* TutorialScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C303571A77D94400FFDF7F /* TutorialScene.m */; };
+		06C3035C1A77E41600FFDF7F /* tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C3035B1A77E41600FFDF7F /* tutorial.png */; };
 		06E189CB1A6C8F99007AEF67 /* background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 06E189CA1A6C8F99007AEF67 /* background1.png */; };
 		089AD9371A76D1090045F73C /* coins.png in Resources */ = {isa = PBXBuildFile; fileRef = 089AD9361A76D1090045F73C /* coins.png */; };
 		08B1D9B61A76C0BE00788575 /* initialScreen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08B1D9B31A76C0BE00788575 /* initialScreen.mp3 */; };
@@ -69,6 +71,9 @@
 		06C3033A1A75D5C200FFDF7F /* InitialScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitialScreen.h; path = ../InitialScreen.h; sourceTree = "<group>"; };
 		06C3033B1A75D5C200FFDF7F /* InitialScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InitialScreen.m; path = ../InitialScreen.m; sourceTree = "<group>"; };
 		06C3033D1A75D8F400FFDF7F /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		06C303561A77D94400FFDF7F /* TutorialScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialScene.h; path = ../TutorialScene.h; sourceTree = "<group>"; };
+		06C303571A77D94400FFDF7F /* TutorialScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialScene.m; path = ../TutorialScene.m; sourceTree = "<group>"; };
+		06C3035B1A77E41600FFDF7F /* tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial.png; sourceTree = "<group>"; };
 		06E189CA1A6C8F99007AEF67 /* background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background1.png; sourceTree = "<group>"; };
 		089AD9361A76D1090045F73C /* coins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coins.png; sourceTree = "<group>"; };
 		08B1D9B31A76C0BE00788575 /* initialScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = initialScreen.mp3; sourceTree = "<group>"; };
@@ -188,6 +193,8 @@
 				06C303361A75D3EA00FFDF7F /* RWGameData.m */,
 				06C3033A1A75D5C200FFDF7F /* InitialScreen.h */,
 				06C3033B1A75D5C200FFDF7F /* InitialScreen.m */,
+				06C303561A77D94400FFDF7F /* TutorialScene.h */,
+				06C303571A77D94400FFDF7F /* TutorialScene.m */,
 				5AD8D0071A6C013800BE3D59 /* Main.storyboard */,
 				5AD8D00A1A6C013800BE3D59 /* Images.xcassets */,
 				5AD8D00C1A6C013800BE3D59 /* LaunchScreen.xib */,
@@ -200,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				08B5928C1A77DB5F00979D23 /* nakedSheep.png */,
+				06C3035B1A77E41600FFDF7F /* tutorial.png */,
 				5A72590B1A76DE1000430536 /* cardBonus.png */,
 				5A72590C1A76DE1000430536 /* cardCoin.png */,
 				5A72590D1A76DE1000430536 /* cardHeart.png */,
@@ -329,6 +337,7 @@
 				5A72590F1A76DE1000430536 /* cardBonus.png in Resources */,
 				5A06651F1A71792000163B47 /* heart.png in Resources */,
 				5A7259041A76C54000430536 /* play2.png in Resources */,
+				06C3035C1A77E41600FFDF7F /* tutorial.png in Resources */,
 				089AD9371A76D1090045F73C /* coins.png in Resources */,
 				5A7258FC1A76B89F00430536 /* cart.png in Resources */,
 				5A7258FA1A76B5BA00430536 /* ranking.png in Resources */,
@@ -370,6 +379,7 @@
 				5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */,
 				06C3033C1A75D5C200FFDF7F /* InitialScreen.m in Sources */,
 				06C303371A75D3EA00FFDF7F /* RWGameData.m in Sources */,
+				06C303581A77D94400FFDF7F /* TutorialScene.m in Sources */,
 				5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */,
 				5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */,
 				5A06657C1A72C27200163B47 /* HighScoreScene.m in Sources */,

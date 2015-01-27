@@ -10,6 +10,8 @@
 #import "GameScene.h"
 #import "HighScoreScene.h"
 #import "Store.h"
+#import "TutorialScene.h"
+
 
 @implementation InitialScreen
 

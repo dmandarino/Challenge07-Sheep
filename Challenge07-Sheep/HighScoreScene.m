@@ -42,7 +42,6 @@ SKLabelNode *scoreLabel;
     CGPoint location = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
     
-    //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"retryButtonNode"]) {
         [_player stop];
         SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];

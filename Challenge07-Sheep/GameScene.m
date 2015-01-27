@@ -17,7 +17,6 @@
 
 SKLabelNode *life;
 
-//CGFloat score = 0;
 float gameCoins;
 SKLabelNode *scoreLabel;
 SKLabelNode *coinsLabel;
@@ -55,9 +54,7 @@ SKTexture *cardBonus;
 
 SKAction *cardMove;
 SKAction *sheepSuper;
-SKAction *Level2;
-SKAction *Level3;
-SKAction *Level4;
+
 
 int cardStatus;
 bool invencible;
@@ -232,12 +229,12 @@ SKTexture *sheepSheep;
     SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
     heart.xScale = 0.01;
     heart.yScale = 0.01;
-    heart.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)+72);
+    heart.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+72);
     [self addChild:heart];
     
     life= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     life.fontSize = 20;
-    life.text = @"1";
+    life.text = @"2";
     life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
     life.fontColor = [SKColor blackColor];
     [self addChild:life];
@@ -572,14 +569,7 @@ SKTexture *sheepSheep;
                 [self getBonusScore];
             attackLeft = false;
             break;
-            //        case 3:
-            //            //            attackDown = true;
-            //            //            if(defenseTest != attackDown){
-            //            //                NSLog(@"DEAAAAD BITCH");
-            //            //            }
-            //            //            attackDown = false;
-            //            break;
-            
+
     }
     
 }
