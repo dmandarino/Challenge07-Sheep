@@ -25,10 +25,11 @@
     SKSpriteNode *scoreButtonNode = [self createScoreButton];
     [self addChild: scoreButtonNode];
 
-    
     SKSpriteNode *shopButtonNode = [self createShopButton];
     [self addChild: shopButtonNode];
     
+    SKSpriteNode *helpButtonNode = [self createHelpButton];
+    [self addChild: helpButtonNode];
     
     [self playEffectBgSounds];
 }
@@ -57,19 +58,20 @@
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
-    }else{
-        if ([node.name isEqualToString:@"highScoreNode"]){
-            HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
-            scene.scaleMode = SKSceneScaleModeAspectFill;
-            [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
-        }else{
-            if([node.name isEqualToString:@"shopNode"]){
-                Store *scene = [Store sceneWithSize:self.size];
-                scene.scaleMode = SKSceneScaleModeAspectFill;
-                [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
-            }
-        }
+    }else if ([node.name isEqualToString:@"highScoreNode"]){
+        HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+    }else if([node.name isEqualToString:@"shopNode"]){
+        Store *scene = [Store sceneWithSize:self.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+    }else if([node.name isEqualToString:@"helpNode"]){
+        TutorialScene *scene = [TutorialScene sceneWithSize:self.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
     }
+
 }
 
 -(SKSpriteNode *) createPlayButton {
@@ -103,7 +105,16 @@
     return backShopNode;
 }
 
-
+-(SKSpriteNode *) createHelpButton {
+    SKSpriteNode *backShopNode = [SKSpriteNode spriteNodeWithImageNamed:@"help.png"];
+    backShopNode.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+60);
+    backShopNode.name = @"helpNode";//how the node is identified later
+    backShopNode.zPosition = 1.0;
+    backShopNode.xScale = 0.1;
+    backShopNode.yScale = 0.1;
+    
+    return backShopNode;
+}
 
 -(void) createBackground {
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];

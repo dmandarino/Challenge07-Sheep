@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5AD8CFF41A6C013800BE3D59"
-               BuildableName = "Challenge07-Sheep.app"
+               BuildableName = "Ipp The Sheep.app"
                BlueprintName = "Challenge07-Sheep"
                ReferencedContainer = "container:Challenge07-Sheep.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5AD8CFF41A6C013800BE3D59"
-            BuildableName = "Challenge07-Sheep.app"
+            BuildableName = "Ipp The Sheep.app"
             BlueprintName = "Challenge07-Sheep"
             ReferencedContainer = "container:Challenge07-Sheep.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5AD8CFF41A6C013800BE3D59"
-            BuildableName = "Challenge07-Sheep.app"
+            BuildableName = "Ipp The Sheep.app"
             BlueprintName = "Challenge07-Sheep"
             ReferencedContainer = "container:Challenge07-Sheep.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5AD8CFF41A6C013800BE3D59"
-            BuildableName = "Challenge07-Sheep.app"
+            BuildableName = "Ipp The Sheep.app"
             BlueprintName = "Challenge07-Sheep"
             ReferencedContainer = "container:Challenge07-Sheep.xcodeproj">
          </BuildableReference>
