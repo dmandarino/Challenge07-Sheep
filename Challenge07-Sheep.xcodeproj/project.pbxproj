@@ -19,6 +19,11 @@
 		06C303581A77D94400FFDF7F /* TutorialScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C303571A77D94400FFDF7F /* TutorialScene.m */; };
 		06C3035C1A77E41600FFDF7F /* tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C3035B1A77E41600FFDF7F /* tutorial.png */; };
 		06E189CB1A6C8F99007AEF67 /* background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 06E189CA1A6C8F99007AEF67 /* background1.png */; };
+		080569C81A77F39B0071E451 /* woodBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 080569C71A77F39B0071E451 /* woodBackground.png */; };
+		080569CC1A780D550071E451 /* link.png in Resources */ = {isa = PBXBuildFile; fileRef = 080569C91A780D550071E451 /* link.png */; };
+		080569CD1A780D550071E451 /* medieval.png in Resources */ = {isa = PBXBuildFile; fileRef = 080569CA1A780D550071E451 /* medieval.png */; };
+		080569CE1A780D550071E451 /* pirate.png in Resources */ = {isa = PBXBuildFile; fileRef = 080569CB1A780D550071E451 /* pirate.png */; };
+		080569D01A780D5F0071E451 /* king.png in Resources */ = {isa = PBXBuildFile; fileRef = 080569CF1A780D5F0071E451 /* king.png */; };
 		089AD9371A76D1090045F73C /* coins.png in Resources */ = {isa = PBXBuildFile; fileRef = 089AD9361A76D1090045F73C /* coins.png */; };
 		08B1D9B61A76C0BE00788575 /* initialScreen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08B1D9B31A76C0BE00788575 /* initialScreen.mp3 */; };
 		08B1D9B71A76C0BE00788575 /* store.wav in Resources */ = {isa = PBXBuildFile; fileRef = 08B1D9B41A76C0BE00788575 /* store.wav */; };
@@ -76,6 +81,11 @@
 		06C303571A77D94400FFDF7F /* TutorialScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialScene.m; path = ../TutorialScene.m; sourceTree = "<group>"; };
 		06C3035B1A77E41600FFDF7F /* tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial.png; sourceTree = "<group>"; };
 		06E189CA1A6C8F99007AEF67 /* background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background1.png; sourceTree = "<group>"; };
+		080569C71A77F39B0071E451 /* woodBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woodBackground.png; sourceTree = "<group>"; };
+		080569C91A780D550071E451 /* link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = link.png; sourceTree = "<group>"; };
+		080569CA1A780D550071E451 /* medieval.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medieval.png; sourceTree = "<group>"; };
+		080569CB1A780D550071E451 /* pirate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pirate.png; sourceTree = "<group>"; };
+		080569CF1A780D5F0071E451 /* king.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = king.png; sourceTree = "<group>"; };
 		089AD9361A76D1090045F73C /* coins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coins.png; sourceTree = "<group>"; };
 		08B1D9B31A76C0BE00788575 /* initialScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = initialScreen.mp3; sourceTree = "<group>"; };
 		08B1D9B41A76C0BE00788575 /* store.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = store.wav; sourceTree = "<group>"; };
@@ -208,8 +218,13 @@
 		5AD8CFF81A6C013800BE3D59 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				080569CF1A780D5F0071E451 /* king.png */,
+				080569C91A780D550071E451 /* link.png */,
+				080569CA1A780D550071E451 /* medieval.png */,
+				080569CB1A780D550071E451 /* pirate.png */,
 				5AA813031A77F38600D6156E /* help.png */,
 				08B5928C1A77DB5F00979D23 /* nakedSheep.png */,
+				080569C71A77F39B0071E451 /* woodBackground.png */,
 				06C3035B1A77E41600FFDF7F /* tutorial.png */,
 				5A72590B1A76DE1000430536 /* cardBonus.png */,
 				5A72590C1A76DE1000430536 /* cardCoin.png */,
@@ -341,14 +356,17 @@
 				5A06651F1A71792000163B47 /* heart.png in Resources */,
 				5A7259041A76C54000430536 /* play2.png in Resources */,
 				06C3035C1A77E41600FFDF7F /* tutorial.png in Resources */,
+				080569CD1A780D550071E451 /* medieval.png in Resources */,
 				5AA813041A77F38600D6156E /* help.png in Resources */,
 				089AD9371A76D1090045F73C /* coins.png in Resources */,
+				080569C81A77F39B0071E451 /* woodBackground.png in Resources */,
 				5A7258FC1A76B89F00430536 /* cart.png in Resources */,
 				5A7258FA1A76B5BA00430536 /* ranking.png in Resources */,
 				5A7259101A76DE1000430536 /* cardCoin.png in Resources */,
 				5A7259111A76DE1000430536 /* cardHeart.png in Resources */,
 				065006D41A7288E800A5ED8F /* sheepDir.png in Resources */,
 				5A7259001A76BDB100430536 /* home.png in Resources */,
+				080569D01A780D5F0071E451 /* king.png in Resources */,
 				06E189CB1A6C8F99007AEF67 /* background1.png in Resources */,
 				5A7258F61A76B27100430536 /* dyingSheep.mp3 in Resources */,
 				06C303141A72BCB900FFDF7F /* backgroundMusic.wav in Resources */,
@@ -356,12 +374,14 @@
 				08B5928D1A77DB5F00979D23 /* nakedSheep.png in Resources */,
 				5A06658E1A72CC4000163B47 /* animation.atlas in Resources */,
 				065006D61A7288E800A5ED8F /* sheetEsq.png in Resources */,
+				080569CC1A780D550071E451 /* link.png in Resources */,
 				5A7259121A76DE1000430536 /* cardSuper.png in Resources */,
 				06C3033E1A75D8F400FFDF7F /* play.png in Resources */,
 				065006D51A7288E800A5ED8F /* sheepUp.png in Resources */,
 				06C303151A72BCB900FFDF7F /* ImSheep.mp3 in Resources */,
 				5AD8D0031A6C013800BE3D59 /* GameScene.sks in Resources */,
 				5AD8D0091A6C013800BE3D59 /* Main.storyboard in Resources */,
+				080569CE1A780D550071E451 /* pirate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
