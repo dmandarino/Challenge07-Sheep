@@ -8,7 +8,7 @@
 
 #import "GameViewController.h"
 #import "GameScene.h"
-#import "InitialScreen.h"
+#import "trailerScene.h"
 
 @implementation SKScene (Unarchive)
 
@@ -45,7 +45,7 @@
     // Create and configure the scene.
     //inverti a orientaçao do iphone qnd simulado
     //GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
-    InitialScreen *scene = [InitialScreen sceneWithSize:(CGSizeMake(skView.frame.size.height, skView.frame.size.width))];
+    trailerScene *scene = [trailerScene sceneWithSize:(CGSizeMake(skView.frame.size.height, skView.frame.size.width))];
     
     scene.scaleMode = SKSceneScaleModeAspectFill;
     

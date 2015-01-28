@@ -11,12 +11,13 @@
 #import "HighScoreScene.h"
 #import "Store.h"
 #import "TutorialScene.h"
-
+#import <AVFoundation/AVFoundation.h>
 
 @implementation InitialScreen
 
 
 -(void) didMoveToView:(SKView *)view {
+    
     [self createBackground];
     
     SKSpriteNode *backButtonNode = [self createPlayButton];
@@ -30,6 +31,7 @@
     
     SKSpriteNode *helpButtonNode = [self createHelpButton];
     [self addChild: helpButtonNode];
+    
     
     [self playEffectBgSounds];
 }

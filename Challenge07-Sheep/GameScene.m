@@ -10,7 +10,7 @@
 #import "GameViewController.h"
 #import "HighScoreScene.h"
 #import "RWGameData.h"
-
+#import <AVFoundation/AVFoundation.h>
 
 
 @implementation GameScene
@@ -65,8 +65,10 @@ SKTexture *sheepEsq;
 SKTexture *sheepUp;
 SKTexture *sheepSheep;
 
+AVPlayer *_player2; SKVideoNode *_videoNode;
 
 -(void)didMoveToView:(SKView *)view {
+    
     /* Setup your scene here */
     
     [self prepareGameBackground];
@@ -219,6 +221,8 @@ SKTexture *sheepSheep;
     sheepEsq = [SKTexture textureWithImageNamed:@"sheetEsq.png"];
     sheepDir = [SKTexture textureWithImageNamed:@"sheepDir.png"];
     sheepUp = [SKTexture textureWithImageNamed:@"sheepUp.png"];
+    
+    
     sprite = [SKSpriteNode spriteNodeWithTexture:sheepSheep];
    
     sprite.xScale = 0.2;
@@ -666,5 +670,6 @@ SKTexture *sheepSheep;
     [RWGameData sharedGameData].topScore5 = [[scoreList objectAtIndex:4] floatValue];
     
 }
+
 
 @end
