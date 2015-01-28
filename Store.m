@@ -10,6 +10,7 @@
 #import "GameScene.h"
 #import "RWGameData.h"
 #import "InitialScreen.h"
+#import "Sheep.h"
 
 @implementation Store
 
@@ -24,7 +25,21 @@ SKSpriteNode *coinsImg2;
 SKSpriteNode *heartImg;
 SKLabelNode *nHeart;
 
+NSMutableArray *sheepArray;
+//NSString *sheepName;
+
+
+SKLabelNode *name;
+SKLabelNode *price;
+SKSpriteNode *outfitImg;
+SKSpriteNode *coinsImg2;
+NSString *imageName;
+
+int used;
+
 -(void) didMoveToView:(SKView *)view {
+    
+    sheepArray = [[NSMutableArray alloc] init];
     
     [self createBackground];
     
@@ -106,37 +121,65 @@ SKLabelNode *nHeart;
     nHeart.position = CGPointMake(((self.frame.size.width/2)-10), (self.frame.size.height/2)-76);
     nHeart.text = @"2";
     [self addChild:nHeart];
-    
+
+    [self showSheeps];
+}
+
+- (void) showSheeps {
     for (int i=1; i<=4; i++) {
-        SKLabelNode *name;
-        SKLabelNode *price;
-        SKSpriteNode *outfitImg;
-        SKSpriteNode *coinsImg2;
         
         name = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
         name.fontSize = 10;
         name.fontColor = [SKColor whiteColor];
         name.position = CGPointMake(((self.frame.size.width/2)-190+i*75), (self.frame.size.height/2)+25);
         
+        price = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        price.fontSize = 10;
+        price.fontColor = [SKColor whiteColor];
+        price.position = CGPointMake(((self.frame.size.width/2)-190+i*75), (self.frame.size.height/2)-37);
+        price.text = [NSString stringWithFormat:@"%d", 200+i*100];
+        
+        
+        coinsImg2 = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
+        coinsImg2.xScale = 0.03;
+        coinsImg2.yScale = 0.03;
+        coinsImg2.position = CGPointMake(CGRectGetMidX(self.frame)-210+i*75, CGRectGetMidY(self.frame)-32);
+        
         switch (i) {
             case 1:
-                outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"pirate.png"];
-                name.text = @"pirate";
+                if (![RWGameData sharedGameData].used == 1){
+                    outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"pirate.png"];
+                    outfitImg.name = @"pirateNode";
+                    name.text = @"pirate";
+                    imageName = @"pirate.png";
+                } else {
+                    outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"sheep.png"];
+                    outfitImg.name = @"pirateNode";
+                    name.text = @"sheep";
+                    imageName = @"sheep.png";
+                    price.text = @"0";
+                }
                 break;
             case 2:
                 outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"medieval.png"];
+                outfitImg.name = @"medievalNode";
                 name.text = @"medieval";
+                imageName = @"medieval.png";
                 break;
             case 3:
                 outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"link.png"];
+                outfitImg.name = @"linkNode";
                 name.text = @"link";
+                imageName = @"link.png";
                 break;
             case 4:
                 outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"king.png"];
+                outfitImg.name = @"king.png";
                 name.text = @"king";
+                imageName = @"king.png";
                 break;
         }
-
+        
         outfitImg.xScale = 0.2;
         outfitImg.yScale = 0.2;
         outfitImg.position = CGPointMake(CGRectGetMidX(self.frame)-192+i*76, CGRectGetMidY(self.frame)-5);
@@ -144,20 +187,18 @@ SKLabelNode *nHeart;
         
         [self addChild:name];
         
-        price = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-        price.fontSize = 10;
-        price.fontColor = [SKColor whiteColor];
-        price.position = CGPointMake(((self.frame.size.width/2)-190+i*75), (self.frame.size.height/2)-37);
-        price.text = [NSString stringWithFormat:@"%d", 200+i*100];
         [self addChild:price];
-
-        coinsImg2 = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
-        coinsImg2.xScale = 0.03;
-        coinsImg2.yScale = 0.03;
-        coinsImg2.position = CGPointMake(CGRectGetMidX(self.frame)-210+i*75, CGRectGetMidY(self.frame)-32);
+        
         [self addChild:coinsImg2];
         
+        Sheep *sheep = [[Sheep alloc] init];
+        [sheep setName:imageName];
+        [sheep setPrice:price.text.floatValue];
+//        [sheep setOwned:true];
+        
+        [sheepArray addObject:sheep];
     }
+
 }
 
 -(SKSpriteNode *) createRetryButton {
@@ -203,20 +244,74 @@ SKLabelNode *nHeart;
     CGPoint location = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
     
+    Sheep *sheep = [[Sheep alloc] init];
     //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"homeButtonNode"]) {
+        [[RWGameData sharedGameData] save];
         
         InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
         
-    }else{
-        if([node.name isEqualToString:@"retryButtonNode"]){
-            GameScene *scene = [GameScene sceneWithSize:self.size];
-            scene.scaleMode = SKSceneScaleModeAspectFill;
-            [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+    }else if([node.name isEqualToString:@"retryButtonNode"]){
+        [[RWGameData sharedGameData] save];
+        
+        
+        GameScene *scene = [GameScene sceneWithSize:self.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+        
+    }else if([node.name isEqualToString:@"pirateNode"]){
+        
+//        sheepName = @"pirate.png";
+        
+        if ( coinsLabel.text.intValue > [sheep getPrice] ){
+            if (used == 1)
+                used = 0;
+            else
+                used = 1;
+            
+            sheep = [self getSheep:@"pirate.png"];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to use this Sheep?" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
+            [alert show];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You don't have enough coins" message:@"" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil ,nil];
+            [alert show];
+
         }
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        used = 0;
+        NSLog(@"Cancel Tapped.");
+    }
+    else if (buttonIndex == 1) {
+        Sheep *sheep = [[Sheep alloc] init];
+        sheep = [self getSheep:imageName];
+        
+        if (!([RWGameData sharedGameData].gotPirateSheep && used == 1)){
+            [RWGameData sharedGameData].coins -= [sheep getPrice];
+        }
+        
+        [RWGameData sharedGameData].sheep = [NSString stringWithFormat:@"%@", [sheep getName]];
+        [RWGameData sharedGameData].gotPirateSheep = true;
+        
+        [RWGameData sharedGameData].used = used;
+        float value = [RWGameData sharedGameData].coins;
+        coinsLabel.text = [NSString stringWithFormat:@"%.0f", value];
+
+        
+        [[RWGameData sharedGameData] save];
+    }
+}
+
+-(Sheep *) getSheep: (NSString *) name {
+    for (Sheep *sheep in sheepArray){
+        if( [[sheep getName] isEqualToString:name])
+            return sheep;
+    }
+    return nil;
+}
 @end

@@ -46,6 +46,7 @@
 		5A7259111A76DE1000430536 /* cardHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A72590D1A76DE1000430536 /* cardHeart.png */; };
 		5A7259121A76DE1000430536 /* cardSuper.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A72590E1A76DE1000430536 /* cardSuper.png */; };
 		5AA813041A77F38600D6156E /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AA813031A77F38600D6156E /* help.png */; };
+		5AB9925E1A78D84E001E3148 /* Sheep.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9925D1A78D84E001E3148 /* Sheep.m */; };
 		5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFA1A6C013800BE3D59 /* main.m */; };
 		5AD8CFFE1A6C013800BE3D59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8CFFD1A6C013800BE3D59 /* AppDelegate.m */; };
 		5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8D0001A6C013800BE3D59 /* GameScene.m */; };
@@ -114,6 +115,8 @@
 		5A72590D1A76DE1000430536 /* cardHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardHeart.png; sourceTree = "<group>"; };
 		5A72590E1A76DE1000430536 /* cardSuper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardSuper.png; sourceTree = "<group>"; };
 		5AA813031A77F38600D6156E /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
+		5AB9925C1A78D84E001E3148 /* Sheep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sheep.h; path = ../Sheep.h; sourceTree = "<group>"; };
+		5AB9925D1A78D84E001E3148 /* Sheep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sheep.m; path = ../Sheep.m; sourceTree = "<group>"; };
 		5AD8CFF51A6C013800BE3D59 /* Ipp The Sheep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ipp The Sheep.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8CFF91A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8CFFA1A6C013800BE3D59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				06C303361A75D3EA00FFDF7F /* RWGameData.m */,
 				06C3033A1A75D5C200FFDF7F /* InitialScreen.h */,
 				06C3033B1A75D5C200FFDF7F /* InitialScreen.m */,
+				5AB9925C1A78D84E001E3148 /* Sheep.h */,
+				5AB9925D1A78D84E001E3148 /* Sheep.m */,
 				06C303561A77D94400FFDF7F /* TutorialScene.h */,
 				06C303571A77D94400FFDF7F /* TutorialScene.m */,
 				06C303621A796C5A00FFDF7F /* trailerScene.h */,
@@ -418,6 +423,7 @@
 				5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */,
 				06C303641A796C5A00FFDF7F /* trailerScene.m in Sources */,
 				5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */,
+				5AB9925E1A78D84E001E3148 /* Sheep.m in Sources */,
 				5A06657C1A72C27200163B47 /* HighScoreScene.m in Sources */,
 				08B592901A77DE3300979D23 /* Store.m in Sources */,
 			);

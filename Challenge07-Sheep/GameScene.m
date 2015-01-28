@@ -11,6 +11,7 @@
 #import "HighScoreScene.h"
 #import "RWGameData.h"
 #import <AVFoundation/AVFoundation.h>
+#import "Sheep.h"
 
 
 @implementation GameScene
@@ -65,11 +66,17 @@ SKTexture *sheepEsq;
 SKTexture *sheepUp;
 SKTexture *sheepSheep;
 
-AVPlayer *_player2; SKVideoNode *_videoNode;
+NSMutableArray *sheepSkin;
 
 -(void)didMoveToView:(SKView *)view {
     
     /* Setup your scene here */
+
+    sheepSkin = [[NSMutableArray alloc] init];
+    
+    //TESTE DE OUTRAS OVELHAS
+//    [RWGameData sharedGameData].skin = @"";
+    [RWGameData sharedGameData].coins = 500;
     
     [self prepareGameBackground];
     
@@ -185,7 +192,26 @@ AVPlayer *_player2; SKVideoNode *_videoNode;
     
 }
 
+-(Sheep *) getSheep {
+    return [RWGameData sharedGameData].sheep;
+}
+
 -(void)prepareGameBackground{
+
+//    Sheep *sheep = [[Sheep alloc] init];
+//    sheep = [self getSheep];
+//    if ([sheep getName] == nil)
+//        [sheepSkin addObject:[NSString stringWithFormat:@"sheep.png"]];
+//    else
+//        [sheepSkin addObject:[NSString stringWithFormat:@"%@", [sheep getName]]];
+
+    
+    if ([RWGameData sharedGameData].used == 1){
+        [sheepSkin addObject:[NSString stringWithFormat:@"pirate.png"]];
+    } else {
+        [sheepSkin addObject:[NSString stringWithFormat:@"sheep.png"]];
+    }
+    
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
@@ -217,7 +243,8 @@ AVPlayer *_player2; SKVideoNode *_videoNode;
     coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)+52);
     [self addChild:coinsImg];
     
-    sheepSheep = [SKTexture textureWithImageNamed:@"sheep.png"];
+//    sheepSheep = [SKTexture textureWithImageNamed:@"sheep.png"];
+    sheepSheep = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheepSkin objectAtIndex:0]]];
     sheepEsq = [SKTexture textureWithImageNamed:@"sheetEsq.png"];
     sheepDir = [SKTexture textureWithImageNamed:@"sheepDir.png"];
     sheepUp = [SKTexture textureWithImageNamed:@"sheepUp.png"];

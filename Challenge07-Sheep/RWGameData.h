@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Sheep.h"
 
-@interface RWGameData : NSObject <NSCoding>
+@interface RWGameData : NSObject <NSCoding, NSCopying>
 
 @property (assign, nonatomic) float score;
 
@@ -21,6 +22,14 @@
 @property (assign, nonatomic) float topScore3;
 @property (assign, nonatomic) float topScore4;
 @property (assign, nonatomic) float topScore5;
+
+@property (assign, nonatomic) NSString *sheep;
+@property (assign, nonatomic) Boolean gotPirateSheep;
+@property (assign, nonatomic) Boolean gotSecondSheep;
+@property (assign, nonatomic) Boolean gotThirdSheep;
+@property (assign, nonatomic) Boolean gotFourthSheep;
+@property (assign, nonatomic) int used;
+
 
 
 +(instancetype)sharedGameData;
