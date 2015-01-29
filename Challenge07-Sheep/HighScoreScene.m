@@ -115,6 +115,7 @@ SKLabelNode *scoreLabel;
     if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore) {
         titleLabel.text = @"New High Score";
         titleLabel.fontColor = [SKColor redColor];
+        scoreLabel.fontColor = [SKColor redColor];
     } else {
         titleLabel.text = @"Score";
     }
