@@ -10,105 +10,75 @@
 
 @implementation RWGameData
 
-static NSString* const SSGameDataHighScoreKey = @"highScore";
-static NSString* const SSGameDataRankingKey = @"ranking";
-static NSString* const SSGameDataCoinsKey = @"coins";
-static NSString* const SSGameDataTopScore1Key = @"topScore1";
-static NSString* const SSGameDataTopScore2Key = @"topScore2";
-static NSString* const SSGameDataTopScore3Key = @"topScore3";
-static NSString* const SSGameDataTopScore4Key = @"topScore4";
-static NSString* const SSGameDataTopScore5Key = @"topScore5";
-static NSString* const SSGameDataSheepSkinKey = @"sheep";
-static NSString* const SSGameDataGotSheep1Key = @"first";
-static NSString* const SSGameDataGotSheep2Key = @"second";
-static NSString* const SSGameDataGotSheep3Key = @"third";
-static NSString* const SSGameDataGotSheep4Key = @"fourth";
-static NSString* const SSGameDataBeingUsedKey = @"used";
+static NSString* const RankingKey = @"highScore";
+static NSString* const CoinsKey = @"coins";
 
 
-- (void)encodeWithCoder:(NSCoder *)encoder
-{
-    
-    [encoder encodeDouble:self.highScore forKey: SSGameDataHighScoreKey];
-    [encoder encodeDouble:self.coins     forKey: SSGameDataCoinsKey];
-    [encoder encodeDouble:self.topScore1 forKey: SSGameDataTopScore1Key];
-    [encoder encodeDouble:self.topScore2 forKey: SSGameDataTopScore2Key];
-    [encoder encodeDouble:self.topScore3 forKey: SSGameDataTopScore3Key];
-    [encoder encodeDouble:self.topScore4 forKey: SSGameDataTopScore4Key];
-    [encoder encodeDouble:self.topScore5 forKey: SSGameDataTopScore5Key];
-//    [encoder encodeObject:self.sheep     forKey: SSGameDataSheepSkinKey];
-    [encoder encodeBool:self.gotPirateSheep  forKey:SSGameDataGotSheep1Key];
-    [encoder encodeBool:self.gotSecondSheep  forKey:SSGameDataGotSheep2Key];
-    [encoder encodeBool:self.gotThirdSheep  forKey:SSGameDataGotSheep3Key];
-    [encoder encodeBool:self.gotFourthSheep  forKey:SSGameDataGotSheep4Key];
-    [encoder encodeInt:self.used forKey: SSGameDataBeingUsedKey];
-    
+// Gets the path to the app's Documents folder
+- (NSString *)documentsDirectory {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return paths[0];
 }
 
-+ (instancetype)sharedGameData {
-    static id sharedInstance = nil;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-//        sharedInstance = [[self alloc] init];
-        sharedInstance = [self loadInstance];
-    });
-    
-    return sharedInstance;
+// Gets the path to the data file
+- (NSString *)dataFilePath {
+    return [[self documentsDirectory] stringByAppendingPathComponent:@"sheep.plist"];
 }
 
--(void)reset
-{
-    self.score = 0;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)decoder
-{
-    self = [self init];
-    if (self) {
-        _highScore = [decoder decodeDoubleForKey: SSGameDataHighScoreKey];
-        _topScore1 = [decoder decodeDoubleForKey: SSGameDataTopScore1Key];
-        _topScore2 = [decoder decodeDoubleForKey: SSGameDataTopScore2Key];
-        _topScore3 = [decoder decodeDoubleForKey: SSGameDataTopScore3Key];
-        _topScore4 = [decoder decodeDoubleForKey: SSGameDataTopScore4Key];
-        _topScore5 = [decoder decodeDoubleForKey: SSGameDataTopScore5Key];
-        _coins     = [decoder decodeDoubleForKey: SSGameDataCoinsKey];
-//        _sheep     = [decoder decodeObjectForKey: SSGameDataSheepSkinKey];
-        _gotPirateSheep = [[decoder decodeObjectForKey: SSGameDataTopScore1Key] boolValue];
-        _gotSecondSheep = [[decoder decodeObjectForKey: SSGameDataTopScore2Key] boolValue];
-        _gotThirdSheep = [[decoder decodeObjectForKey: SSGameDataTopScore3Key] boolValue];
-        _gotFourthSheep = [[decoder decodeObjectForKey: SSGameDataTopScore4Key] boolValue];
-        _used     =  [decoder decodeIntForKey: SSGameDataBeingUsedKey];
+// Loads the array from the file or creates a new array if no file present
+- (NSMutableArray *)loadRanking {
+    NSMutableArray *array;
+    NSString *path = [self dataFilePath];
+    if ( [self archiveExists:path] ) {
+        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        array = [unarchiver decodeObjectForKey:RankingKey];
+        [unarchiver finishDecoding];
+    } else {
+        array = [[NSMutableArray alloc] initWithCapacity:20];
     }
-    return self;
+    return array;
 }
 
-+(NSString*)filePath
-{
-    static NSString* filePath = nil;
-    if (!filePath) {
-        filePath =
-        [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
-         stringByAppendingPathComponent:@"gamedata"];
+// Saves the array to a file
+- (void)saveRanking:(NSMutableArray *)array {
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:array forKey:RankingKey];
+    [archiver finishEncoding];
+    [data writeToFile:[self dataFilePath] atomically:YES];
+}
+
+// Gets the path to the data file
+- (NSString *)dataFilePathForCoins {
+    return [[self documentsDirectory] stringByAppendingPathComponent:@"coins.plist"];
+}
+
+
+- (NSNumber *)loadCoins {
+    NSNumber *coins;
+    NSString *path = [self dataFilePathForCoins];
+    if ( [self archiveExists:path] ) {
+        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        coins = [unarchiver decodeObjectForKey:CoinsKey];
+        [unarchiver finishDecoding];
     }
-    return filePath;
+    return coins;
 }
 
-+(instancetype)loadInstance
-{
-    NSData* decodedData = [NSData dataWithContentsOfFile: [RWGameData filePath]];
-    if (decodedData) {
-        RWGameData* gameData = [NSKeyedUnarchiver unarchiveObjectWithData:decodedData];
-        return gameData;
-    }
-    
-    return [[RWGameData alloc] init];
+// Saves the array to a file
+- (void)saveCoins:(NSNumber *)coins {
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:coins forKey:CoinsKey];
+    [archiver finishEncoding];
+    [data writeToFile:[self dataFilePathForCoins] atomically:YES];
 }
 
--(void)save
-{
-    NSData* encodedData = [NSKeyedArchiver archivedDataWithRootObject: self];
-    [encodedData writeToFile:[RWGameData filePath] atomically:YES];
+
+-(BOOL) archiveExists: (NSString *) path {
+    return [[NSFileManager defaultManager] fileExistsAtPath:path];
 }
 
 @end

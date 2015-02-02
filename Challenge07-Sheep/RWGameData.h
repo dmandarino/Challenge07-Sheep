@@ -11,29 +11,14 @@
 
 @interface RWGameData : NSObject <NSCoding, NSCopying>
 
-@property (assign, nonatomic) float score;
-
-@property (assign, nonatomic) float coins;
-
-@property (assign, nonatomic) float highScore;
-
-@property (assign, nonatomic) float topScore1;
-@property (assign, nonatomic) float topScore2;
-@property (assign, nonatomic) float topScore3;
-@property (assign, nonatomic) float topScore4;
-@property (assign, nonatomic) float topScore5;
-
-@property (assign, nonatomic) NSString *sheep;
-@property (assign, nonatomic) Boolean gotPirateSheep;
-@property (assign, nonatomic) Boolean gotSecondSheep;
-@property (assign, nonatomic) Boolean gotThirdSheep;
-@property (assign, nonatomic) Boolean gotFourthSheep;
-@property (assign, nonatomic) int used;
+@property (nonatomic, copy) NSNumber *coins;
+@property (nonatomic, copy) NSMutableArray *sheeps;
+@property (nonatomic, copy) NSMutableArray *scores;
 
 
-
-+(instancetype)sharedGameData;
--(void)reset;
--(void)save;
+- (NSMutableArray *)loadRanking;
+- (void)saveRanking:(NSMutableArray *)array;
+- (NSNumber *)loadCoins;
+- (void)saveCoins:(NSNumber *)coins;
 
 @end

@@ -11,5 +11,7 @@
 
 @interface HighScoreScene : SKScene
 @property AVAudioPlayer *player;
+@property float score;
+@property NSMutableArray *ranking;
 
 @end

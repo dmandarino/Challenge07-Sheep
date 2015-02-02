@@ -8,19 +8,45 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Sheep : NSObject <NSCoding, NSCopying>
--(void) setName: (NSString *)nameReceived;
+@interface Sheep : NSObject <NSCoding>
 
--(void) setPrice: (float)priceReceived;
+@property (nonatomic, copy) NSString *name;
+
+@property (nonatomic, copy) NSNumber* price;
+@property (nonatomic, copy) NSNumber *activated;
+
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *imageLelft;
+@property (nonatomic, copy) NSString *imageRight;
+@property (nonatomic, copy) NSString *imageUp;
+
+-(void) setName: (NSString *)name;
 
 -(NSString *) getName;
 
+-(void) setPrice: (float)priceReceived;
+
 -(float) getPrice;
 
--(void) setOwned: (BOOL)param;
+-(void) setActivated:(BOOL) activated;
 
--(BOOL) isOwned;
+-(BOOL) isActivated;
 
-//-(NSMutableData*) instanceToSave;
+-(void) setImage:(NSString *)image;
+
+-(NSString *) getImage;
+
+-(void) setImageLeft:(NSString *)imageLeft;
+
+-(NSString *) getImageLeft;
+
+-(void) setImageRigh:(NSString *)imageRight;
+
+-(NSString *) getImageRight;
+
+-(void) setImageUP:(NSString *)imageUp;
+
+-(NSString *) getImageUp;
+
 
 @end

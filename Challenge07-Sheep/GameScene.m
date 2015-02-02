@@ -23,7 +23,8 @@ SKLabelNode *scoreLabel;
 SKLabelNode *coinsLabel;
 SKSpriteNode *coinsImg;
 CGPoint pointLocation;
-int counter = 0;
+float counter = 0;
+float score;
 int randomSide;
 NSTimer *timer;
 bool attackLeft = false;
@@ -68,7 +69,11 @@ SKTexture *sheepSheep;
 
 NSMutableArray *sheepSkin;
 
+RWGameData *data;
+NSMutableArray *ranking;
+
 -(void)didMoveToView:(SKView *)view {
+    
     
     /* Setup your scene here */
 
@@ -76,7 +81,7 @@ NSMutableArray *sheepSkin;
     
     //TESTE DE OUTRAS OVELHAS
 //    [RWGameData sharedGameData].skin = @"";
-    [RWGameData sharedGameData].coins = 500;
+//    [RWGameData sharedGameData].coins = 500;
     
     [self prepareGameBackground];
     
@@ -90,9 +95,7 @@ NSMutableArray *sheepSkin;
     
     [self prepareCards];
     
-    [RWGameData sharedGameData].score = 0;
-    
-    playing = true;
+    [self loadValues];
     
     pulseRed = [SKAction sequence:@[
                                     [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
@@ -193,9 +196,9 @@ NSMutableArray *sheepSkin;
     
 }
 
--(Sheep *) getSheep {
-    return [RWGameData sharedGameData].sheep;
-}
+//-(Sheep *) getSheep {
+//    return [RWGameData sharedGameData].sheep;
+//}
 
 -(void)prepareGameBackground{
 
@@ -207,17 +210,17 @@ NSMutableArray *sheepSkin;
 //        [sheepSkin addObject:[NSString stringWithFormat:@"%@", [sheep getName]]];
 
     
-    if ([RWGameData sharedGameData].used == 1){
-        [sheepSkin addObject:[NSString stringWithFormat:@"pirate.png"]];
-        [sheepSkin addObject:[NSString stringWithFormat:@"pirateEsq.png"]];
-        [sheepSkin addObject:[NSString stringWithFormat:@"pirateDir.png"]];
-        [sheepSkin addObject:[NSString stringWithFormat:@"pirateUp.png"]];
-    } else {
+//    if ([RWGameData sharedGameData].used == 1){
+//        [sheepSkin addObject:[NSString stringWithFormat:@"pirate.png"]];
+//        [sheepSkin addObject:[NSString stringWithFormat:@"pirateEsq.png"]];
+//        [sheepSkin addObject:[NSString stringWithFormat:@"pirateDir.png"]];
+//        [sheepSkin addObject:[NSString stringWithFormat:@"pirateUp.png"]];
+//    } else {
         [sheepSkin addObject:[NSString stringWithFormat:@"viking.png"]];
         [sheepSkin addObject:[NSString stringWithFormat:@"vikingEsq.png"]];
         [sheepSkin addObject:[NSString stringWithFormat:@"vikingDir.png"]];
         [sheepSkin addObject:[NSString stringWithFormat:@"vikingUp.png"]];
-    }
+//    }
     
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
@@ -428,8 +431,7 @@ NSMutableArray *sheepSkin;
                 }];
                 break;
             case 3://bonus
-               // NSLog(@"bonus");
-                [RWGameData sharedGameData].score += 250;
+                score += 250;
                 card.position = CGPointMake(350, 170);
                 break;
         }
@@ -515,28 +517,23 @@ NSMutableArray *sheepSkin;
                 sprite.texture = sheepSheep;
                 
                 [timer invalidate];
-                
-                //                NSLog(@"Defend left.. %d seconds", counter);
-                
             }
             
         }
         
     }
-    
-    //    NSLog(@"Pressed at x = %0.f and y = %0.f",x,y);
-    
+ 
 }
 
 -(void)update:(NSTimeInterval)currentTime {
     if(playing){
-        [RWGameData sharedGameData].score += 0.1;
-        scoreLabel.text = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].score];
+        score += 0.1;
+        scoreLabel.text = [NSString stringWithFormat:@"%.0f", score];
     
         gameCoins += 0.005;
         coinsLabel.text = [NSString stringWithFormat:@"%.0f", gameCoins];
 
-        if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore)
+        if ( score >= [[ranking objectAtIndex:0] floatValue])
             scoreLabel.fontColor = [SKColor redColor];
     }
     
@@ -633,13 +630,13 @@ NSMutableArray *sheepSkin;
     highScore.fontSize = 10;
     highScore.fontColor = [SKColor redColor];
     highScore.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+60);
-    highScore.text = [NSMutableString stringWithFormat:@"%.0f",[RWGameData sharedGameData].highScore];
+    highScore.text = [NSMutableString stringWithFormat:@"%.0f", [[ranking objectAtIndex:0] floatValue]];
     [self addChild:highScore];
     
 }
 
 -(void) getBonusScore {
-    [RWGameData sharedGameData].score += 50;
+    score += 50;
 }
 
 -(void) damageTaken {
@@ -660,54 +657,65 @@ NSMutableArray *sheepSkin;
 
 -(void) endGame {
     [_player stop];
-    [self prepareSaveGame];
+    [self saveGame];
     playing = false;
     SKTransition *reveal = [SKTransition fadeWithDuration:3];
     HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
+    scene.score = score;
     
     [self.view presentScene:scene transition:reveal];
     
 }
 
--(void) prepareSaveGame {
-    
-    [RWGameData sharedGameData].coins += gameCoins;
-
+-(void) saveGame {
     scoreLabel.fontColor = [SKColor blackColor];
+    NSNumber *scoreToSave = [[NSNumber alloc] init];
+    scoreToSave = [NSNumber numberWithFloat: score];
     
-    if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore)
-        scoreLabel.fontColor = [SKColor redColor];
+    NSMutableArray *rankingToSave = [[NSMutableArray array] init];
     
-    [self setRanking];
+    if ([data loadRanking] != nil)
+        rankingToSave = [data loadRanking];
     
-    [RWGameData sharedGameData].highScore = MAX([RWGameData sharedGameData].score,
-                                                [RWGameData sharedGameData].highScore);
-    [[RWGameData sharedGameData] save];
-}
-
--(void) setRanking {
-    
-    NSMutableArray *scoreList = [NSMutableArray array];
-    
-    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].score]];
-    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore1]];
-    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore2]];
-    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore3]];
-    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore4]];
-    [scoreList addObject:[NSNumber numberWithFloat:[RWGameData sharedGameData].topScore5]];
+    [rankingToSave addObject:scoreToSave];
     
     NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    [scoreList sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
+    [rankingToSave sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
     
+    if ( [rankingToSave count] > 5)
+        [rankingToSave removeLastObject];
     
-    [RWGameData sharedGameData].topScore1 = [[scoreList objectAtIndex:0] floatValue];
-    [RWGameData sharedGameData].topScore2 = [[scoreList objectAtIndex:1] floatValue];
-    [RWGameData sharedGameData].topScore3 = [[scoreList objectAtIndex:2] floatValue];
-    [RWGameData sharedGameData].topScore4 = [[scoreList objectAtIndex:3] floatValue];
-    [RWGameData sharedGameData].topScore5 = [[scoreList objectAtIndex:4] floatValue];
+    [data saveRanking:rankingToSave];
     
+    float coinsToSave = [[data loadCoins] floatValue];
+    coinsToSave += gameCoins;
+    
+    [data saveCoins:[NSNumber numberWithFloat:coinsToSave]];
 }
 
+-(NSMutableArray *) setRanking: (NSMutableArray *) array {
+    
+    [array addObject:[NSNumber numberWithFloat: score]];
+    
+    NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+    [array sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
+    
+    if ( [array count] > 5)
+        [array removeLastObject];
+    
+    return array;
+}
 
+- (void) loadValues {
+    score = 0;
+    
+    playing = true;
+
+    data = [[RWGameData alloc] init];
+
+    ranking = [[NSMutableArray array] init];
+    ranking = [data loadRanking];
+}
+                                                                
 @end

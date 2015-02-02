@@ -9,44 +9,84 @@
 #import "Sheep.h"
 
 @implementation Sheep{
-    NSString *name;
-    float price;
-    NSString *nameRight;
-    NSString *nameLeft;
-    NSString *nameUp;
-    BOOL owned;
 }
 
--(void) setName: (NSString *)nameReceived {
-    name = nameReceived;
-}
-
--(void) setPrice: (float)priceReceived {
-    price = priceReceived;
+-(void) setName: (NSString *)name {
+    _name = name;
 }
 
 -(NSString *) getName{
-    return name;
+    return _name;
+}
+
+-(void) setPrice: (float)priceReceived {
+    _price = [NSNumber numberWithFloat:priceReceived];
 }
 
 -(float) getPrice {
-    return price;
+    return [_price floatValue];
 }
 
--(void) setOwned: (BOOL)param {
-    owned = param;
+-(void) setActivated:(BOOL) activated {
+    _activated = [NSNumber numberWithBool:activated];
 }
 
--(BOOL) isOwned {
-    return owned;
+-(BOOL) isActivated {
+    return [_activated boolValue];
 }
 
-//-(NSMutableData*) instace {
-//    NSMutableData *data = [NSMutableData data];
-//    NSKeyedArchiver *arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-//    [arc encodeRootObject:self];
-//    [arc finishEncoding];
-////    [arc release];
-//    return data;
-//}
+-(void) setImage:(NSString *)image{
+    _image = image;
+}
+
+-(NSString *) getImage{
+    return _image;
+}
+
+-(void) setImageLeft:(NSString *)imageLeft{
+    _imageLelft = imageLeft;
+}
+
+-(NSString *) getImageLeft{
+    return _imageLelft;
+}
+-(void) setImageRigh:(NSString *)imageRight{
+    _imageRight = imageRight;
+}
+
+-(NSString *) getImageRight{
+    return _imageRight;
+}
+
+-(void) setImageUP:(NSString *)imageUp{
+    _imageUp = imageUp;
+}
+
+-(NSString *) getImageUp{
+    return _imageUp;
+}
+
+- (id)init
+{
+    if ((self = [super init])) {
+        self.name = @"Some default name";
+        // initialize any other properties here
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super init])) {
+        self.name = [aDecoder decodeObjectForKey:@"Name"];
+        // decode any other properties here
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.name forKey:@"Name"];
+    // encode any other properties here
+}
 @end

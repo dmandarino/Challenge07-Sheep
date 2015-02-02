@@ -13,6 +13,7 @@
 
 @implementation HighScoreScene
 SKLabelNode *scoreLabel;
+RWGameData *data;
 
 -(void) didMoveToView:(SKView *)view {
     [self createBackground];
@@ -22,6 +23,8 @@ SKLabelNode *scoreLabel;
     
     SKSpriteNode *homeButtonNode = [self createHomeButton];
     [self addChild: homeButtonNode];
+    
+    [self loadValues];
     
     [self showHighScore];
     
@@ -62,7 +65,7 @@ SKLabelNode *scoreLabel;
 
 -(SKSpriteNode *) createRetryButton {
     SKSpriteNode *retryButtonNode;
-    if ([RWGameData sharedGameData].score > 0 )
+    if ( _score > 0 )
        retryButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"retry.png"];
     else
        retryButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play2.png"]; 
@@ -84,7 +87,7 @@ SKLabelNode *scoreLabel;
     coinsLabel.fontSize = 12;
     coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+64);
     coinsLabel.fontColor = [SKColor blackColor];
-    coinsLabel.text = [NSString stringWithFormat:@"%.0f",[RWGameData sharedGameData].coins];
+    coinsLabel.text = [NSString stringWithFormat:@"%.0f", [[data loadCoins] floatValue]];
     [self addChild:coinsLabel];
     
     coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
@@ -113,7 +116,7 @@ SKLabelNode *scoreLabel;
     titleLabel.fontColor = [SKColor blackColor];
     titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+60);
 
-    if ([RWGameData sharedGameData].score >= [RWGameData sharedGameData].highScore) {
+    if ( _score >= [[_ranking objectAtIndex:0] floatValue]) {
         titleLabel.text = @"New High Score";
         titleLabel.fontColor = [SKColor redColor];
         scoreLabel.fontColor = [SKColor redColor];
@@ -121,12 +124,11 @@ SKLabelNode *scoreLabel;
         titleLabel.text = @"Score";
     }
     
-    
+    scoreLabel.fontColor = [SKColor blackColor];
     scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     scoreLabel.fontSize = 20;
     scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+40);
-    scoreLabel.fontColor = [SKColor blackColor];
-    scoreLabel.text = [NSString stringWithFormat:@"%.0f",[RWGameData sharedGameData].score];
+    scoreLabel.text = [NSString stringWithFormat:@"%.0f", _score];
     
     
     
@@ -145,31 +147,16 @@ SKLabelNode *scoreLabel;
     [self addChild:titleLabel];
     
     NSString *value;
-    int y = CGRectGetMidY(self.frame) - 5;
+    int y = CGRectGetMidY(self.frame) +10;
     
-    for ( int i = 1 ; i <= 5 ; i++ ){
+    for ( int i = 0 ; i < 5 ; i++ ) {
         
-        switch (i) {
-            case 1:
-                value = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].topScore1];
-                break;
-            case 2:
-                value = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].topScore2];
-                y -= 15;
-                break;
-            case 3:
-                value = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].topScore3];
-                y -= 15;
-                break;
-            case 4:
-                value = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].topScore4];
-                y -= 15;
-                break;
-            case 5:
-                value = [NSString stringWithFormat:@"%.0f", [RWGameData sharedGameData].topScore5];
-                y -= 15;
-                break;
-        }
+        if ( [_ranking count] > i )
+            value = [NSString stringWithFormat:@"%.0f", [[_ranking objectAtIndex:i] floatValue]];
+        else
+            value = @"0";
+        
+        y -= 15;
         
         SKLabelNode *ranking;
         ranking= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -196,7 +183,7 @@ SKLabelNode *scoreLabel;
     highScore.fontSize = 10;
     highScore.fontColor = [SKColor redColor];
     highScore.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+60);
-    highScore.text = [NSMutableString stringWithFormat:@"%.0f",[RWGameData sharedGameData].highScore];
+    highScore.text = [NSMutableString stringWithFormat:@"%.0f", [[_ranking objectAtIndex:0] floatValue]];
     [self addChild:highScore];
 
 }
@@ -218,6 +205,17 @@ SKLabelNode *scoreLabel;
     _player.numberOfLoops = -1;
     
     [_player play];
+}
+                                                                
+-(NSMutableArray *) getRankingList {
+    _ranking = [data loadRanking];
+    return _ranking;
+}
+
+-(void) loadValues {
+    data = [[RWGameData alloc] init];
+    
+    _ranking = [self getRankingList];
 }
 
 @end
