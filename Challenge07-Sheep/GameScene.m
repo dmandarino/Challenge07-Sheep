@@ -663,6 +663,7 @@ float ranking;
     HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     scene.score = score;
+    scene.coins = gameCoins;
     
     [self.view presentScene:scene transition:reveal];
     

@@ -87,7 +87,7 @@ RWGameData *data;
     coinsLabel.fontSize = 12;
     coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+64);
     coinsLabel.fontColor = [SKColor blackColor];
-    coinsLabel.text = [NSString stringWithFormat:@"%.0f", [[data loadCoins] floatValue]];
+    coinsLabel.text = [NSString stringWithFormat:@"%.0f", _coins];
     [self addChild:coinsLabel];
     
     coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];

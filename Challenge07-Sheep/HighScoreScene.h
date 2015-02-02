@@ -12,6 +12,7 @@
 @interface HighScoreScene : SKScene
 @property AVAudioPlayer *player;
 @property float score;
+@property float coins;
 @property NSMutableArray *ranking;
 
 @end
