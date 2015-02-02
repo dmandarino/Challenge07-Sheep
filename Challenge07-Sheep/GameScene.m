@@ -232,7 +232,7 @@ float ranking;
     msgLabel= [SKLabelNode labelNodeWithFontNamed:@"HoeflerText-BlackItalic"];
     msgLabel.fontSize = 20;
     msgLabel.fontColor = [SKColor blueColor];
-    msgLabel.position = CGPointMake((self.frame.size.width/2), (self.frame.size.height/2+45));
+    msgLabel.position = CGPointMake((self.frame.size.width/2+10), (self.frame.size.height/2+45));
     msgLabel.text = @"";
     [self addChild:msgLabel];
     

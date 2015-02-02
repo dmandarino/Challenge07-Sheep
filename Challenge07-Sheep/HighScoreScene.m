@@ -111,10 +111,12 @@ RWGameData *data;
 -(void) showScore {
     SKLabelNode *titleLabel ;
 
-    titleLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     titleLabel.fontSize = 20;
     titleLabel.fontColor = [SKColor blackColor];
     titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+60);
+    
+    scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
 
     if ( _score >= [[_ranking objectAtIndex:0] floatValue]) {
         titleLabel.text = @"New High Score";
@@ -125,9 +127,8 @@ RWGameData *data;
     }
     
     scoreLabel.fontColor = [SKColor blackColor];
-    scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     scoreLabel.fontSize = 20;
-    scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+40);
+    scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+37);
     scoreLabel.text = [NSString stringWithFormat:@"%.0f", _score];
     
     
