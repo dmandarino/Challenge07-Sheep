@@ -460,7 +460,7 @@ NSMutableArray *sheepSkin;
     
     
     
-    if( x>=290 && x<=450 && y>=100 && y<=230){
+    if( x >= 290 ){
         
         
         
@@ -488,7 +488,7 @@ NSMutableArray *sheepSkin;
         
     }else{
         
-        if(x>=100 && x<=260 && y>=100 && y<=230){
+        if( x < 260 ){
             
             
             
