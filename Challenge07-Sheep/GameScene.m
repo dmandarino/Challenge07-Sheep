@@ -70,7 +70,7 @@ SKTexture *sheepSheep;
 NSMutableArray *sheepSkin;
 
 RWGameData *data;
-NSMutableArray *ranking;
+float ranking;
 
 -(void)didMoveToView:(SKView *)view {
     
@@ -533,7 +533,7 @@ NSMutableArray *ranking;
         gameCoins += 0.005;
         coinsLabel.text = [NSString stringWithFormat:@"%.0f", gameCoins];
 
-        if ( score >= [[ranking objectAtIndex:0] floatValue])
+        if ( score >= ranking )
             scoreLabel.fontColor = [SKColor redColor];
     }
     
@@ -630,7 +630,7 @@ NSMutableArray *ranking;
     highScore.fontSize = 10;
     highScore.fontColor = [SKColor redColor];
     highScore.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+60);
-    highScore.text = [NSMutableString stringWithFormat:@"%.0f", [[ranking objectAtIndex:0] floatValue]];
+    highScore.text = [NSMutableString stringWithFormat:@"%.0f", ranking];
     [self addChild:highScore];
     
 }
@@ -714,8 +714,10 @@ NSMutableArray *ranking;
 
     data = [[RWGameData alloc] init];
 
-//    ranking = [[NSMutableArray array] init];
-//    ranking = [data loadRanking];
+    if ([[data loadRanking] objectAtIndex:0]!= nil)
+        ranking = [[[data loadRanking] objectAtIndex:0] floatValue];
+    else
+        ranking = 0;
 }
                                                                 
 @end
