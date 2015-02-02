@@ -463,7 +463,7 @@ float ranking;
     
     CGFloat x = pointLocation.x;
     
-    CGFloat y = pointLocation.y;
+    //CGFloat y = pointLocation.y;
     
     
     

@@ -14,6 +14,8 @@
 
 @implementation Store
 
+RWGameData *data;
+
 SKSpriteNode *bgImage;
 SKLabelNode *generalStoreLabel;
 SKLabelNode *sheepsOutfitLabel;
@@ -40,6 +42,8 @@ int used;
 -(void) didMoveToView:(SKView *)view {
     
     sheepArray = [[NSMutableArray alloc] init];
+    
+    [self loadValues];
     
     [self createBackground];
     
@@ -70,9 +74,9 @@ int used;
     
     coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     coinsLabel.fontSize = 12;
-    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-113, CGRectGetMidY(self.frame)+65);
+    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+65);
     coinsLabel.fontColor = [SKColor blackColor];
-    coinsLabel.text = [NSString stringWithFormat:@"%.0f",2.0];
+    coinsLabel.text = [NSString stringWithFormat:@"%.0f", [[data loadCoins] floatValue]];
     [self addChild:coinsLabel];
     
     coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
@@ -322,4 +326,9 @@ int used;
     }
     return nil;
 }
+
+-(void) loadValues {
+    data = [[RWGameData alloc] init];
+}
+
 @end
