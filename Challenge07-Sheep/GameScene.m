@@ -83,6 +83,8 @@ float ranking;
 //    [RWGameData sharedGameData].skin = @"";
 //    [RWGameData sharedGameData].coins = 500;
     
+    [self loadValues];
+    
     [self prepareGameBackground];
     
     [self playEffectBgSounds];
@@ -94,8 +96,6 @@ float ranking;
     [self setPressRegoganizer];
     
     [self prepareCards];
-    
-    [self loadValues];
     
     pulseRed = [SKAction sequence:@[
                                     [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
