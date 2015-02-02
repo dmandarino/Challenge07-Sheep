@@ -58,18 +58,7 @@
 		5AD8D0091A6C013800BE3D59 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8D0071A6C013800BE3D59 /* Main.storyboard */; };
 		5AD8D00B1A6C013800BE3D59 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8D00A1A6C013800BE3D59 /* Images.xcassets */; };
 		5AD8D00E1A6C013800BE3D59 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8D00C1A6C013800BE3D59 /* LaunchScreen.xib */; };
-		5AD8D01A1A6C013800BE3D59 /* Challenge07_SheepTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8D0191A6C013800BE3D59 /* Challenge07_SheepTests.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5AD8D0141A6C013800BE3D59 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5AD8CFED1A6C013800BE3D59 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5AD8CFF41A6C013800BE3D59;
-			remoteInfo = "Challenge07-Sheep";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		06C303111A72BCB900FFDF7F /* backgroundMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = backgroundMusic.wav; sourceTree = "<group>"; };
@@ -136,20 +125,12 @@
 		5AD8D0081A6C013800BE3D59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5AD8D00A1A6C013800BE3D59 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5AD8D00D1A6C013800BE3D59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		5AD8D0131A6C013800BE3D59 /* Challenge07-SheepTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Challenge07-SheepTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD8D0181A6C013800BE3D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AD8D0191A6C013800BE3D59 /* Challenge07_SheepTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Challenge07_SheepTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		5AD8CFF21A6C013800BE3D59 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5AD8D0101A6C013800BE3D59 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -219,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				5AD8CFF51A6C013800BE3D59 /* Ipp The Sheep.app */,
-				5AD8D0131A6C013800BE3D59 /* Challenge07-SheepTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -324,24 +304,6 @@
 			productReference = 5AD8CFF51A6C013800BE3D59 /* Ipp The Sheep.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5AD8D0121A6C013800BE3D59 /* Challenge07-SheepTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5AD8D0201A6C013800BE3D59 /* Build configuration list for PBXNativeTarget "Challenge07-SheepTests" */;
-			buildPhases = (
-				5AD8D00F1A6C013800BE3D59 /* Sources */,
-				5AD8D0101A6C013800BE3D59 /* Frameworks */,
-				5AD8D0111A6C013800BE3D59 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5AD8D0151A6C013800BE3D59 /* PBXTargetDependency */,
-			);
-			name = "Challenge07-SheepTests";
-			productName = "Challenge07-SheepTests";
-			productReference = 5AD8D0131A6C013800BE3D59 /* Challenge07-SheepTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -354,11 +316,6 @@
 					5AD8CFF41A6C013800BE3D59 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = N3GG8VLR9P;
-					};
-					5AD8D0121A6C013800BE3D59 = {
-						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = N3GG8VLR9P;
-						TestTargetID = 5AD8CFF41A6C013800BE3D59;
 					};
 				};
 			};
@@ -376,7 +333,6 @@
 			projectRoot = "";
 			targets = (
 				5AD8CFF41A6C013800BE3D59 /* Challenge07-Sheep */,
-				5AD8D0121A6C013800BE3D59 /* Challenge07-SheepTests */,
 			);
 		};
 /* End PBXProject section */
@@ -429,13 +385,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5AD8D0111A6C013800BE3D59 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -457,23 +406,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5AD8D00F1A6C013800BE3D59 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5AD8D01A1A6C013800BE3D59 /* Challenge07_SheepTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5AD8D0151A6C013800BE3D59 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5AD8CFF41A6C013800BE3D59 /* Challenge07-Sheep */;
-			targetProxy = 5AD8D0141A6C013800BE3D59 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5AD8D0071A6C013800BE3D59 /* Main.storyboard */ = {
@@ -601,40 +534,6 @@
 			};
 			name = Release;
 		};
-		5AD8D0211A6C013800BE3D59 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Challenge07-SheepTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Challenge07-Sheep.app/Challenge07-Sheep";
-			};
-			name = Debug;
-		};
-		5AD8D0221A6C013800BE3D59 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Challenge07-SheepTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Challenge07-Sheep.app/Challenge07-Sheep";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -652,15 +551,6 @@
 			buildConfigurations = (
 				5AD8D01E1A6C013800BE3D59 /* Debug */,
 				5AD8D01F1A6C013800BE3D59 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5AD8D0201A6C013800BE3D59 /* Build configuration list for PBXNativeTarget "Challenge07-SheepTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5AD8D0211A6C013800BE3D59 /* Debug */,
-				5AD8D0221A6C013800BE3D59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

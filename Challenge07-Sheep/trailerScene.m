@@ -46,7 +46,7 @@ SKVideoNode *video;
 }
 -(void) skip {
     SKTransition *reveal = [SKTransition fadeWithDuration:3];
-    [video pause];
+    [video setPaused:true];
     [self removeAllChildren];
     
     InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
