@@ -145,6 +145,7 @@ NSMutableArray *sheepSkin;
     card.name = @"cardNode";
     card.xScale = 0.08;
     card.yScale = 0.08;
+    card.zPosition = 2;
     card.position = CGPointMake(350, 170);// Y varia de 390 ateh 175 nao visivel
     cardMove = [SKAction moveToY:170 duration:4];
     invencible = false;
@@ -260,6 +261,7 @@ NSMutableArray *sheepSkin;
    
     sprite.xScale = 0.3;
     sprite.yScale = 0.3;
+    sprite.zPosition = 1;
     sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:sprite];
     
@@ -307,6 +309,7 @@ NSMutableArray *sheepSkin;
     _dragon = [SKSpriteNode spriteNodeWithTexture:temp];
     _dragon.xScale = 0.1;
     _dragon.yScale = 0.1;
+    _dragon.zPosition = 2;
     _dragon.hidden = true;
     
     [self addChild:_dragon];
@@ -397,22 +400,24 @@ NSMutableArray *sheepSkin;
     
     //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"cardNode"]) {
+ 
+        int newLife;
         
         switch (cardStatus) {
             case 0://heart
-                NSLog(@"heart");
-                int newLife = life.text.intValue;
+                //NSLog(@"heart");
+                newLife = life.text.intValue;
                 newLife++;
                 life.text = [NSString stringWithFormat:@"%d", newLife];
                 card.position = CGPointMake(350, 170);
                 break;
             case 1://coin
-                NSLog(@"coin");
+                //NSLog(@"coin");
                 gameCoins+=10;
                 card.position = CGPointMake(350, 170);
                 break;
             case 2://super
-                NSLog(@"super");
+                //NSLog(@"super");
                 invencible = true;
                 msgLabel.text = @"Super Invincible Sheep";
                 card.position = CGPointMake(350, 170);
@@ -423,7 +428,7 @@ NSMutableArray *sheepSkin;
                 }];
                 break;
             case 3://bonus
-                NSLog(@"bonus");
+               // NSLog(@"bonus");
                 [RWGameData sharedGameData].score += 250;
                 card.position = CGPointMake(350, 170);
                 break;
