@@ -12,6 +12,7 @@
 
 static NSString* const RankingKey = @"highScore";
 static NSString* const CoinsKey = @"coins";
+static NSString* const SheepsKey = @"sheeps";
 
 
 // Gets the path to the app's Documents folder
@@ -74,6 +75,33 @@ static NSString* const CoinsKey = @"coins";
     [archiver encodeObject:coins forKey:CoinsKey];
     [archiver finishEncoding];
     [data writeToFile:[self dataFilePathForCoins] atomically:YES];
+}
+
+// Gets the path to the data file
+- (NSString *)dataFilePathForSheep {
+    return [[self documentsDirectory] stringByAppendingPathComponent:@"sheepOwned.plist"];
+}
+
+
+- (NSNumber *)loadSheeps {
+    NSNumber *coins;
+    NSString *path = [self dataFilePathForSheep];
+    if ( [self archiveExists:path] ) {
+        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        coins = [unarchiver decodeObjectForKey:SheepsKey];
+        [unarchiver finishDecoding];
+    }
+    return coins;
+}
+
+// Saves the array to a file
+- (void)saveSheep:(NSNumber *)coins {
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:coins forKey:SheepsKey];
+    [archiver finishEncoding];
+    [data writeToFile:[self dataFilePathForSheep] atomically:YES];
 }
 
 

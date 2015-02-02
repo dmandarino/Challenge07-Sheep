@@ -714,8 +714,8 @@ NSMutableArray *ranking;
 
     data = [[RWGameData alloc] init];
 
-    ranking = [[NSMutableArray array] init];
-    ranking = [data loadRanking];
+//    ranking = [[NSMutableArray array] init];
+//    ranking = [data loadRanking];
 }
                                                                 
 @end
