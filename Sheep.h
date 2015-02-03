@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString *name;
 
-@property (nonatomic, copy) NSNumber* price;
+@property (nonatomic, copy) NSNumber *price;
 @property (nonatomic, copy) NSNumber *activated;
 
 @property (nonatomic, copy) NSString *image;
@@ -21,31 +21,24 @@
 @property (nonatomic, copy) NSString *imageUp;
 
 -(void) setName: (NSString *)name;
-
 -(NSString *) getName;
 
--(void) setPrice: (float)priceReceived;
+-(void) setPrice: (NSNumber *)priceReceived;
+-(NSNumber *) getPrice;
 
--(float) getPrice;
-
--(void) setActivated:(BOOL) activated;
-
--(BOOL) isActivated;
+-(void) setMainSheep:(NSNumber *) activated;
+-(NSNumber *) isMainSheep;
 
 -(void) setImage:(NSString *)image;
-
 -(NSString *) getImage;
 
 -(void) setImageLeft:(NSString *)imageLeft;
-
 -(NSString *) getImageLeft;
 
 -(void) setImageRigh:(NSString *)imageRight;
-
 -(NSString *) getImageRight;
 
 -(void) setImageUP:(NSString *)imageUp;
-
 -(NSString *) getImageUp;
 
 

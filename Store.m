@@ -35,13 +35,12 @@ SKLabelNode *name;
 SKLabelNode *price;
 SKSpriteNode *outfitImg;
 SKSpriteNode *coinsImg2;
-NSString *imageName;
+NSString *sheepName;
+float sheepPrice;
 
 int used;
 
 -(void) didMoveToView:(SKView *)view {
-    
-    sheepArray = [[NSMutableArray alloc] init];
     
     [self loadValues];
     
@@ -149,40 +148,44 @@ int used;
         coinsImg2.yScale = 0.03;
         coinsImg2.position = CGPointMake(CGRectGetMidX(self.frame)-210+i*75, CGRectGetMidY(self.frame)-32);
         
+        Sheep *mainSheep = [self getActivatedSheep];
+        NSLog([NSString stringWithFormat:@"%@", [mainSheep getName]]);
+        
         switch (i) {
             case 1:
-//                if (![RWGameData sharedGameData].used == 1){
+                sheepName = @"pirate";
+                if (![[mainSheep getName] isEqualToString:sheepName]){
                     outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"pirate.png"];
                     outfitImg.name = @"pirateNode";
                     name.text = @"pirate";
-                    imageName = @"pirate.png";
-//                    if ([RWGameData sharedGameData].gotPirateSheep)
-//                        price.text = @"0";
-//                } else {
-//                    outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"viking.png"];
-//                    outfitImg.name = @"pirateNode";
-//                    name.text = @"sheep";
-//                    imageName = @"sheep.png";
-//                    price.text = @"0";
-//                }
+                    
+                    if ([self isOwnedSheep])
+                        price.text = @"0";
+                } else {
+                    outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"viking.png"];
+                    outfitImg.name = @"pirateNode";
+                    name.text = @"viking";
+                    sheepName = @"viking";
+                    price.text = @"0";
+                }
                 break;
             case 2:
                 outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"medieval.png"];
                 outfitImg.name = @"medievalNode";
                 name.text = @"medieval";
-                imageName = @"medieval.png";
+                sheepName = @"medieval";
                 break;
             case 3:
                 outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"link.png"];
                 outfitImg.name = @"linkNode";
                 name.text = @"link";
-                imageName = @"link.png";
+                sheepName = @"link";
                 break;
             case 4:
                 outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"king.png"];
                 outfitImg.name = @"kingNode";
                 name.text = @"king";
-                imageName = @"king.png";
+                sheepName = @"king";
                 break;
         }
         
@@ -197,12 +200,6 @@ int used;
         
         [self addChild:coinsImg2];
         
-        Sheep *sheep = [[Sheep alloc] init];
-        [sheep setName:imageName];
-        [sheep setPrice:price.text.intValue];
-//        [sheep setOwned:true];
-        
-        [sheepArray addObject:sheep];
     }
 
 }
@@ -253,14 +250,14 @@ int used;
     Sheep *sheep = [[Sheep alloc] init];
     //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"homeButtonNode"]) {
-//        [[RWGameData sharedGameData] save];
+
         
         InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
         
     }else if([node.name isEqualToString:@"retryButtonNode"]){
-//        [[RWGameData sharedGameData] save];
+
         
         
         GameScene *scene = [GameScene sceneWithSize:self.size];
@@ -269,15 +266,11 @@ int used;
         
     }else if([node.name isEqualToString:@"pirateNode"]){
         
-//        sheepName = @"pirate.png";
-        
-        if ( coinsLabel.text.intValue > [sheep getPrice] ){
-            if (used == 1)
-                used = 0;
-            else
-                used = 1;
+        coinsLabel.text = @"400";
+        if ( [data loadCoins] > [sheep getPrice] ){
             
-            sheep = [self getSheep:@"pirate.png"];
+            sheepName = @"pirate";
+            sheepPrice = 300;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to use this Sheep?" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
             [alert show];
         } else {
@@ -294,29 +287,40 @@ int used;
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-//    if (buttonIndex == 0) {
-//        used = [RWGameData sharedGameData].used;
-//        NSLog(@"Cancel Tapped.");
-//    }
-//    else if (buttonIndex == 1) {
-//        Sheep *sheep = [[Sheep alloc] init];
-//        sheep = [self getSheep:imageName];
-//        
-//        int price = [sheep getPrice];
-//        
-//        if (!([RWGameData sharedGameData].gotPirateSheep && used == 1)){
-//            int total = coinsLabel.text.intValue - price;
-////            coinsLabel.text = [NSString stringWithFormat:@"%d", total];
-//            coinsLabel.text = [NSString stringWithFormat:@"%.0f", [sheep getPrice]];
-//            [RWGameData sharedGameData].coins = total;
-//        }
-//        
-//        [RWGameData sharedGameData].sheep = [NSString stringWithFormat:@"%@", [sheep getName]];
-//        [RWGameData sharedGameData].gotPirateSheep = true;
-//        
-//        [RWGameData sharedGameData].used = used;
-//        [[RWGameData sharedGameData] save];
-//    }
+    if (buttonIndex == 1) {
+        if ([self isOwnedSheep]){
+            [self changeSheep:sheepName];
+        } else {
+            Sheep *sheep = [[Sheep alloc] init];
+            [sheep setName:sheepName];
+            [sheep setPrice:[NSNumber numberWithFloat:sheepPrice]];
+            [sheep setImage:[NSString stringWithFormat:@"%@.png", sheepName]];
+            [sheep setImageLeft:[NSString stringWithFormat:@"%@Esq.png", sheepName]];
+            [sheep setImageRight:[NSString stringWithFormat:@"%@Dir.png", sheepName]];
+            [sheep setImageUp:[NSString stringWithFormat:@"%@Up.png", sheepName]];
+            [self buySheep: sheep];
+        }
+    } else {
+            
+        
+    }
+}
+
+-(void) buySheep: (Sheep *)sheep {
+    [sheepArray addObject:sheep];
+    [self changeSheep:sheepName];
+}
+
+-(void) changeSheep: (NSString *) name {
+    for (Sheep *sheep in sheepArray){
+        if([[sheep getName] isEqualToString:name])
+            [sheep setMainSheep:[NSNumber numberWithBool:YES]];
+        else
+            [sheep setMainSheep:[NSNumber numberWithBool:NO]];
+        NSLog([NSString stringWithFormat:@"%@", [sheep getName]]);
+        NSLog([NSString stringWithFormat:@"%d", [[sheep isMainSheep] intValue]]);
+    }
+    [data saveSheep:sheepArray];
 }
 
 -(Sheep *) getSheep: (NSString *) name {
@@ -327,8 +331,29 @@ int used;
     return nil;
 }
 
+-(BOOL) isOwnedSheep{
+    for (Sheep *sheep in sheepArray){
+        if( [[sheep getName] isEqualToString:sheepName])
+            return true;
+    }
+    return false;
+}
+
 -(void) loadValues {
     data = [[RWGameData alloc] init];
+    sheepArray = [[NSMutableArray array] init];
+    
+    if ([data loadSheeps] != nil)
+        sheepArray = [data loadSheeps];
+
+}
+
+-(Sheep *) getActivatedSheep {
+    for (Sheep *sheep in sheepArray){
+        if ([sheep isMainSheep])
+            return sheep;
+    }
+    return nil;
 }
 
 @end

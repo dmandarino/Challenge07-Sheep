@@ -7,12 +7,13 @@
 //
 
 #import "RWGameData.h"
+#import "Sheep.h"
 
 @implementation RWGameData
 
 static NSString* const RankingKey = @"highScore";
 static NSString* const CoinsKey = @"coins";
-static NSString* const SheepsKey = @"sheeps";
+static NSString* const SheepSkinKey = @"sheepList";
 
 
 // Gets the path to the app's Documents folder
@@ -79,34 +80,51 @@ static NSString* const SheepsKey = @"sheeps";
 
 // Gets the path to the data file
 - (NSString *)dataFilePathForSheep {
-    return [[self documentsDirectory] stringByAppendingPathComponent:@"sheepOwned.plist"];
+    return [[self documentsDirectory] stringByAppendingPathComponent:@"sheepList.plist"];
 }
 
 
-- (NSNumber *)loadSheeps {
-    NSNumber *coins;
+- (NSMutableArray *)loadSheeps {
+    NSMutableArray *array;
     NSString *path = [self dataFilePathForSheep];
     if ( [self archiveExists:path] ) {
         NSData *data = [[NSData alloc] initWithContentsOfFile:path];
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-        coins = [unarchiver decodeObjectForKey:SheepsKey];
+        array = [unarchiver decodeObjectForKey:SheepSkinKey];
         [unarchiver finishDecoding];
+    } else {
+        Sheep *sheep = [self createDefaultSheep];
+        [array addObject:sheep];
+        [self saveSheep:array];
     }
-    return coins;
+    return array;
 }
 
 // Saves the array to a file
-- (void)saveSheep:(NSNumber *)coins {
+- (void)saveSheep:(NSMutableArray *)array {
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [archiver encodeObject:coins forKey:SheepsKey];
+    [archiver encodeObject:array forKey:SheepSkinKey];
     [archiver finishEncoding];
     [data writeToFile:[self dataFilePathForSheep] atomically:YES];
 }
 
 
+
 -(BOOL) archiveExists: (NSString *) path {
     return [[NSFileManager defaultManager] fileExistsAtPath:path];
+}
+
+-(Sheep*) createDefaultSheep {
+    Sheep *sheep = [[Sheep alloc] init];
+    [sheep setName:@"viking"];
+    [sheep setPrice:[NSNumber numberWithFloat:0]];
+    [sheep setMainSheep:[NSNumber numberWithBool:YES]];
+    [sheep setImage:@"viking.png"];
+    [sheep setImageLeft:@"vikingEsq.png"];
+    [sheep setImageRigh:@"vikingDir.png"];
+    [sheep setImageUP:@"vikingUp.png"];
+    return sheep;
 }
 
 @end

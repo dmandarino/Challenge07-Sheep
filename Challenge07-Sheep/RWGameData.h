@@ -20,5 +20,6 @@
 - (void)saveRanking:(NSMutableArray *)array;
 - (NSNumber *)loadCoins;
 - (void)saveCoins:(NSNumber *)coins;
-
+- (NSMutableArray *)loadSheeps;
+- (void)saveSheep:(NSMutableArray *)sheeps;
 @end

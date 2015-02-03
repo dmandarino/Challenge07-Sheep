@@ -196,31 +196,47 @@ float ranking;
     
 }
 
-//-(Sheep *) getSheep {
-//    return [RWGameData sharedGameData].sheep;
-//}
+-(Sheep *) getSheep {
+    if ([data loadSheeps] != nil){
+        NSMutableArray *sheeps = [[NSMutableArray array] init];
+        sheeps = [data loadSheeps];
+        for (int i = 0; i < [sheeps count] ; i++){
+            Sheep *sheep = [[Sheep alloc] init];
+            sheep = [sheeps objectAtIndex:i];
+            if ([[sheep isMainSheep] boolValue] == YES)
+                return sheep;
+        }
+    }
+    return [self createDefaultSheep];
+}
+
+-(Sheep*) createDefaultSheep {
+    Sheep *sheep = [[Sheep alloc] init];
+    [sheep setName:@"viking"];
+    [sheep setPrice:[NSNumber numberWithFloat:0]];
+    [sheep setMainSheep:[NSNumber numberWithBool:YES]];
+    [sheep setImage:@"viking.png"];
+    [sheep setImageLeft:@"vikingEsq.png"];
+    [sheep setImageRigh:@"vikingDir.png"];
+    [sheep setImageUP:@"vikingUp.png"];
+    
+    NSMutableArray *sheepArray = [[NSMutableArray array] init];
+    [sheepArray addObject:sheep];
+    [data saveSheep:sheepArray];
+    return sheep;
+}
+
+-(void) showSheep {
+    Sheep *sheep = [[Sheep alloc] init];
+    sheep = [self getSheep];
+    sheepSheep = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImage]]];
+    sheepEsq = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageLeft]]];
+    sheepDir = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageRight]]];
+    sheepUp = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageUp]]];
+    sprite = [SKSpriteNode spriteNodeWithTexture:sheepSheep];
+}
 
 -(void)prepareGameBackground{
-
-//    Sheep *sheep = [[Sheep alloc] init];
-//    sheep = [self getSheep];
-//    if ([sheep getName] == nil)
-//        [sheepSkin addObject:[NSString stringWithFormat:@"sheep.png"]];
-//    else
-//        [sheepSkin addObject:[NSString stringWithFormat:@"%@", [sheep getName]]];
-
-    
-//    if ([RWGameData sharedGameData].used == 1){
-//        [sheepSkin addObject:[NSString stringWithFormat:@"pirate.png"]];
-//        [sheepSkin addObject:[NSString stringWithFormat:@"pirateEsq.png"]];
-//        [sheepSkin addObject:[NSString stringWithFormat:@"pirateDir.png"]];
-//        [sheepSkin addObject:[NSString stringWithFormat:@"pirateUp.png"]];
-//    } else {
-        [sheepSkin addObject:[NSString stringWithFormat:@"viking.png"]];
-        [sheepSkin addObject:[NSString stringWithFormat:@"vikingEsq.png"]];
-        [sheepSkin addObject:[NSString stringWithFormat:@"vikingDir.png"]];
-        [sheepSkin addObject:[NSString stringWithFormat:@"vikingUp.png"]];
-//    }
     
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
@@ -253,14 +269,7 @@ float ranking;
     coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)+52);
     [self addChild:coinsImg];
     
-//    sheepSheep = [SKTexture textureWithImageNamed:@"sheep.png"];
-    sheepSheep = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheepSkin objectAtIndex:0]]];
-    sheepEsq = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheepSkin objectAtIndex:1]]];
-    sheepDir = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheepSkin objectAtIndex:2]]];
-    sheepUp = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheepSkin objectAtIndex:3]]];
-    
-    
-    sprite = [SKSpriteNode spriteNodeWithTexture:sheepSheep];
+    [self showSheep];
    
     sprite.xScale = 0.3;
     sprite.yScale = 0.3;

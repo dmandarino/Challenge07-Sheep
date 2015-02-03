@@ -124,9 +124,10 @@ RWGameData *data;
         scoreLabel.fontColor = [SKColor redColor];
     } else {
         titleLabel.text = @"Score";
+        scoreLabel.fontColor = [SKColor blackColor];
     }
     
-    scoreLabel.fontColor = [SKColor blackColor];
+    
     scoreLabel.fontSize = 20;
     scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+37);
     scoreLabel.text = [NSString stringWithFormat:@"%.0f", _score];
