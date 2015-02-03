@@ -339,7 +339,7 @@ int used;
     
     Sheep *sheep = [self getStoreSheep:name];
     sheepName = name;
-    if ( [data loadCoins] >= [sheep getPrice] ){
+    if ( [data loadCoins].floatValue >= [sheep getPrice].floatValue ){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to use this Sheep?" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
         [alert show];
     } else {
