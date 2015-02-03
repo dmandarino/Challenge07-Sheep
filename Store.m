@@ -28,8 +28,7 @@ SKSpriteNode *heartImg;
 SKLabelNode *nHeart;
 
 NSMutableArray *sheepArray;
-//NSString *sheepName;
-
+NSMutableArray *storeSheep;
 
 SKLabelNode *name;
 SKLabelNode *price;
@@ -153,34 +152,27 @@ int used;
         
         switch (i) {
             case 1:
-                sheepName = @"pirate";
-                if (![[mainSheep getName] isEqualToString:sheepName]){
-                    outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"pirate.png"];
-                    outfitImg.name = @"pirateNode";
-                    name.text = @"pirate";
-                    
-                    if ([self isOwnedSheep])
-                        price.text = @"0";
-                } else {
-                    outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"viking.png"];
-                    outfitImg.name = @"pirateNode";
-                    name.text = @"viking";
-                    sheepName = @"viking";
-                    price.text = @"0";
-                }
+                outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"viking.png"];
+                outfitImg.name = @"vikingNode";
+                name.text = @"viking";
+                sheepName = @"viking";
+                price.text = @"0";
                 break;
             case 2:
+                outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"pirate.png"];
+                outfitImg.name = @"pirateNode";
+                name.text = @"pirate";
+                sheepName = @"pirate";
+                if ([self isOwnedSheep])
+                    price.text = @"0";
+                break;
+            case 3:
                 outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"medieval.png"];
                 outfitImg.name = @"medievalNode";
                 name.text = @"medieval";
                 sheepName = @"medieval";
                 break;
-            case 3:
-                outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"link.png"];
-                outfitImg.name = @"linkNode";
-                name.text = @"link";
-                sheepName = @"link";
-                break;
+
             case 4:
                 outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"king.png"];
                 outfitImg.name = @"kingNode";
@@ -189,17 +181,18 @@ int used;
                 break;
         }
         
+        Sheep *sheep = [[Sheep alloc] init];
+        [sheep setName:sheepName];
+        [sheep setPrice:[NSNumber numberWithFloat:price.text.floatValue]];
+        [storeSheep addObject:sheep];
+        
         outfitImg.xScale = 0.2;
         outfitImg.yScale = 0.2;
         outfitImg.position = CGPointMake(CGRectGetMidX(self.frame)-192+i*76, CGRectGetMidY(self.frame)-5);
         [self addChild:outfitImg];
-        
         [self addChild:name];
-        
         [self addChild:price];
-        
         [self addChild:coinsImg2];
-        
     }
 
 }
@@ -248,40 +241,25 @@ int used;
     SKNode *node = [self nodeAtPoint:location];
     
     Sheep *sheep = [[Sheep alloc] init];
-    //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"homeButtonNode"]) {
-
-        
         InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
         
     }else if([node.name isEqualToString:@"retryButtonNode"]){
 
-        
-        
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
         
     }else if([node.name isEqualToString:@"pirateNode"]){
-        
-        coinsLabel.text = @"400";
-        if ( [data loadCoins] > [sheep getPrice] ){
-            
-            sheepName = @"pirate";
-            sheepPrice = 300;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to use this Sheep?" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
-            [alert show];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You don't have enough coins" message:@"" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil ,nil];
-            [alert show];
-
-        }
-    } else if([node.name isEqualToString:@"kingNode"]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You don't have enough coins" message:@"" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil ,nil];
-        [alert show];
-
+        [self sheepButton:@"pirate"];
+    }else if([node.name isEqualToString:@"vikingNode"]){
+        [self sheepButton:@"viking"];
+    }else if([node.name isEqualToString:@"medievalNode"]){
+        [self sheepButton:@"medieval"];
+    }else if([node.name isEqualToString:@"kingNode"]){
+        [self sheepButton:@"king"];
     }
     
 }
@@ -317,8 +295,6 @@ int used;
             [sheep setMainSheep:[NSNumber numberWithBool:YES]];
         else
             [sheep setMainSheep:[NSNumber numberWithBool:NO]];
-        NSLog([NSString stringWithFormat:@"%@", [sheep getName]]);
-        NSLog([NSString stringWithFormat:@"%d", [[sheep isMainSheep] intValue]]);
     }
     [data saveSheep:sheepArray];
 }
@@ -351,6 +327,30 @@ int used;
 -(Sheep *) getActivatedSheep {
     for (Sheep *sheep in sheepArray){
         if ([sheep isMainSheep])
+            return sheep;
+    }
+    return nil;
+}
+
+-(void) sheepButton:(NSString *) name {
+    
+    Sheep *sheep = [self getStoreSheep:name];
+    
+    sheepName = name;
+    NSLog([NSString stringWithFormat:@"%@",name]);
+    if ( [data loadCoins] > [sheep getPrice] ){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to use this Sheep?" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
+        [alert show];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You don't have enough coins" message:@"" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil ,nil];
+        [alert show];
+        
+    }
+}
+
+-(Sheep *) getStoreSheep: (NSString*) name {
+    for (Sheep *sheep in storeSheep){
+        if ([[sheep getName] isEqualToString:name])
             return sheep;
     }
     return nil;
