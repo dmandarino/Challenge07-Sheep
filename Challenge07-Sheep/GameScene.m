@@ -274,7 +274,7 @@ float ranking;
     sprite.xScale = 0.3;
     sprite.yScale = 0.3;
     sprite.zPosition = 1;
-    sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
     [self addChild:sprite];
     
     SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
@@ -674,7 +674,6 @@ float ranking;
     scene.score = score;
     scene.coins = gameCoins;
     
-    [self removeAllChildren];
     [self.view presentScene:scene transition:reveal];
     
 }

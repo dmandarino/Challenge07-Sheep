@@ -60,15 +60,12 @@
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
 
-        [self removeAllChildren];
 
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
     }else if ([node.name isEqualToString:@"highScoreNode"]){
         
         HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
-        
-        [self removeAllChildren];
 
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
     }else if([node.name isEqualToString:@"shopNode"]){
@@ -76,15 +73,11 @@
         Store *scene = [Store sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
 
-        [self removeAllChildren];
-
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
     }else if([node.name isEqualToString:@"helpNode"]){
 
         TutorialScene *scene = [TutorialScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
-
-        [self removeAllChildren];
 
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
     }
