@@ -50,12 +50,20 @@ RWGameData *data;
         [_player stop];
         SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];
         
+        [self removeAllChildren];
+        
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
+
+        [self removeAllChildren];
+
         [self.view presentScene:scene transition:reveal];
     } else if ([node.name isEqualToString:@"homeButtonNode"]) {
         [_player stop];
         SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];
+        
+        [self removeAllChildren];
+
         
         InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;

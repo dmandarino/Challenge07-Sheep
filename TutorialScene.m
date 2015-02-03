@@ -31,6 +31,9 @@
         
         InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
+
+        [self removeAllChildren];
+
         [self.view presentScene:scene transition:reveal];
     }
 }
