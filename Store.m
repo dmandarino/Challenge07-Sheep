@@ -245,13 +245,11 @@ int used;
     if ([node.name isEqualToString:@"homeButtonNode"]) {
         InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
-        [self removeAllChildren];
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
         
     }else if([node.name isEqualToString:@"retryButtonNode"]){
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
-        [self removeAllChildren];
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
         
         

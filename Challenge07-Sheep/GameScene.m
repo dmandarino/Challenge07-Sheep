@@ -354,8 +354,8 @@ float ranking;
     SKTexture *temp2 = _clawsAttackingFrames[0];
     _claws = [SKSpriteNode spriteNodeWithTexture:temp2];
     _claws.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+75);
-    _claws.xScale = 0.1;
-    _claws.yScale = 0.1;
+    _claws.xScale = 0.11;
+    _claws.yScale = 0.13;
     _claws.hidden = true;
     [self addChild:_claws];
     
