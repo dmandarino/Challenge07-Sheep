@@ -124,6 +124,8 @@ int used;
     nHeart.text = @"2";
     [self addChild:nHeart];
     
+    storeSheep = [[NSMutableArray array] init];
+    
     [self showSheeps];
 }
 
@@ -336,10 +338,8 @@ int used;
 -(void) sheepButton:(NSString *) name {
     
     Sheep *sheep = [self getStoreSheep:name];
-    
     sheepName = name;
-    NSLog([NSString stringWithFormat:@"%@",name]);
-    if ( [data loadCoins] > [sheep getPrice] ){
+    if ( [data loadCoins] >= [sheep getPrice] ){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to use this Sheep?" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
         [alert show];
     } else {
@@ -351,8 +351,9 @@ int used;
 
 -(Sheep *) getStoreSheep: (NSString*) name {
     for (Sheep *sheep in storeSheep){
-        if ([[sheep getName] isEqualToString:name])
+        if ([[sheep getName] isEqualToString:name]){
             return sheep;
+        }
     }
     return nil;
 }
