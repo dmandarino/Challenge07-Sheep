@@ -43,6 +43,10 @@ int used;
     
     [self loadValues];
     
+//    NSMutableArray *array = [[NSMutableArray alloc] init];
+//    [data saveSheep:array];
+//    [data saveCoins:[NSNumber numberWithFloat:400]];
+    
     [self createBackground];
     
     [self playEffectBgSounds];
@@ -164,8 +168,6 @@ int used;
                 outfitImg.name = @"pirateNode";
                 name.text = @"pirate";
                 sheepName = @"pirate";
-                if ([self isOwnedSheep])
-                    price.text = @"0";
                 break;
             case 3:
                 outfitImg = [SKSpriteNode spriteNodeWithImageNamed:@"medieval.png"];
@@ -181,6 +183,8 @@ int used;
                 sheepName = @"king";
                 break;
         }
+        if ([self isOwnedSheep])
+            price.text = @"0";
         
         Sheep *sheep = [[Sheep alloc] init];
         [sheep setName:sheepName];
@@ -286,6 +290,9 @@ int used;
 }
 
 -(void) buySheep: (Sheep *)sheep {
+    float newCoins = [[data loadCoins]floatValue] - sheepPrice;
+    [data saveCoins:[NSNumber numberWithFloat:newCoins]];
+    coinsLabel.text = [NSString stringWithFormat:@"%f", newCoins];
     [sheepArray addObject:sheep];
     [self changeSheep:sheepName];
 }
@@ -337,6 +344,7 @@ int used;
     
     Sheep *sheep = [self getStoreSheep:name];
     sheepName = name;
+    sheepPrice = [[sheep getPrice] floatValue];
     if ( [data loadCoins].floatValue >= [sheep getPrice].floatValue ){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to use this Sheep?" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
         [alert show];
