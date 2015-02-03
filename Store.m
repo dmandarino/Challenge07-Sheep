@@ -266,7 +266,7 @@ int used;
         
     }else if([node.name isEqualToString:@"pirateNode"]){
         
-        coinsLabel.text = @"400";
+//        coinsLabel.text = @"400";
         if ( [data loadCoins] > [sheep getPrice] ){
             
             sheepName = @"pirate";

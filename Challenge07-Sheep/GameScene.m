@@ -674,6 +674,7 @@ float ranking;
     scene.score = score;
     scene.coins = gameCoins;
     
+    [self removeAllChildren];
     [self.view presentScene:scene transition:reveal];
     
 }
