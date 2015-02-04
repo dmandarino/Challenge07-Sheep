@@ -666,7 +666,7 @@ float ranking;
         [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
     } else {
         [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
-        [self bossSceneStart];
+        //[self bossSceneStart];
     }
 }
 
