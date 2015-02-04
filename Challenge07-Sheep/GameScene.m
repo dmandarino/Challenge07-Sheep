@@ -26,6 +26,8 @@ CGPoint pointLocation;
 float counter = 0;
 float score;
 int randomSide;
+int defenseSide;
+
 NSTimer *timer;
 bool attackLeft = false;
 bool attackRight = false;
@@ -93,8 +95,6 @@ float ranking;
     
     [self showHighScore];
     
-    [self setPressRegoganizer];
-    
     [self prepareCards];
     
     pulseRed = [SKAction sequence:@[
@@ -130,13 +130,6 @@ float ranking;
     [_player play];
 }
 
--(void)setPressRegoganizer{
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                        initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 0.1; //seconds
-    lpgr.delegate = self;
-    [self.view addGestureRecognizer:lpgr];
-}
 
 -(void)prepareCards{
     cardHeart = [SKTexture textureWithImageNamed:@"cardHeart.png"];
@@ -452,87 +445,74 @@ float ranking;
     
     UITouch *touch = [touches anyObject];
     CGPoint endPosition = [touch locationInView:touch.view];
+    int deltaX = (endPosition.x - pointLocation.x);
+    int deltaY = (endPosition.y - pointLocation.y);
     
-    if (pointLocation.y < endPosition.y) {
-        // Down swipe
-        NSLog(@"PRA BAIXO");
-        
-    } else if (pointLocation.y > endPosition.y){
-        // Up swipe
-        //NSLog(@"PRA CIMA");
-        
-        sprite.texture = sheepUp;
-        defenseUp = true;
+    SKAction *cancelAttackLeft= [SKAction sequence:@[
+                                                 //time after you want to fire a function
+                                                 [SKAction waitForDuration:2],
+                                                 [SKAction performSelector:@selector(stopAttackLeft)
+                                                                  onTarget:self]
+                                                 
+                                                 ]];
+    SKAction *cancelAttackRight= [SKAction sequence:@[
+                                                     //time after you want to fire a function
+                                                     [SKAction waitForDuration:2],
+                                                     [SKAction performSelector:@selector(stopAttackRight)
+                                                                      onTarget:self]
+                                                     
+                                                     ]];
+    [self runAction:[SKAction repeatAction:cancelAttackRight count: 1]];
+    
+    SKAction *cancelAttackUp= [SKAction sequence:@[
+                                                     //time after you want to fire a function
+                                                     [SKAction waitForDuration:2],
+                                                     [SKAction performSelector:@selector(stopAttackUp)
+                                                                      onTarget:self]
+                                                     
+                                                     ]];
+    if( deltaY == 0){
+        deltaY = 1;
     }
-}
-
--(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
-
-{
+    int tang = deltaX/deltaY;
     
-    CGFloat x = pointLocation.x;
-    
-    //CGFloat y = pointLocation.y;
-    
-    
-    
-    if( x >= 290 ){
-        
-        
-        
-        if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+    if ( abs(tang) >= 1 ){
             
+        if ( pointLocation.x < endPosition.x){
+            if( defenseRight == false){
+                [self runAction:[SKAction repeatAction:cancelAttackRight count: 1]];
+            }
+            defenseLeft = false;
+            defenseUp = false;
             defenseRight = true;
             sprite.texture = sheepDir;
-            
-            counter = 1;
-            
-            timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementCounter) userInfo:nil repeats:YES];
-            
-        }
-        
-        if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-            
-            sprite.texture = sheepSheep;
+
+        }else {
+            if(defenseLeft == false){
+                [self runAction:[SKAction repeatAction:cancelAttackLeft count: 1]];
+            }
+            defenseLeft = true;
+            defenseUp = false;
             defenseRight = false;
             
-            [timer invalidate];
-            
-            //            NSLog(@"Defend right.. %d seconds", counter);
-            
+            sprite.texture = sheepEsq;
+
+        }
+    }else if (pointLocation.y > endPosition.y){
+        if( defenseUp == false){
+            [self runAction:[SKAction repeatAction:cancelAttackUp count: 1]];
         }
         
-    }else{
+        defenseUp = true;
+        defenseLeft = false;
+        defenseRight = false;
         
-        if( x < 260 ){
-            
-            
-            
-            if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-                
-                counter = 1;
-                defenseLeft = true;
-                
-                sprite.texture = sheepEsq;
-                
-                timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementCounter) userInfo:nil repeats:YES];
-                
-            }
-            
-            if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-                
-                defenseLeft = false;
-                
-                sprite.texture = sheepSheep;
-                
-                [timer invalidate];
-            }
-            
-        }
         
+        sprite.texture = sheepUp;
+
     }
- 
 }
+
 
 -(void)update:(NSTimeInterval)currentTime {
     if(playing){
@@ -589,7 +569,7 @@ float ranking;
 }
 - (void) attack {
     
-    sprite.texture = sheepSheep;
+//sprite.texture = sheepSheep;
     
     switch (randomSide)
     {
@@ -621,6 +601,30 @@ float ranking;
     }
     
 }
+
+-(void) stopAttackLeft {
+    if( defenseLeft == true ){
+        sprite.texture = sheepSheep;
+        defenseLeft = false;
+    }
+
+}
+-(void) stopAttackRight {
+    if( defenseRight == true ){
+        sprite.texture = sheepSheep;
+        defenseRight = false;
+    }
+    
+}
+-(void) stopAttackUp {
+    if( defenseUp == true ){
+        sprite.texture = sheepSheep;
+        defenseUp = false;
+    }
+    
+}
+
+
 -(void) levelUp {
     
 }
@@ -674,7 +678,7 @@ float ranking;
     scene.score = score;
     scene.coins = gameCoins;
     
-    [self.view presentScene:scene transition:reveal];
+    //[self.view presentScene:scene transition:reveal];
     
 }
 
