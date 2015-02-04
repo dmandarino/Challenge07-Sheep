@@ -150,7 +150,7 @@ float ranking;
     card.yScale = 0.08;
     card.zPosition = 2;
     card.position = CGPointMake(350, 170);// Y varia de 390 ateh 175 nao visivel
-    cardMove = [SKAction moveToY:170 duration:4];
+    cardMove = [SKAction moveToY:170 duration:2.5];
     invencible = false;
     
     [self addChild: card];
