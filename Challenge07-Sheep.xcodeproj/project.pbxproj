@@ -21,6 +21,8 @@
 		080569CC1A780D550071E451 /* link.png in Resources */ = {isa = PBXBuildFile; fileRef = 080569C91A780D550071E451 /* link.png */; };
 		080569CD1A780D550071E451 /* medieval.png in Resources */ = {isa = PBXBuildFile; fileRef = 080569CA1A780D550071E451 /* medieval.png */; };
 		080569D01A780D5F0071E451 /* king.png in Resources */ = {isa = PBXBuildFile; fileRef = 080569CF1A780D5F0071E451 /* king.png */; };
+		0817A0A01A82A74E00CC8E19 /* BossScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817A09F1A82A74E00CC8E19 /* BossScene.m */; };
+		0817A0A21A82B99200CC8E19 /* backgroundBoss.png in Resources */ = {isa = PBXBuildFile; fileRef = 0817A0A11A82B99200CC8E19 /* backgroundBoss.png */; };
 		089AD9371A76D1090045F73C /* coins.png in Resources */ = {isa = PBXBuildFile; fileRef = 089AD9361A76D1090045F73C /* coins.png */; };
 		08B1D9B61A76C0BE00788575 /* initialScreen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08B1D9B31A76C0BE00788575 /* initialScreen.mp3 */; };
 		08B1D9B71A76C0BE00788575 /* store.wav in Resources */ = {isa = PBXBuildFile; fileRef = 08B1D9B41A76C0BE00788575 /* store.wav */; };
@@ -80,6 +82,9 @@
 		080569C91A780D550071E451 /* link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = link.png; sourceTree = "<group>"; };
 		080569CA1A780D550071E451 /* medieval.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medieval.png; sourceTree = "<group>"; };
 		080569CF1A780D5F0071E451 /* king.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = king.png; sourceTree = "<group>"; };
+		0817A09E1A82A74E00CC8E19 /* BossScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BossScene.h; path = ../BossScene.h; sourceTree = "<group>"; };
+		0817A09F1A82A74E00CC8E19 /* BossScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BossScene.m; path = ../BossScene.m; sourceTree = "<group>"; };
+		0817A0A11A82B99200CC8E19 /* backgroundBoss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundBoss.png; sourceTree = "<group>"; };
 		089AD9361A76D1090045F73C /* coins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coins.png; sourceTree = "<group>"; };
 		08B1D9B31A76C0BE00788575 /* initialScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = initialScreen.mp3; sourceTree = "<group>"; };
 		08B1D9B41A76C0BE00788575 /* store.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = store.wav; sourceTree = "<group>"; };
@@ -207,6 +212,8 @@
 		5AD8CFF71A6C013800BE3D59 /* Challenge07-Sheep */ = {
 			isa = PBXGroup;
 			children = (
+				0817A09E1A82A74E00CC8E19 /* BossScene.h */,
+				0817A09F1A82A74E00CC8E19 /* BossScene.m */,
 				08B5928E1A77DE3300979D23 /* Store.h */,
 				08B5928F1A77DE3300979D23 /* Store.m */,
 				5A06657A1A72C27200163B47 /* HighScoreScene.h */,
@@ -239,6 +246,7 @@
 		5AD8CFF81A6C013800BE3D59 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0817A0A11A82B99200CC8E19 /* backgroundBoss.png */,
 				5AD4B8891A79BEA600B4D974 /* viking */,
 				5AD4B88A1A79BFD200B4D974 /* pirate */,
 				06C3035F1A79695F00FFDF7F /* introMovie.mp4 */,
@@ -365,6 +373,7 @@
 				5A7259101A76DE1000430536 /* cardCoin.png in Resources */,
 				5A7259111A76DE1000430536 /* cardHeart.png in Resources */,
 				5AD4B8851A79BE9600B4D974 /* viking.png in Resources */,
+				0817A0A21A82B99200CC8E19 /* backgroundBoss.png in Resources */,
 				5A7259001A76BDB100430536 /* home.png in Resources */,
 				080569D01A780D5F0071E451 /* king.png in Resources */,
 				06E189CB1A6C8F99007AEF67 /* background1.png in Resources */,
@@ -399,6 +408,7 @@
 				06C303581A77D94400FFDF7F /* TutorialScene.m in Sources */,
 				5AD8D0011A6C013800BE3D59 /* GameScene.m in Sources */,
 				06C303641A796C5A00FFDF7F /* trailerScene.m in Sources */,
+				0817A0A01A82A74E00CC8E19 /* BossScene.m in Sources */,
 				5AD8CFFB1A6C013800BE3D59 /* main.m in Sources */,
 				5AB9925E1A78D84E001E3148 /* Sheep.m in Sources */,
 				5A06657C1A72C27200163B47 /* HighScoreScene.m in Sources */,
