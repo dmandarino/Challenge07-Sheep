@@ -678,7 +678,7 @@ float ranking;
     scene.score = score;
     scene.coins = gameCoins;
     
-    //[self.view presentScene:scene transition:reveal];
+    [self.view presentScene:scene transition:reveal];
     
 }
 
