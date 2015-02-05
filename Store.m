@@ -43,8 +43,8 @@ int used;
     
     [self loadValues];
     
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    [data saveSheep:array];
+//    NSMutableArray *array = [[NSMutableArray alloc] init];
+//    [data saveSheep:array];
 //    [data saveCoins:[NSNumber numberWithFloat:400]];
     
     [self createBackground];

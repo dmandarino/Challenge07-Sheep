@@ -87,6 +87,8 @@ float ranking;
     
     [self loadValues];
     
+//    [data saveCoins:[NSNumber numberWithFloat:500]];
+    
     [self prepareGameBackground];
     
     [self playEffectBgSounds];
