@@ -704,23 +704,24 @@ float ranking;
 }
 
 -(void) saveGame {
-    scoreLabel.fontColor = [SKColor blackColor];
     NSNumber *scoreToSave = [[NSNumber alloc] init];
     scoreToSave = [NSNumber numberWithFloat: score];
     
     NSMutableArray *rankingToSave = [[NSMutableArray array] init];
     
-    if ([data loadRanking] != nil)
+    if ([data loadRanking] != nil){
         rankingToSave = [data loadRanking];
     
-    [rankingToSave addObject:scoreToSave];
+        [rankingToSave addObject:scoreToSave];
     
-    NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    [rankingToSave sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
+        NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+        [rankingToSave sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
     
-    if ( [rankingToSave count] > 5)
-        [rankingToSave removeLastObject];
-    
+        if ( [rankingToSave count] > 5)
+            [rankingToSave removeLastObject];
+    }else{
+        [rankingToSave addObject:scoreToSave];
+    }
     [data saveRanking:rankingToSave];
     
     float coinsToSave = [[data loadCoins] floatValue];
@@ -749,7 +750,7 @@ float ranking;
 
     data = [[RWGameData alloc] init];
 
-    if ([data loadRanking] != nil)
+    if ([[data loadRanking] objectAtIndex:0] != nil)
         ranking = [[[data loadRanking] objectAtIndex:0] floatValue];
     else
         ranking = 0;

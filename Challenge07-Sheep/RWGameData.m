@@ -39,7 +39,7 @@ static NSString* const SheepSkinKey = @"sheepList";
     } else {
         array = [[NSMutableArray alloc] init];
         [array addObject:[NSNumber numberWithFloat:0]];
-    }
+      }
     return array;
 }
 
