@@ -25,8 +25,6 @@ SKVideoNode *video;
     [self addChild:tapSkip];
     
     video = [SKVideoNode videoNodeWithVideoFileNamed:@"introMovie2.mov"];
-   
-    video.size = CGSizeMake(self.frame.size.width, self.frame.size.height);
     video.position = CGPointMake(CGRectGetMidX(self.frame),
                                  CGRectGetMidY(self.frame));
     video.xScale = 0.52;

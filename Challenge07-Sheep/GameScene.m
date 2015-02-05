@@ -12,7 +12,6 @@
 #import "RWGameData.h"
 #import <AVFoundation/AVFoundation.h>
 #import "Sheep.h"
-#import "BossScene.h"
 
 
 @implementation GameScene
@@ -666,13 +665,12 @@ float ranking;
         [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
     } else {
         [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
-        //[self bossSceneStart];
     }
 }
 
 -(void) endGame {
     [_player stop];
-//    [self saveGame];
+    [self saveGame];
     playing = false;
     SKTransition *reveal = [SKTransition fadeWithDuration:3];
     HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
@@ -684,44 +682,24 @@ float ranking;
     
 }
 
--(void) bossSceneStart {
-    
-    int auxScore = score;
-    int auxCoins = gameCoins;
-    int auxLife = life.text.intValue;
-    
-    [_player stop];
-    playing = false;
-    SKTransition *reveal = [SKTransition crossFadeWithDuration:3];
-    BossScene *scene = [BossScene sceneWithSize:self.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    scene.scoreParam = auxScore+1;
-    scene.coinsParam = auxCoins+1;
-    scene.nHeartsParam = auxLife;
-    
-    [self.view presentScene:scene transition:reveal];
-    
-}
-
 -(void) saveGame {
+    scoreLabel.fontColor = [SKColor blackColor];
     NSNumber *scoreToSave = [[NSNumber alloc] init];
     scoreToSave = [NSNumber numberWithFloat: score];
     
     NSMutableArray *rankingToSave = [[NSMutableArray array] init];
     
-    if ([data loadRanking] != nil){
+    if ([data loadRanking] != nil)
         rankingToSave = [data loadRanking];
     
-        [rankingToSave addObject:scoreToSave];
+    [rankingToSave addObject:scoreToSave];
     
-        NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-        [rankingToSave sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
+    NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+    [rankingToSave sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
     
-        if ( [rankingToSave count] > 5)
-            [rankingToSave removeLastObject];
-    }else{
-        [rankingToSave addObject:scoreToSave];
-    }
+    if ( [rankingToSave count] > 5)
+        [rankingToSave removeLastObject];
+    
     [data saveRanking:rankingToSave];
     
     float coinsToSave = [[data loadCoins] floatValue];
@@ -750,10 +728,10 @@ float ranking;
 
     data = [[RWGameData alloc] init];
 
-    if ([[data loadRanking] objectAtIndex:0] != nil)
+    if ([[data loadRanking] objectAtIndex:0]!= nil)
         ranking = [[[data loadRanking] objectAtIndex:0] floatValue];
     else
         ranking = 0;
 }
-
+                                                                
 @end
