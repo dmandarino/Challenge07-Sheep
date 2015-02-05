@@ -305,7 +305,7 @@ int used;
 -(void) buySheep: (Sheep *)sheep {
     float newCoins = [[data loadCoins]floatValue] - sheepPrice;
     [data saveCoins:[NSNumber numberWithFloat:newCoins]];
-    coinsLabel.text = [NSString stringWithFormat:@"%f", newCoins];
+    coinsLabel.text = [NSString stringWithFormat:@"%.0f", newCoins];
     [sheepArray addObject:sheep];
     [self changeSheep:sheepName];
 }

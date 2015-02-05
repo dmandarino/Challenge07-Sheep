@@ -143,7 +143,7 @@ float ranking;
     card.name = @"cardNode";
     card.xScale = 0.08;
     card.yScale = 0.08;
-    card.zPosition = 2;
+    card.zPosition = 3;
     card.position = CGPointMake(350, 170);// Y varia de 390 ateh 175 nao visivel
     cardMove = [SKAction moveToY:170 duration:2.5];
     invencible = false;
@@ -236,6 +236,7 @@ float ranking;
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    bgImage.zPosition = 0;
     [self addChild:bgImage];
     
     gameCoins = 0;
@@ -245,23 +246,27 @@ float ranking;
     msgLabel.fontColor = [SKColor blueColor];
     msgLabel.position = CGPointMake((self.frame.size.width/2+10), (self.frame.size.height/2+45));
     msgLabel.text = @"";
+    msgLabel.zPosition = 1;
     [self addChild:msgLabel];
     
     scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     scoreLabel.fontSize = 15;
     scoreLabel.position = CGPointMake((self.frame.size.width/8), (self.frame.size.height/2.8));
+    scoreLabel.zPosition = 1;
     [self addChild:scoreLabel];
     
     coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     coinsLabel.fontSize = 12;
     coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+45);
     coinsLabel.fontColor = [SKColor blackColor];
+    coinsLabel.zPosition = 1;
     [self addChild:coinsLabel];
     
     coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
     coinsImg.xScale = 0.05;
     coinsImg.yScale = 0.05;
     coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)+52);
+    coinsImg.zPosition = 1;
     [self addChild:coinsImg];
     
     [self showSheep];
@@ -270,12 +275,14 @@ float ranking;
     sprite.yScale = 0.3;
     sprite.zPosition = 1;
     sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
+    sprite.zPosition = 1;
     [self addChild:sprite];
     
     SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
     heart.xScale = 0.01;
     heart.yScale = 0.01;
     heart.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+72);
+    heart.zPosition = 1;
     [self addChild:heart];
     
     life= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -283,6 +290,7 @@ float ranking;
     life.text = @"2";
     life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
     life.fontColor = [SKColor blackColor];
+    life.zPosition = 1;
     [self addChild:life];
 }
 
@@ -351,6 +359,7 @@ float ranking;
     _claws.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+75);
     _claws.xScale = 0.11;
     _claws.yScale = 0.13;
+    _claws.zPosition = 2;
     _claws.hidden = true;
     [self addChild:_claws];
     
@@ -637,6 +646,7 @@ float ranking;
     highScoreTitle.fontColor = [SKColor redColor];
     highScoreTitle.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+70);
     highScoreTitle.text = @"High Score";
+    highScoreTitle.zPosition = 1;
     [self addChild:highScoreTitle];
     
     
@@ -646,6 +656,7 @@ float ranking;
     highScore.fontColor = [SKColor redColor];
     highScore.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+60);
     highScore.text = [NSMutableString stringWithFormat:@"%.0f", ranking];
+    highScore.zPosition  =1;
     [self addChild:highScore];
     
 }
