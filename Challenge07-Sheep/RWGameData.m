@@ -37,7 +37,8 @@ static NSString* const SheepSkinKey = @"sheepList";
         array = [unarchiver decodeObjectForKey:RankingKey];
         [unarchiver finishDecoding];
     } else {
-        array = [[NSMutableArray alloc] initWithCapacity:20];
+        array = [[NSMutableArray alloc] init];
+        [array addObject:[NSNumber numberWithFloat:0]];
     }
     return array;
 }
@@ -65,6 +66,8 @@ static NSString* const SheepSkinKey = @"sheepList";
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
         coins = [unarchiver decodeObjectForKey:CoinsKey];
         [unarchiver finishDecoding];
+    } else {
+        coins = [NSNumber numberWithFloat:0];
     }
     return coins;
 }
