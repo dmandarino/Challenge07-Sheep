@@ -12,7 +12,6 @@
 #import "RWGameData.h"
 #import <AVFoundation/AVFoundation.h>
 #import "Sheep.h"
-#import "BossScene.h"
 
 
 @implementation GameScene
@@ -87,6 +86,8 @@ float ranking;
 //    [RWGameData sharedGameData].coins = 500;
     
     [self loadValues];
+    
+//    [data saveCoins:[NSNumber numberWithFloat:500]];
     
     [self prepareGameBackground];
     
@@ -666,38 +667,18 @@ float ranking;
         [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
     } else {
         [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
-        //[self bossSceneStart];
     }
 }
 
 -(void) endGame {
     [_player stop];
-//    [self saveGame];
+    [self saveGame];
     playing = false;
     SKTransition *reveal = [SKTransition fadeWithDuration:3];
     HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     scene.score = score;
     scene.coins = gameCoins;
-    
-    [self.view presentScene:scene transition:reveal];
-    
-}
-
--(void) bossSceneStart {
-    
-    int auxScore = score;
-    int auxCoins = gameCoins;
-    int auxLife = life.text.intValue;
-    
-    [_player stop];
-    playing = false;
-    SKTransition *reveal = [SKTransition crossFadeWithDuration:3];
-    BossScene *scene = [BossScene sceneWithSize:self.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    scene.scoreParam = auxScore+1;
-    scene.coinsParam = auxCoins+1;
-    scene.nHeartsParam = auxLife;
     
     [self.view presentScene:scene transition:reveal];
     
@@ -749,10 +730,10 @@ float ranking;
 
     data = [[RWGameData alloc] init];
 
-    if ([data loadRanking] != nil)
+    if ([[data loadRanking] objectAtIndex:0]!= nil)
         ranking = [[[data loadRanking] objectAtIndex:0] floatValue];
     else
         ranking = 0;
 }
-
+                                                                
 @end

@@ -37,8 +37,7 @@ static NSString* const SheepSkinKey = @"sheepList";
         array = [unarchiver decodeObjectForKey:RankingKey];
         [unarchiver finishDecoding];
     } else {
-        array = [[NSMutableArray alloc] init];
-        [array addObject:[NSNumber numberWithFloat:0]];
+        array = [[NSMutableArray alloc] initWithCapacity:20];
     }
     return array;
 }
