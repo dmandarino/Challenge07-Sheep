@@ -672,7 +672,7 @@ float ranking;
 
 -(void) endGame {
     [_player stop];
-    [self saveGame];
+//    [self saveGame];
     playing = false;
     SKTransition *reveal = [SKTransition fadeWithDuration:3];
     HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
@@ -749,10 +749,10 @@ float ranking;
 
     data = [[RWGameData alloc] init];
 
-    if ([[data loadRanking] objectAtIndex:0]!= nil)
+    if ([data loadRanking] != nil)
         ranking = [[[data loadRanking] objectAtIndex:0] floatValue];
     else
         ranking = 0;
 }
-                                                                
+
 @end
