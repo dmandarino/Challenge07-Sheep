@@ -66,12 +66,14 @@ int used;
     bgImage.yScale = 0.1;
     bgImage.size = CGSizeMake(self.size.height, self.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    bgImage.zPosition = 0;
     [self addChild:bgImage];
     
     heartImg = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
     heartImg.xScale = 0.008;
     heartImg.yScale = 0.008;
     heartImg.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-69);
+    heartImg.zPosition = 1;
     [self addChild:heartImg];
     
     coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -79,12 +81,14 @@ int used;
     coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+65);
     coinsLabel.fontColor = [SKColor blackColor];
     coinsLabel.text = [NSString stringWithFormat:@"%.0f", [[data loadCoins] floatValue]];
+    coinsLabel.zPosition = 1;
     [self addChild:coinsLabel];
     
     coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
     coinsImg.xScale = 0.05;
     coinsImg.yScale = 0.05;
     coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+72);
+    coinsImg.zPosition = 1;
     [self addChild:coinsImg];
     
     coinsLabel2= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -92,12 +96,14 @@ int used;
     coinsLabel2.position = CGPointMake(CGRectGetMidX(self.frame)+35, CGRectGetMidY(self.frame)-76);
     coinsLabel2.fontColor = [SKColor whiteColor];
     coinsLabel2.text = [NSString stringWithFormat:@"1000"];
+    coinsLabel2.zPosition = 1;
     [self addChild:coinsLabel2];
     
     coinsImg2 = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
     coinsImg2.xScale = 0.03;
     coinsImg2.yScale = 0.03;
     coinsImg2.position = CGPointMake(CGRectGetMidX(self.frame)+15, CGRectGetMidY(self.frame)-72);
+    coinsImg2.zPosition = 1;
     [self addChild:coinsImg2];
     
     generalStoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -105,6 +111,7 @@ int used;
     generalStoreLabel.fontColor = [SKColor whiteColor];
     generalStoreLabel.position = CGPointMake((self.frame.size.width/2), (self.frame.size.height/2)+62);
     generalStoreLabel.text = @"General Store";
+    generalStoreLabel.zPosition = 1;
     [self addChild:generalStoreLabel];
     
     sheepsOutfitLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -112,6 +119,7 @@ int used;
     sheepsOutfitLabel.fontColor = [SKColor whiteColor];
     sheepsOutfitLabel.position = CGPointMake((self.frame.size.width/2), (self.frame.size.height/2)+42);
     sheepsOutfitLabel.text = @"Sheep's Outfit";
+    sheepsOutfitLabel.zPosition = 1;
     [self addChild:sheepsOutfitLabel];
     
     heartLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -119,6 +127,7 @@ int used;
     heartLabel.fontColor = [SKColor whiteColor];
     heartLabel.position = CGPointMake((self.frame.size.width/2), (self.frame.size.height/2)-56);
     heartLabel.text = @"Number of Hearts";
+    heartLabel.zPosition = 1;
     [self addChild:heartLabel];
     
     nHeart = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -126,6 +135,7 @@ int used;
     nHeart.fontColor = [SKColor whiteColor];
     nHeart.position = CGPointMake(((self.frame.size.width/2)-10), (self.frame.size.height/2)-76);
     nHeart.text = @"2";
+    nHeart.zPosition = 1;
     [self addChild:nHeart];
     
     storeSheep = [[NSMutableArray array] init];
@@ -140,18 +150,20 @@ int used;
         name.fontSize = 10;
         name.fontColor = [SKColor whiteColor];
         name.position = CGPointMake(((self.frame.size.width/2)-190+i*75), (self.frame.size.height/2)+25);
+        name.zPosition = 1;
         
         price = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
         price.fontSize = 10;
         price.fontColor = [SKColor whiteColor];
         price.position = CGPointMake(((self.frame.size.width/2)-190+i*75), (self.frame.size.height/2)-37);
         price.text = [NSString stringWithFormat:@"%d", 200+i*100];
-        
+        price.zPosition = 1;
         
         coinsImg2 = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
         coinsImg2.xScale = 0.03;
         coinsImg2.yScale = 0.03;
         coinsImg2.position = CGPointMake(CGRectGetMidX(self.frame)-210+i*75, CGRectGetMidY(self.frame)-32);
+        coinsImg2.zPosition = 1;
         
         Sheep *mainSheep = [self getActivatedSheep];
         
@@ -194,6 +206,7 @@ int used;
         outfitImg.xScale = 0.2;
         outfitImg.yScale = 0.2;
         outfitImg.position = CGPointMake(CGRectGetMidX(self.frame)-192+i*76, CGRectGetMidY(self.frame)-5);
+        outfitImg.zPosition = 1;
         [self addChild:outfitImg];
         [self addChild:name];
         [self addChild:price];

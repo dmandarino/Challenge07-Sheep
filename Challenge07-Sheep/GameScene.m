@@ -81,13 +81,13 @@ float ranking;
 
     sheepSkin = [[NSMutableArray alloc] init];
     
-    //TESTE DE OUTRAS OVELHAS
-//    [RWGameData sharedGameData].skin = @"";
-//    [RWGameData sharedGameData].coins = 500;
-    
     [self loadValues];
     
-//    [data saveCoins:[NSNumber numberWithFloat:500]];
+    //For Test
+    
+    //NSMutableArray *array = [[NSMutableArray alloc ]init];
+    //[data saveSheep: array];
+    //[data saveCoins:[NSNumber numberWithFloat:500]];
     
     [self prepareGameBackground];
     
