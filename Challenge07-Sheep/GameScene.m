@@ -12,6 +12,7 @@
 #import "RWGameData.h"
 #import <AVFoundation/AVFoundation.h>
 #import "Sheep.h"
+#import "BossScene.h"
 
 
 @implementation GameScene
@@ -115,8 +116,15 @@ float ranking;
                                                [SKAction waitForDuration:4],
                                                [SKAction performSelector:@selector(prepareAttack)
                                                                 onTarget:self]]];
+    
 
-    [self runAction:[SKAction repeatActionForever:Level1 ]];
+    [self runAction:[SKAction repeatAction:Level1 count:3]completion:^{
+        [self runAction: [SKAction waitForDuration:3.5]completion:^{
+            sprite.texture = sheepSheep;
+            [self startBossScene];
+        }];
+    }];
+
     
 }
 
@@ -437,7 +445,6 @@ float ranking;
                 invencible = true;
                 msgLabel.text = @"Super Invincible Sheep";
                 card.position = CGPointMake(350, 170);
-                [sprite runAction: sheepSuper];
                 [sprite runAction:sheepSuper completion:^{
                     msgLabel.text = @"";
                     invencible = false;
@@ -690,6 +697,25 @@ float ranking;
     scene.scaleMode = SKSceneScaleModeAspectFill;
     scene.score = score;
     scene.coins = gameCoins;
+    
+    [self.view presentScene:scene transition:reveal];
+    
+}
+
+-(void) startBossScene {
+    int scoreAux = score+1;
+    int coinsAux = gameCoins+1;
+    
+    [_player stop];
+    playing = false;
+    SKTransition *reveal = [SKTransition crossFadeWithDuration:2];
+    BossScene *scene = [BossScene sceneWithSize:self.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    scene.scoreParam = scoreAux;
+    scene.coinsParam = coinsAux;
+    scene.nHeartsParam = life.text.intValue;
+    scene.rankingParam = ranking;
+    scene.spriteParam = sprite;
     
     [self.view presentScene:scene transition:reveal];
     
