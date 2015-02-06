@@ -730,6 +730,7 @@ int numberOfAttacks;
     scene.nHeartsParam = life.text.intValue;
     scene.rankingParam = ranking;
     scene.spriteParam = sprite;
+    scene.level = self.level;
     
     [self.view presentScene:scene transition:reveal];
     
@@ -802,7 +803,7 @@ int numberOfAttacks;
         
         intervalToCancelAttack -= (aux * 0.06f);
         intervalToAttack -= (aux * 0.4f);
-        intervalDuringAttack -= (aux * 0.1f);
+        intervalDuringAttack -= (aux * 0.13f);
         framesSpeed -= (aux * 0.011f);
         
         if (actualLevel == 6){

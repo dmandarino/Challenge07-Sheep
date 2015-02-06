@@ -17,5 +17,6 @@
 @property float coinsParam;
 @property float rankingParam;
 @property int nHeartsParam;
+@property int level;
 
 @end

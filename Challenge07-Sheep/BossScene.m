@@ -7,6 +7,7 @@
 //
 
 #import "BossScene.h"
+#import "GameScene.h"
 
 @implementation BossScene
 
@@ -38,6 +39,20 @@ SKAction *msgAct;
     [self playEffectBgSounds];
     
     [msgLabel runAction: msgAct];
+    
+    SKAction *runGameAnimations= [SKAction sequence:@[
+                                                      //time after you want to fire a function
+                                                      [SKAction waitForDuration:2],
+                                                      [SKAction performSelector:@selector(time)
+                                                                       onTarget:self]]];
+    
+    
+    [self runAction:[SKAction repeatAction:runGameAnimations count:3]completion:^{
+        [self runAction: [SKAction waitForDuration:3.5]completion:^{
+//            sprite.texture = sheepSheep;
+            [self backGame];
+        }];
+    }];
     
 }
 
@@ -150,5 +165,19 @@ SKAction *msgAct;
     
 }
 
+-(void) backGame {
+    
+    SKTransition *reveal = [SKTransition fadeWithDuration:1];
+    GameScene *scene = [GameScene sceneWithSize:self.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    scene.level = self.level + 1;
+
+    
+    [self.view presentScene:scene transition:reveal];
+}
+
+-(void) time {
+    
+}
 
 @end
