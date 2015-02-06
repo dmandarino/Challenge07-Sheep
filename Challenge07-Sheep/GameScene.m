@@ -74,6 +74,15 @@ NSMutableArray *sheepSkin;
 RWGameData *data;
 float ranking;
 
+
+// ==== LEVEL DE DIFICULDADE ===== //
+
+float intervalToAttack;
+float framesSpeed;
+float intervalToCancelAttack;
+float intervalDuringAttack;
+int numberOfAttacks;
+
 -(void)didMoveToView:(SKView *)view {
     
     
@@ -82,12 +91,6 @@ float ranking;
     sheepSkin = [[NSMutableArray alloc] init];
     
     [self loadValues];
-    
-    //For Test
-    
-    //NSMutableArray *array = [[NSMutableArray alloc ]init];
-    //[data saveSheep: array];
-    //[data saveCoins:[NSNumber numberWithFloat:500]];
     
     [self prepareGameBackground];
     
@@ -110,26 +113,27 @@ float ranking;
                                     [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]]];
     
     
-    SKAction *Level1= [SKAction sequence:@[
+    SKAction *runGameAnimations= [SKAction sequence:@[
                                                //time after you want to fire a function
-                                               [SKAction waitForDuration:4],
+                                               [SKAction waitForDuration:intervalToAttack],
                                                [SKAction performSelector:@selector(prepareAttack)
                                                                 onTarget:self]]];
 
-    [self runAction:[SKAction repeatActionForever:Level1 ]];
+    [self runAction:[SKAction repeatActionForever:runGameAnimations ]];
+//    [self runAction:[SKAction repeatAction:runGameAnimations count: 3]];
     
 }
 
 -(void)playEffectBgSounds{
     
-    //Play Sound
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                         pathForResource:@"backgroundMusic"
-                                         ofType:@"wav"]];
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    _player.numberOfLoops = -1;
-    
-    [_player play];
+//    //Play Sound
+//    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+//                                         pathForResource:@"backgroundMusic"
+//                                         ofType:@"wav"]];
+//    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+//    _player.numberOfLoops = -1;
+//    
+//    [_player play];
 }
 
 
@@ -377,7 +381,7 @@ float ranking;
     
     _dragon.hidden = false;
     [_dragon runAction:[SKAction repeatAction:[SKAction animateWithTextures:_dragonFireFrames
-                                                               timePerFrame:0.1f
+                                                               timePerFrame:framesSpeed
 
                                                                      resize:NO
                                                                     restore:YES] count: 1]];
@@ -389,7 +393,7 @@ float ranking;
     
     _claws.hidden = false;
     [_claws runAction:[SKAction repeatAction:[SKAction animateWithTextures:_clawsAttackingFrames
-                                                              timePerFrame:0.1f
+                                                              timePerFrame:framesSpeed
                                                                     resize:YES
                                                                    restore:YES] count: 1]];
     return;
@@ -452,14 +456,14 @@ float ranking;
     
     SKAction *cancelAttackLeft= [SKAction sequence:@[
                                                  //time after you want to fire a function
-                                                 [SKAction waitForDuration:2],
+                                                 [SKAction waitForDuration:intervalToCancelAttack],
                                                  [SKAction performSelector:@selector(stopAttackLeft)
                                                                   onTarget:self]
                                                  
                                                  ]];
     SKAction *cancelAttackRight= [SKAction sequence:@[
                                                      //time after you want to fire a function
-                                                     [SKAction waitForDuration:2],
+                                                     [SKAction waitForDuration:intervalToCancelAttack],
                                                      [SKAction performSelector:@selector(stopAttackRight)
                                                                       onTarget:self]
                                                      
@@ -468,7 +472,7 @@ float ranking;
     
     SKAction *cancelAttackUp= [SKAction sequence:@[
                                                      //time after you want to fire a function
-                                                     [SKAction waitForDuration:2],
+                                                     [SKAction waitForDuration:intervalToCancelAttack],
                                                      [SKAction performSelector:@selector(stopAttackUp)
                                                                       onTarget:self]
                                                      
@@ -562,13 +566,27 @@ float ranking;
     
     SKAction *attackLaunch= [SKAction sequence:@[
                                                  //time after you want to fire a function
-                                                 [SKAction waitForDuration:1],
+                                                 [SKAction waitForDuration:intervalDuringAttack],
                                                  [SKAction performSelector:@selector(attack)
                                                                   onTarget:self]
                                                  
                                                  ]];
     [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
+    
+    // ======= TESTANDO PASSADA DE LEVEL  =======//
+    
+    if ( numberOfAttacks == 3){
+        SKTransition *reveal = [SKTransition fadeWithDuration:1];
+        GameScene *scene = [GameScene sceneWithSize:self.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        scene.level = self.level + 1;
+        
+        [self.view presentScene:scene transition:reveal];
+    }
+    
+    numberOfAttacks ++;
 }
+
 - (void) attack {
     
 //sprite.texture = sheepSheep;
@@ -623,11 +641,6 @@ float ranking;
         sprite.texture = sheepSheep;
         defenseUp = false;
     }
-    
-}
-
-
--(void) levelUp {
     
 }
 
@@ -725,9 +738,11 @@ float ranking;
 
 - (void) loadValues {
     score = 0;
-    
+    numberOfAttacks = 0;
     playing = true;
 
+    [self setLevelValues];
+    
     data = [[RWGameData alloc] init];
 
     if ([[data loadRanking] objectAtIndex:0]!= nil)
@@ -735,5 +750,34 @@ float ranking;
     else
         ranking = 0;
 }
-                                                                
+
+-(void) setLevelValues {
+    [self setDefaultLevelValues];
+    float actualLevel = 0;
+    if (self.level > 1){
+        if (self.level > 5){
+            actualLevel = self.level;
+            self.level = 5;
+        }
+        
+        float aux = self.level;
+        
+        intervalToCancelAttack -= (aux * 0.06f);
+        intervalToAttack -= (aux * 0.4f);
+        intervalDuringAttack -= (aux * 0.1f);
+        framesSpeed -= (aux * 0.011f);
+        
+        if (actualLevel == 6){
+            intervalToAttack -= 0.5f;
+        }
+    }
+}
+
+-(void) setDefaultLevelValues {
+    intervalToAttack = 4.0f;
+    framesSpeed = 0.1f;
+    intervalDuringAttack = 1.0;
+    intervalToCancelAttack = 0.5f;
+}
+
 @end

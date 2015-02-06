@@ -34,7 +34,7 @@ RWGameData *data;
     
     [self rankingScore];
     
-    [self playEffectBgSounds];
+//    [self playEffectBgSounds];
     
 }
 
@@ -53,7 +53,7 @@ RWGameData *data;
         
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
-
+        scene.level = 1;
 
         [self.view presentScene:scene transition:reveal];
     } else if ([node.name isEqualToString:@"homeButtonNode"]) {

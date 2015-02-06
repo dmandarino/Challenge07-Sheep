@@ -24,23 +24,23 @@ SKVideoNode *video;
     tapSkip.zPosition = 1;
     [self addChild:tapSkip];
     
-    video = [SKVideoNode videoNodeWithVideoFileNamed:@"introMovie2.mov"];
-    video.position = CGPointMake(CGRectGetMidX(self.frame),
-                                 CGRectGetMidY(self.frame));
-    video.xScale = 0.52;
-    video.yScale = 0.39;
-    
-    [self addChild: video];
-    [video play];
-    
-    SKAction *attackLaunch= [SKAction sequence:@[
-                                                 //time after you want to fire a function
-                                                 [SKAction waitForDuration:12],
-                                                 [SKAction performSelector:@selector(skip)
-                                                                  onTarget:self]
-                                                 
-                                                 ]];
-    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
+//    video = [SKVideoNode videoNodeWithVideoFileNamed:@"introMovie2.mov"];
+//    video.position = CGPointMake(CGRectGetMidX(self.frame),
+//                                 CGRectGetMidY(self.frame));
+//    video.xScale = 0.52;
+//    video.yScale = 0.39;
+//    
+//    [self addChild: video];
+//    [video play];
+//    
+//    SKAction *attackLaunch= [SKAction sequence:@[
+//                                                 //time after you want to fire a function
+//                                                 [SKAction waitForDuration:12],
+//                                                 [SKAction performSelector:@selector(skip)
+//                                                                  onTarget:self]
+//                                                 
+//                                                 ]];
+//    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
     
 
 }

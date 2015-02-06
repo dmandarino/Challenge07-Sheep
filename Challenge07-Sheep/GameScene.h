@@ -11,5 +11,6 @@
 
 @interface GameScene : SKScene <UIGestureRecognizerDelegate>
 @property AVAudioPlayer *player;
+@property int level;
 
 @end

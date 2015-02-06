@@ -231,14 +231,14 @@ int used;
 
 -(void)playEffectBgSounds{
     
-    //Play Sound
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                         pathForResource:@"store"
-                                         ofType:@"wav"]];
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    _player.numberOfLoops = -1;
-    
-    [_player play];
+//    //Play Sound
+//    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+//                                         pathForResource:@"store"
+//                                         ofType:@"wav"]];
+//    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+//    _player.numberOfLoops = -1;
+//    
+//    [_player play];
 }
 
 -(SKSpriteNode *) createHomeButton {
@@ -267,6 +267,7 @@ int used;
     }else if([node.name isEqualToString:@"retryButtonNode"]){
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
+        scene.level = 1;
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
         
         
