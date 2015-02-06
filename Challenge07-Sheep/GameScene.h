@@ -12,5 +12,8 @@
 @interface GameScene : SKScene <UIGestureRecognizerDelegate>
 @property AVAudioPlayer *player;
 @property int level;
+@property float scoreParam;
+@property float coinsParam;
+@property int nHeartsParam;
 
 @end

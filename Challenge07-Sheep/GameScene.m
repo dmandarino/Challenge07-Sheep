@@ -135,7 +135,7 @@ int numberOfAttacks;
 
 -(void)playEffectBgSounds{
     
-//    //Play Sound
+    //Play Sound
 //    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
 //                                         pathForResource:@"backgroundMusic"
 //                                         ofType:@"wav"]];
@@ -252,8 +252,6 @@ int numberOfAttacks;
     bgImage.zPosition = 0;
     [self addChild:bgImage];
     
-    gameCoins = 0;
-    
     msgLabel= [SKLabelNode labelNodeWithFontNamed:@"HoeflerText-BlackItalic"];
     msgLabel.fontSize = 20;
     msgLabel.fontColor = [SKColor blueColor];
@@ -300,7 +298,10 @@ int numberOfAttacks;
     
     life= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     life.fontSize = 20;
-    life.text = @"2";
+    if (self.nHeartsParam >0 )
+        life.text = [NSString stringWithFormat:@"%d", self.nHeartsParam];
+    else
+        life.text = @"2";
     life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
     life.fontColor = [SKColor blackColor];
     life.zPosition = 1;
@@ -776,7 +777,9 @@ int numberOfAttacks;
 }
 
 - (void) loadValues {
-    score = 0;
+    score = self.scoreParam;
+    gameCoins = self.coinsParam;
+
     numberOfAttacks = 0;
     playing = true;
 

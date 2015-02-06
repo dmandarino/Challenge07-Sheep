@@ -167,11 +167,16 @@ SKAction *msgAct;
 
 -(void) backGame {
     
+    int scoreAux = _scoreParam+1;
+    int coinsAux = _coinsParam+1;
+    
     SKTransition *reveal = [SKTransition fadeWithDuration:1];
     GameScene *scene = [GameScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     scene.level = self.level + 1;
-
+    scene.scoreParam = scoreAux;
+    scene.coinsParam = coinsAux;
+    scene.nHeartsParam = heartLabel.text.intValue;
     
     [self.view presentScene:scene transition:reveal];
 }
