@@ -11,6 +11,9 @@
 
 @implementation BossScene
 
+static const int spriteHitCategory = 1;
+static const int fireHitCategory = 2;
+
 bool playing;
 
 SKLabelNode *coinsLabel;
@@ -27,12 +30,12 @@ SKAction *msgAct;
 -(void) didMoveToView:(SKView *)view {
     
     playing = true;
-
+    
     msgAct = [SKAction sequence:@[
-                                      [SKAction fadeAlphaTo:1 duration:3],
-                                      [SKAction waitForDuration:1],
-                                      [SKAction fadeOutWithDuration:2]
-                                      ]];
+                                  [SKAction fadeAlphaTo:1 duration:3],
+                                  [SKAction waitForDuration:1],
+                                  [SKAction fadeOutWithDuration:2]
+                                  ]];
     
     [self createBackground];
     
@@ -49,7 +52,7 @@ SKAction *msgAct;
     
     [self runAction:[SKAction repeatAction:runGameAnimations count:3]completion:^{
         [self runAction: [SKAction waitForDuration:3.5]completion:^{
-//            sprite.texture = sheepSheep;
+            //            sprite.texture = sheepSheep;
             [self backGame];
         }];
     }];
@@ -115,7 +118,15 @@ SKAction *msgAct;
     
     [_spriteParam removeFromParent];
     [self addChild:_spriteParam];
-
+    _spriteParam.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(_spriteParam.size.width, _spriteParam.size.height)];
+    _spriteParam.physicsBody.categoryBitMask = spriteHitCategory;
+    _spriteParam.physicsBody.contactTestBitMask = fireHitCategory;
+    _spriteParam.physicsBody.collisionBitMask =  fireHitCategory;
+    _spriteParam.physicsBody.dynamic = NO;
+    
+    
+    [self fireWave];
+    
 }
 
 -(void)playEffectBgSounds{
@@ -162,7 +173,6 @@ SKAction *msgAct;
         if ( _scoreParam >= _rankingParam )
             scoreLabel.fontColor = [SKColor redColor];
     }
-    
 }
 
 -(void) backGame {
@@ -180,9 +190,54 @@ SKAction *msgAct;
     
     [self.view presentScene:scene transition:reveal];
 }
-
 -(void) time {
     
+}
+-(void)fireWave {
+    
+    SKSpriteNode *fire = [SKSpriteNode spriteNodeWithImageNamed:@"fireBall.png"];
+    fire.xScale = 0.05;
+    fire.yScale = 0.05;
+    fire.zPosition = 1;
+    
+    fire.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:50];
+    fire.physicsBody.categoryBitMask = fireHitCategory;
+    fire.physicsBody.contactTestBitMask = spriteHitCategory;
+    fire.physicsBody.collisionBitMask =  spriteHitCategory;
+    fire.physicsBody.dynamic = NO;
+    
+    
+    fire.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)-20);
+    [self addChild:fire];
+    
+    SKAction *hotWave = [SKAction moveTo:_spriteParam.position duration:3];
+    [fire runAction:hotWave];
+    
+    
+}
+
+-(void)didBeginContact:(SKPhysicsContact *)contact
+{
+    SKPhysicsBody *firstBody, *secondBody;
+    
+    firstBody = contact.bodyA;
+    secondBody = contact.bodyB;
+    
+    if(firstBody.categoryBitMask == fireHitCategory || secondBody.categoryBitMask == fireHitCategory)
+    {
+        
+        NSLog(@"colidiu pohaaa");
+        //setup your methods and other things here
+        
+    }
+}
+
+-(id)initWithSize:(CGSize)size {
+    if (self = [super initWithSize:size]) {
+        self.physicsWorld.contactDelegate = self;
+        
+    }
+    return self;
 }
 
 @end

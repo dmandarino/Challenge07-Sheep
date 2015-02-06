@@ -88,7 +88,7 @@ int numberOfAttacks;
     
     
     /* Setup your scene here */
-
+    
     sheepSkin = [[NSMutableArray alloc] init];
     
     [self loadValues];
@@ -109,40 +109,42 @@ int numberOfAttacks;
                                     [SKAction colorizeWithColorBlendFactor:0.0 duration:0.15]]];
     
     sheepSuper = [SKAction sequence:@[
-                                    [SKAction colorizeWithColor:[SKColor cyanColor] colorBlendFactor:1.0 duration:3.15],
-                                    [SKAction waitForDuration:3.1],
-                                    [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]]];
+                                      [SKAction colorizeWithColor:[SKColor cyanColor] colorBlendFactor:1.0 duration:3.15],
+                                      [SKAction waitForDuration:3.1],
+                                      [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]]];
     
     
     SKAction *runGameAnimations= [SKAction sequence:@[
-                                               //time after you want to fire a function
-                                               [SKAction waitForDuration:intervalToAttack],
-                                               [SKAction performSelector:@selector(prepareAttack)
-                                                                onTarget:self]]];
+                                                      //time after you want to fire a function
+                                                      [SKAction waitForDuration:intervalToAttack],
+                                                      [SKAction performSelector:@selector(prepareAttack)
+                                                                       onTarget:self]]];
     
-
+    
+    
     [self runAction:[SKAction repeatAction:runGameAnimations count:3]completion:^{
+        
         [self runAction: [SKAction waitForDuration:3.5]completion:^{
             sprite.texture = sheepSheep;
             [self startBossScene];
         }];
     }];
-
-//    [self runAction:[SKAction repeatActionForever:runGameAnimations ]];
-
+    
+    //    [self runAction:[SKAction repeatActionForever:runGameAnimations ]];
+    
     
 }
 
 -(void)playEffectBgSounds{
     
     //Play Sound
-//    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-//                                         pathForResource:@"backgroundMusic"
-//                                         ofType:@"wav"]];
-//    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-//    _player.numberOfLoops = -1;
-//    
-//    [_player play];
+    //    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+    //                                         pathForResource:@"backgroundMusic"
+    //                                         ofType:@"wav"]];
+    //    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    //    _player.numberOfLoops = -1;
+    //
+    //    [_player play];
 }
 
 
@@ -281,7 +283,7 @@ int numberOfAttacks;
     [self addChild:coinsImg];
     
     [self showSheep];
-   
+    
     sprite.xScale = 0.3;
     sprite.yScale = 0.3;
     sprite.zPosition = 1;
@@ -401,7 +403,7 @@ int numberOfAttacks;
     _dragon.hidden = false;
     [_dragon runAction:[SKAction repeatAction:[SKAction animateWithTextures:_dragonFireFrames
                                                                timePerFrame:framesSpeed
-
+                                               
                                                                      resize:NO
                                                                     restore:YES] count: 1]];
     
@@ -430,7 +432,7 @@ int numberOfAttacks;
     
     //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"cardNode"]) {
- 
+        
         int newLife;
         
         switch (cardStatus) {
@@ -473,35 +475,35 @@ int numberOfAttacks;
     int deltaY = (endPosition.y - pointLocation.y);
     
     SKAction *cancelAttackLeft= [SKAction sequence:@[
-                                                 //time after you want to fire a function
-                                                 [SKAction waitForDuration:intervalToCancelAttack],
-                                                 [SKAction performSelector:@selector(stopAttackLeft)
-                                                                  onTarget:self]
-                                                 
-                                                 ]];
-    SKAction *cancelAttackRight= [SKAction sequence:@[
                                                      //time after you want to fire a function
                                                      [SKAction waitForDuration:intervalToCancelAttack],
-                                                     [SKAction performSelector:@selector(stopAttackRight)
+                                                     [SKAction performSelector:@selector(stopAttackLeft)
                                                                       onTarget:self]
                                                      
                                                      ]];
+    SKAction *cancelAttackRight= [SKAction sequence:@[
+                                                      //time after you want to fire a function
+                                                      [SKAction waitForDuration:intervalToCancelAttack],
+                                                      [SKAction performSelector:@selector(stopAttackRight)
+                                                                       onTarget:self]
+                                                      
+                                                      ]];
     [self runAction:[SKAction repeatAction:cancelAttackRight count: 1]];
     
     SKAction *cancelAttackUp= [SKAction sequence:@[
-                                                     //time after you want to fire a function
-                                                     [SKAction waitForDuration:intervalToCancelAttack],
-                                                     [SKAction performSelector:@selector(stopAttackUp)
-                                                                      onTarget:self]
-                                                     
-                                                     ]];
+                                                   //time after you want to fire a function
+                                                   [SKAction waitForDuration:intervalToCancelAttack],
+                                                   [SKAction performSelector:@selector(stopAttackUp)
+                                                                    onTarget:self]
+                                                   
+                                                   ]];
     if( deltaY == 0){
         deltaY = 1;
     }
     int tang = deltaX/deltaY;
     
     if ( abs(tang) >= 1 ){
-            
+        
         if ( pointLocation.x < endPosition.x){
             if( defenseRight == false){
                 [self runAction:[SKAction repeatAction:cancelAttackRight count: 1]];
@@ -510,7 +512,7 @@ int numberOfAttacks;
             defenseUp = false;
             defenseRight = true;
             sprite.texture = sheepDir;
-
+            
         }else {
             if(defenseLeft == false){
                 [self runAction:[SKAction repeatAction:cancelAttackLeft count: 1]];
@@ -520,7 +522,7 @@ int numberOfAttacks;
             defenseRight = false;
             
             sprite.texture = sheepEsq;
-
+            
         }
     }else if (pointLocation.y > endPosition.y){
         if( defenseUp == false){
@@ -533,7 +535,7 @@ int numberOfAttacks;
         
         
         sprite.texture = sheepUp;
-
+        
     }
 }
 
@@ -542,10 +544,10 @@ int numberOfAttacks;
     if(playing){
         score += 0.1;
         scoreLabel.text = [NSString stringWithFormat:@"%.0f", score];
-    
+        
         gameCoins += 0.005;
         coinsLabel.text = [NSString stringWithFormat:@"%.0f", gameCoins];
-
+        
         if ( score >= ranking )
             scoreLabel.fontColor = [SKColor redColor];
     }
@@ -593,21 +595,21 @@ int numberOfAttacks;
     
     // ======= TESTANDO PASSADA DE LEVEL  =======//
     
-//    if ( numberOfAttacks == 3){
-//        SKTransition *reveal = [SKTransition fadeWithDuration:1];
-//        GameScene *scene = [GameScene sceneWithSize:self.size];
-//        scene.scaleMode = SKSceneScaleModeAspectFill;
-//        scene.level = self.level + 1;
-//        
-//        [self.view presentScene:scene transition:reveal];
-//    }
-//    
-//    numberOfAttacks ++;
+    //    if ( numberOfAttacks == 3){
+    //        SKTransition *reveal = [SKTransition fadeWithDuration:1];
+    //        GameScene *scene = [GameScene sceneWithSize:self.size];
+    //        scene.scaleMode = SKSceneScaleModeAspectFill;
+    //        scene.level = self.level + 1;
+    //
+    //        [self.view presentScene:scene transition:reveal];
+    //    }
+    //
+    //    numberOfAttacks ++;
 }
 
 - (void) attack {
     
-//sprite.texture = sheepSheep;
+    //sprite.texture = sheepSheep;
     
     switch (randomSide)
     {
@@ -635,7 +637,7 @@ int numberOfAttacks;
                 [self getBonusScore];
             attackLeft = false;
             break;
-
+            
     }
     
 }
@@ -645,7 +647,7 @@ int numberOfAttacks;
         sprite.texture = sheepSheep;
         defenseLeft = false;
     }
-
+    
 }
 -(void) stopAttackRight {
     if( defenseRight == true ){
@@ -688,15 +690,15 @@ int numberOfAttacks;
 }
 
 -(void) damageTaken {
-        
+    
     int newLife = life.text.intValue;
     newLife --;
-   
+    
     [sprite runAction: pulseRed];
     life.text = [NSString stringWithFormat:@"%d", newLife];
     if ( newLife ==0 ){
         [self endGame];
-
+        
         [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
     } else {
         [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
@@ -779,14 +781,14 @@ int numberOfAttacks;
 - (void) loadValues {
     score = self.scoreParam;
     gameCoins = self.coinsParam;
-
+    
     numberOfAttacks = 0;
     playing = true;
-
+    
     [self setLevelValues];
     
     data = [[RWGameData alloc] init];
-
+    
     if ([[data loadRanking] objectAtIndex:0]!= nil)
         ranking = [[[data loadRanking] objectAtIndex:0] floatValue];
     else
