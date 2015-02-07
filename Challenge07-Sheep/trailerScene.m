@@ -19,41 +19,8 @@ SKVideoNode *video;
 - (void) didMoveToView:(SKView *)view{
     RWGameData *data = [[RWGameData alloc] init];
     
-    [data updateFirstPlaying:[NSNumber numberWithBool:TRUE]];
-    
-
-    
-    if ([[data firstPlaying] boolValue]) {
-        
-        tapSkip= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-        tapSkip.fontSize = 8;
-        tapSkip.fontColor = [SKColor whiteColor];
-        tapSkip.position = CGPointMake((self.frame.size.width/2 + 130), (self.frame.size.height/2 + 82));
-        tapSkip.text = @"tap to skip";
-        tapSkip.zPosition = 1;
-        [self addChild:tapSkip];
-        
-            video = [SKVideoNode videoNodeWithVideoFileNamed:@"introMovie2.mov"];
-            video.position = CGPointMake(CGRectGetMidX(self.frame),
-                                         CGRectGetMidY(self.frame));
-            video.xScale = 0.52;
-            video.yScale = 0.39;
-        
-            [self addChild: video];
-            [video play];
-        
-            SKAction *attackLaunch= [SKAction sequence:@[
-                                                         //time after you want to fire a function
-                                                         [SKAction waitForDuration:12],
-                                                         [SKAction performSelector:@selector(skip:)
-                                                                          onTarget:self]
-        
-                                                         ]];
-            [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
-        
-    } else {
-        [self skip: NO];
-    }
+//    [data updateFirstPlaying:[NSNumber numberWithBool:TRUE]];
+    [[data firstPlaying] boolValue] ? [self showTrailer] : [self skip:NO];
 }
 -(void) skip:(BOOL) fade{
     SKTransition *reveal;
@@ -69,6 +36,34 @@ SKVideoNode *video;
     scene.scaleMode = SKSceneScaleModeAspectFill;
     [self.view presentScene:scene transition:reveal];
     
+}
+
+-(void) showTrailer {
+    tapSkip= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    tapSkip.fontSize = 8;
+    tapSkip.fontColor = [SKColor whiteColor];
+    tapSkip.position = CGPointMake((self.frame.size.width/2 + 130), (self.frame.size.height/2 + 82));
+    tapSkip.text = @"tap to skip";
+    tapSkip.zPosition = 1;
+    [self addChild:tapSkip];
+    
+    video = [SKVideoNode videoNodeWithVideoFileNamed:@"introMovie2.mov"];
+    video.position = CGPointMake(CGRectGetMidX(self.frame),
+                                 CGRectGetMidY(self.frame));
+    video.xScale = 0.52;
+    video.yScale = 0.39;
+    
+    [self addChild: video];
+    [video play];
+    
+    SKAction *attackLaunch= [SKAction sequence:@[
+                                                 //time after you want to fire a function
+                                                 [SKAction waitForDuration:12],
+                                                 [SKAction performSelector:@selector(skip:)
+                                                                  onTarget:self]
+                                                 
+                                                 ]];
+    [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
