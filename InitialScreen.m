@@ -12,6 +12,7 @@
 #import "Store.h"
 #import "TutorialScene.h"
 #import <AVFoundation/AVFoundation.h>
+#import "RWGameData.h"
 
 @implementation InitialScreen
 
@@ -55,31 +56,32 @@
     SKNode *node = [self nodeAtPoint:location];
 
     //if fire button touched, bring the rain
-    if ([node.name isEqualToString:@"backButtonNode"]) {
+    if ([node.name isEqualToString:@"playButtonNode"]) {
         
-        GameScene *scene = [GameScene sceneWithSize:self.size];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        scene.level = 1;
-
-        [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+        RWGameData *data = [[RWGameData alloc] init];
+        
+        if ([[data firstPlaying] boolValue]){
+            [data updateFirstPlaying:[NSNumber numberWithBool:NO]];
+            [self goToTutorialScene];
+        } else {
+            GameScene *scene = [GameScene sceneWithSize:self.size];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            scene.level = 1;
+            
+            [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+        }
     }else if ([node.name isEqualToString:@"highScoreNode"]){
-        
         HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
 
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
     }else if([node.name isEqualToString:@"shopNode"]){
-        
         Store *scene = [Store sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
 
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
     }else if([node.name isEqualToString:@"helpNode"]){
-
-        TutorialScene *scene = [TutorialScene sceneWithSize:self.size];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-
-        [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+        [self goToTutorialScene];
     }
 
 }
@@ -87,7 +89,7 @@
 -(SKSpriteNode *) createPlayButton {
     SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play.png"];
     backButtonNode.position = CGPointMake(self.size.width/2, self.size.height/2 - 60);
-    backButtonNode.name = @"backButtonNode";//how the node is identified later
+    backButtonNode.name = @"playButtonNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
     backButtonNode.xScale = 0.6;
     backButtonNode.yScale = 0.6;
@@ -146,6 +148,12 @@
     
 }
 
+-(void) goToTutorialScene {
+    TutorialScene *scene = [TutorialScene sceneWithSize:self.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+}
 
 
 @end

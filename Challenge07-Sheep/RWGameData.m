@@ -14,6 +14,7 @@
 static NSString* const RankingKey = @"highScore";
 static NSString* const CoinsKey = @"coins";
 static NSString* const SheepSkinKey = @"sheepList";
+static NSString* const SettingsKey = @"Settings";
 
 
 // Gets the path to the app's Documents folder
@@ -112,7 +113,33 @@ static NSString* const SheepSkinKey = @"sheepList";
     [data writeToFile:[self dataFilePathForSheep] atomically:YES];
 }
 
+// Gets the path to the data file
+- (NSString *)dataFilePathForSettings {
+    return [[self documentsDirectory] stringByAppendingPathComponent:@"settings.plist"];
+}
 
+
+- (NSNumber *)firstPlaying {
+    NSString *path = [self dataFilePathForSettings];
+    if ( [self archiveExists:path] ) {
+        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        _firstPlaying = [unarchiver decodeObjectForKey:SettingsKey];
+        [unarchiver finishDecoding];
+    } else {
+        _firstPlaying = [NSNumber numberWithFloat:1];
+    }
+    return _firstPlaying;
+}
+
+// Saves the array to a file
+- (void)updateFirstPlaying:(NSNumber *)firstPlaying {
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:firstPlaying forKey:SettingsKey];
+    [archiver finishEncoding];
+    [data writeToFile:[self dataFilePathForSettings] atomically:YES];
+}
 
 -(BOOL) archiveExists: (NSString *) path {
     return [[NSFileManager defaultManager] fileExistsAtPath:path];

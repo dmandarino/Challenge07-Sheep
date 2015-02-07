@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSNumber *coins;
 @property (nonatomic, copy) NSMutableArray *sheeps;
 @property (nonatomic, copy) NSMutableArray *scores;
+@property (nonatomic, copy) NSNumber *firstPlaying;
 
 
 - (NSMutableArray *)loadRanking;
@@ -22,4 +23,6 @@
 - (void)saveCoins:(NSNumber *)coins;
 - (NSMutableArray *)loadSheeps;
 - (void)saveSheep:(NSMutableArray *)sheeps;
+- (NSNumber *)firstPlaying;
+- (void)updateFirstPlaying:(NSNumber *)firstPlaying;
 @end
