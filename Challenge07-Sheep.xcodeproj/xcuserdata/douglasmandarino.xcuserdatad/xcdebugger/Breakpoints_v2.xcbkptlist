@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "717"
             endingLineNumber = "717"
-            landmarkName = "-setRanking:"
+            landmarkName = "-endGame"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "680"
             endingLineNumber = "680"
-            landmarkName = "-saveGame"
+            landmarkName = "-showHighScore"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "690"
             endingLineNumber = "690"
-            landmarkName = "-saveGame"
+            landmarkName = "-getBonusScore"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "693"
             endingLineNumber = "693"
-            landmarkName = "-saveGame"
+            landmarkName = "-damageTaken"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "230"
             endingLineNumber = "230"
-            landmarkName = "-showSheep"
+            landmarkName = "-createDefaultSheep"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
             endingLineNumber = "207"
-            landmarkName = "-getSheep"
+            landmarkName = "-randomFallCard"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -111,23 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "201"
             endingLineNumber = "201"
-            landmarkName = "-getSheep"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Challenge07-Sheep/RWGameData.m"
-            timestampString = "444611714.250636"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "-createDefaultSheep"
+            landmarkName = "-randomFallCard"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
