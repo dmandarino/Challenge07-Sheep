@@ -119,7 +119,7 @@
 
 -(SKSpriteNode *) createHelpButton {
     SKSpriteNode *backShopNode = [SKSpriteNode spriteNodeWithImageNamed:@"help.png"];
-    backShopNode.position = CGPointMake(CGRectGetMidX(self.frame) + 130, CGRectGetMidY(self.frame)-70);
+    backShopNode.position = CGPointMake(CGRectGetMidX(self.frame) - 70, CGRectGetMidY(self.frame)-70);
     backShopNode.name = @"helpNode";//how the node is identified later
     backShopNode.zPosition = 1.0;
     backShopNode.xScale = 0.1;
@@ -135,24 +135,16 @@
     [self addChild:bgImage];
 
     SKSpriteNode *sheep = [SKSpriteNode spriteNodeWithImageNamed:@"nakedSheep.png"];
-    sheep.xScale = 0.08;
-    sheep.yScale = 0.08;
-    sheep.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    sheep.xScale = 0.06;
+    sheep.yScale = 0.06;
+    sheep.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 10);
     [self addChild:sheep];
-    
-    
-    SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    titleLabel.fontSize = 20;
-    titleLabel.fontColor = [SKColor blackColor];
-    titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 60);
-    titleLabel.text = @"Ipp The Sheep";
-    [self addChild:titleLabel];
 
-//    SKSpriteNode *woodenSign = [SKSpriteNode spriteNodeWithImageNamed:@"wooden.png"];
-//    woodenSign.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 40);
-//    woodenSign.xScale = 0.3;
-//    woodenSign.yScale = 0.3;
-//    [self addChild: woodenSign];
+    SKSpriteNode *woodenSign = [SKSpriteNode spriteNodeWithImageNamed:@"wooden.png"];
+    woodenSign.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 50);
+    woodenSign.xScale = 0.3;
+    woodenSign.yScale = 0.3;
+    [self addChild: woodenSign];
     
 }
 
