@@ -15,9 +15,11 @@
 #import "RWGameData.h"
 
 @implementation InitialScreen
+RWGameData *data;
 
 
 -(void) didMoveToView:(SKView *)view {
+    data = [[RWGameData alloc] init];
     
     [self createBackground];
     
@@ -33,20 +35,19 @@
     SKSpriteNode *helpButtonNode = [self createHelpButton];
     [self addChild: helpButtonNode];
     
-    
     [self playEffectBgSounds];
 }
 
 -(void)playEffectBgSounds{
-    
-//    //Play Sound
-//    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-//                                         pathForResource:@"initialScreen"
-//                                         ofType:@"mp3"]];
-//    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-//    _player.numberOfLoops = -1;
-//    
-//    [_player play];
+    if ([[data isSoundOn]boolValue]){
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+                                             pathForResource:@"initialScreen"
+                                             ofType:@"mp3"]];
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        _player.numberOfLoops = -1;
+        
+        [_player play];
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -57,9 +58,6 @@
 
     //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"playButtonNode"]) {
-        
-        RWGameData *data = [[RWGameData alloc] init];
-        
         if ([[data firstPlaying] boolValue]){
             [data updateFirstPlaying:[NSNumber numberWithBool:NO]];
             [self goToTutorialScene];

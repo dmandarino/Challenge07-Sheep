@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSMutableArray *sheeps;
 @property (nonatomic, copy) NSMutableArray *scores;
 @property (nonatomic, copy) NSNumber *firstPlaying;
+@property (nonatomic, copy) NSNumber *soundOn;
 
 
 - (NSMutableArray *)loadRanking;
@@ -25,4 +26,6 @@
 - (void)saveSheep:(NSMutableArray *)sheeps;
 - (NSNumber *)firstPlaying;
 - (void)updateFirstPlaying:(NSNumber *)firstPlaying;
+- (NSNumber *)isSoundOn;
+- (void)updateSoundOn:(NSNumber *)sound;
 @end

@@ -14,7 +14,8 @@
 static NSString* const RankingKey = @"highScore";
 static NSString* const CoinsKey = @"coins";
 static NSString* const SheepSkinKey = @"sheepList";
-static NSString* const SettingsKey = @"Settings";
+static NSString* const FirstPlayingKey = @"FirstPlaying";
+static NSString* const SoundKey = @"Sound";
 
 
 // Gets the path to the app's Documents folder
@@ -123,7 +124,7 @@ static NSString* const SettingsKey = @"Settings";
     if ( [self archiveExists:path] ) {
         NSData *data = [[NSData alloc] initWithContentsOfFile:path];
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-        _firstPlaying = [unarchiver decodeObjectForKey:SettingsKey];
+        _firstPlaying = [unarchiver decodeObjectForKey:FirstPlayingKey];
         [unarchiver finishDecoding];
     } else {
         _firstPlaying = [NSNumber numberWithFloat:1];
@@ -135,7 +136,29 @@ static NSString* const SettingsKey = @"Settings";
 - (void)updateFirstPlaying:(NSNumber *)firstPlaying {
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [archiver encodeObject:firstPlaying forKey:SettingsKey];
+    [archiver encodeObject:firstPlaying forKey:FirstPlayingKey];
+    [archiver finishEncoding];
+    [data writeToFile:[self dataFilePathForSettings] atomically:YES];
+}
+
+- (NSNumber *)isSoundOn {
+    NSString *path = [self dataFilePathForSettings];
+    if ( [self archiveExists:path] ) {
+        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        _soundOn = [unarchiver decodeObjectForKey:SoundKey];
+        [unarchiver finishDecoding];
+    } else {
+        _soundOn = [NSNumber numberWithFloat:1];
+    }
+    return _soundOn;
+}
+
+// Saves the array to a file
+- (void)updateSoundOn:(NSNumber *)sound {
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:sound forKey:SoundKey];
     [archiver finishEncoding];
     [data writeToFile:[self dataFilePathForSettings] atomically:YES];
 }

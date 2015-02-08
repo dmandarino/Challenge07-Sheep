@@ -8,12 +8,14 @@
 
 #import "BossScene.h"
 #import "GameScene.h"
+#import "RWGameData.h"
 
 @implementation BossScene
 
 static const int spriteHitCategory = 1;
 static const int fireHitCategory = 2;
 
+RWGameData *data;
 bool playing;
 
 SKLabelNode *coinsLabel;
@@ -28,7 +30,7 @@ SKSpriteNode *bgImage;
 SKAction *msgAct;
 
 -(void) didMoveToView:(SKView *)view {
-    
+    data = [[RWGameData alloc] init];
     playing = true;
     
     msgAct = [SKAction sequence:@[
@@ -130,15 +132,15 @@ SKAction *msgAct;
 }
 
 -(void)playEffectBgSounds{
-    
-    //Play Sound
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                         pathForResource:@"backgroundMusic"
-                                         ofType:@"mp3"]];
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    _player.numberOfLoops = -1;
-    
-    [_player play];
+    if ([[data isSoundOn]boolValue]){
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+                                             pathForResource:@"backgroundMusic"
+                                             ofType:@"mp3"]];
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        _player.numberOfLoops = -1;
+        
+        [_player play];
+    }
 }
 
 -(void) showHighScore {

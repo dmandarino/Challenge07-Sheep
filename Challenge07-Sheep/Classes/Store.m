@@ -230,15 +230,15 @@ int used;
 }
 
 -(void)playEffectBgSounds{
-    
-//    //Play Sound
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                         pathForResource:@"store"
-                                         ofType:@"mp3"]];
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    _player.numberOfLoops = -1;
-    
-    [_player play];
+    if ([[data isSoundOn]boolValue]){
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+                                             pathForResource:@"store"
+                                             ofType:@"mp3"]];
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        _player.numberOfLoops = -1;
+        
+        [_player play];
+    }
 }
 
 -(SKSpriteNode *) createHomeButton {
