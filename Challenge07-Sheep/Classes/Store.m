@@ -220,11 +220,11 @@ int used;
     SKSpriteNode *retryButtonNode;
     
     retryButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play2.png"];
-    retryButtonNode.position = CGPointMake(CGRectGetMinX(self.frame)+40, CGRectGetMidY(self.frame)-69);
+    retryButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)-120, CGRectGetMidY(self.frame)-70);
     retryButtonNode.name = @"retryButtonNode";//how the node is identified later
     retryButtonNode.zPosition = 1.0;
-    retryButtonNode.xScale = 0.2;
-    retryButtonNode.yScale = 0.2;
+    retryButtonNode.xScale = 0.15;
+    retryButtonNode.yScale = 0.15;
     
     return retryButtonNode;
 }
@@ -243,11 +243,11 @@ int used;
 
 -(SKSpriteNode *) createHomeButton {
     SKSpriteNode *homeButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"home.png"];
-    homeButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)+120, CGRectGetMidY(self.frame)-68);
+    homeButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)+120, CGRectGetMidY(self.frame)-70);
     homeButtonNode.name = @"homeButtonNode";//how the node is identified later
     homeButtonNode.zPosition = 1.0;
-    homeButtonNode.xScale = 0.2;
-    homeButtonNode.yScale = 0.2;
+    homeButtonNode.xScale = 0.15;
+    homeButtonNode.yScale = 0.15;
     
     return homeButtonNode;
 }
