@@ -80,7 +80,7 @@ RWGameData *data;
 
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
     }else if([node.name isEqualToString:@"helpNode"]){
-        [self goToTutorialScene];
+        [self goToSettingsScene];
     }
 
 }
@@ -154,5 +154,10 @@ RWGameData *data;
     [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
 }
 
+-(void) goToSettingsScene {
+    SettingsScene *scene = [SettingsScene sceneWithSize:self.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
+}
 
 @end
