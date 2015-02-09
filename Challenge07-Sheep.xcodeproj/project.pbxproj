@@ -11,6 +11,13 @@
 		5A509C5D1A8827500076B02A /* SettingsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A509C5C1A8827500076B02A /* SettingsScene.m */; };
 		5A509C5F1A8830750076B02A /* trailer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C5E1A8830750076B02A /* trailer.png */; };
 		5A509C611A8832250076B02A /* tutorialButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C601A8832250076B02A /* tutorialButton.png */; };
+		5A509C671A893FAF0076B02A /* tutorial1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C661A893FAF0076B02A /* tutorial1.png */; };
+		5A509C6B1A894A6F0076B02A /* tutorial2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C681A894A6F0076B02A /* tutorial2.png */; };
+		5A509C6C1A894A6F0076B02A /* tutorial3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C691A894A6F0076B02A /* tutorial3.png */; };
+		5A509C6D1A894A6F0076B02A /* tutorial4.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C6A1A894A6F0076B02A /* tutorial4.png */; };
+		5A509C701A894EA80076B02A /* Tutorial2Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A509C6F1A894EA80076B02A /* Tutorial2Scene.m */; };
+		5A509C731A8951110076B02A /* Tutorial3Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A509C721A8951110076B02A /* Tutorial3Scene.m */; };
+		5A509C761A8957ED0076B02A /* Tutorial4Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A509C751A8957ED0076B02A /* Tutorial4Scene.m */; };
 		5AC744E81A868CAE002731DF /* cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744DF1A868CAE002731DF /* cart.png */; };
 		5AC744E91A868CAE002731DF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744E01A868CAE002731DF /* help.png */; };
 		5AC744EA1A868CAE002731DF /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744E11A868CAE002731DF /* home.png */; };
@@ -73,6 +80,16 @@
 		5A509C5C1A8827500076B02A /* SettingsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsScene.m; path = Classes/SettingsScene.m; sourceTree = "<group>"; };
 		5A509C5E1A8830750076B02A /* trailer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trailer.png; path = Images/buttons/trailer.png; sourceTree = "<group>"; };
 		5A509C601A8832250076B02A /* tutorialButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorialButton.png; path = Images/buttons/tutorialButton.png; sourceTree = "<group>"; };
+		5A509C661A893FAF0076B02A /* tutorial1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial1.png; path = "Images/Background Images/tutorial1.png"; sourceTree = "<group>"; };
+		5A509C681A894A6F0076B02A /* tutorial2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial2.png; path = "Images/Background Images/tutorial2.png"; sourceTree = "<group>"; };
+		5A509C691A894A6F0076B02A /* tutorial3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial3.png; path = "Images/Background Images/tutorial3.png"; sourceTree = "<group>"; };
+		5A509C6A1A894A6F0076B02A /* tutorial4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial4.png; path = "Images/Background Images/tutorial4.png"; sourceTree = "<group>"; };
+		5A509C6E1A894EA80076B02A /* Tutorial2Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial2Scene.h; path = Classes/Tutorial2Scene.h; sourceTree = "<group>"; };
+		5A509C6F1A894EA80076B02A /* Tutorial2Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tutorial2Scene.m; path = Classes/Tutorial2Scene.m; sourceTree = "<group>"; };
+		5A509C711A8951110076B02A /* Tutorial3Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial3Scene.h; path = Classes/Tutorial3Scene.h; sourceTree = "<group>"; };
+		5A509C721A8951110076B02A /* Tutorial3Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tutorial3Scene.m; path = Classes/Tutorial3Scene.m; sourceTree = "<group>"; };
+		5A509C741A8957ED0076B02A /* Tutorial4Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial4Scene.h; path = Classes/Tutorial4Scene.h; sourceTree = "<group>"; };
+		5A509C751A8957ED0076B02A /* Tutorial4Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tutorial4Scene.m; path = Classes/Tutorial4Scene.m; sourceTree = "<group>"; };
 		5AC744DF1A868CAE002731DF /* cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cart.png; path = images/buttons/cart.png; sourceTree = "<group>"; };
 		5AC744E01A868CAE002731DF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help.png; path = images/buttons/help.png; sourceTree = "<group>"; };
 		5AC744E11A868CAE002731DF /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = images/buttons/home.png; sourceTree = "<group>"; };
@@ -200,6 +217,10 @@
 		5AC744B01A8663E3002731DF /* background */ = {
 			isa = PBXGroup;
 			children = (
+				5A509C681A894A6F0076B02A /* tutorial2.png */,
+				5A509C691A894A6F0076B02A /* tutorial3.png */,
+				5A509C6A1A894A6F0076B02A /* tutorial4.png */,
+				5A509C661A893FAF0076B02A /* tutorial1.png */,
 				5AC744F91A868E59002731DF /* background1.png */,
 				5AC744FA1A868E59002731DF /* backgroundBoss.png */,
 				5AC744FB1A868E59002731DF /* woodBackground.png */,
@@ -309,6 +330,12 @@
 				5A509C5C1A8827500076B02A /* SettingsScene.m */,
 				5AC7454A1A86931F002731DF /* TutorialScene.h */,
 				5AC7454B1A86931F002731DF /* TutorialScene.m */,
+				5A509C6E1A894EA80076B02A /* Tutorial2Scene.h */,
+				5A509C6F1A894EA80076B02A /* Tutorial2Scene.m */,
+				5A509C711A8951110076B02A /* Tutorial3Scene.h */,
+				5A509C721A8951110076B02A /* Tutorial3Scene.m */,
+				5A509C741A8957ED0076B02A /* Tutorial4Scene.h */,
+				5A509C751A8957ED0076B02A /* Tutorial4Scene.m */,
 				5AC745331A869244002731DF /* AppDelegate.h */,
 				5AC745341A869244002731DF /* AppDelegate.m */,
 				5AD8D0021A6C013800BE3D59 /* GameScene.sks */,
@@ -435,6 +462,8 @@
 				5AC745001A868E70002731DF /* nakedSheep.png in Resources */,
 				5AC745101A868EB4002731DF /* pirateUp.png in Resources */,
 				5AC745121A868EC2002731DF /* king.png in Resources */,
+				5A509C6B1A894A6F0076B02A /* tutorial2.png in Resources */,
+				5A509C6D1A894A6F0076B02A /* tutorial4.png in Resources */,
 				5AC745251A869052002731DF /* dyingSheep.mp3 in Resources */,
 				5AC7450F1A868EB4002731DF /* pirateEsq.png in Resources */,
 				5AC744F71A868E49002731DF /* heart.png in Resources */,
@@ -451,6 +480,7 @@
 				5AD8D0091A6C013800BE3D59 /* Main.storyboard in Resources */,
 				5AC745281A869052002731DF /* store.mp3 in Resources */,
 				5AC7451A1A868EFE002731DF /* cardCoin.png in Resources */,
+				5A509C6C1A894A6F0076B02A /* tutorial3.png in Resources */,
 				5AC744F81A868E49002731DF /* wooden.png in Resources */,
 				5AC7450E1A868EB4002731DF /* pirateDir.png in Resources */,
 				5AC744FD1A868E59002731DF /* backgroundBoss.png in Resources */,
@@ -458,6 +488,7 @@
 				5AC7451E1A869045002731DF /* introMovie2.mov in Resources */,
 				5AC745571A86F6F6002731DF /* title.png in Resources */,
 				5AC745271A869052002731DF /* initialScreen.mp3 in Resources */,
+				5A509C671A893FAF0076B02A /* tutorial1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +500,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AC745531A86931F002731DF /* TutorialScene.m in Sources */,
+				5A509C761A8957ED0076B02A /* Tutorial4Scene.m in Sources */,
+				5A509C731A8951110076B02A /* Tutorial3Scene.m in Sources */,
 				5AC7454E1A86931F002731DF /* HighScoreScene.m in Sources */,
 				5AC7454C1A86931F002731DF /* BossScene.m in Sources */,
 				5AC745511A86931F002731DF /* Store.m in Sources */,
@@ -481,6 +514,7 @@
 				5AC745351A869244002731DF /* AppDelegate.m in Sources */,
 				5AC7454D1A86931F002731DF /* GameScene.m in Sources */,
 				5AC7453A1A86925C002731DF /* main.m in Sources */,
+				5A509C701A894EA80076B02A /* Tutorial2Scene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -148,9 +148,9 @@ RWGameData *data;
 }
 
 -(void) goToTutorialScene {
-    SettingsScene *scene = [SettingsScene sceneWithSize:self.size];
+    TutorialScene *scene = [TutorialScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
-    
+    scene.playScene = YES;
     [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
 }
 

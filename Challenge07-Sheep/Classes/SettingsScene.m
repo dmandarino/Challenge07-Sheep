@@ -132,6 +132,7 @@ RWGameData *data;
     
     TutorialScene *scene = [TutorialScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
+    scene.playScene = NO;
     
     [self.view presentScene:scene transition:reveal];
 }
@@ -164,7 +165,7 @@ RWGameData *data;
     
     SKLabelNode *generalStoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     generalStoreLabel.fontSize = 20;
-    generalStoreLabel.fontColor = [SKColor whiteColor];
+    generalStoreLabel.fontColor = [SKColor blackColor];
     generalStoreLabel.position = CGPointMake((self.frame.size.width/2), (self.frame.size.height/2)+62);
     generalStoreLabel.text = @"Settings";
     generalStoreLabel.zPosition = 1;
