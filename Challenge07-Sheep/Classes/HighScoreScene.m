@@ -34,7 +34,7 @@ RWGameData *data;
     
     [self rankingScore];
     
-//    [self playEffectBgSounds];
+    [self playEffectBgSounds];
     
 }
 
@@ -43,14 +43,12 @@ RWGameData *data;
 {
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
-    SKNode *node
-    = [self nodeAtPoint:location];
+    SKNode *node = [self nodeAtPoint:location];
     
     if ([node.name isEqualToString:@"retryButtonNode"]) {
         [_player stop];
         SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];
 
-        
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         scene.level = 1;
@@ -59,7 +57,6 @@ RWGameData *data;
     } else if ([node.name isEqualToString:@"homeButtonNode"]) {
         [_player stop];
         SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];
-
         
         InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;

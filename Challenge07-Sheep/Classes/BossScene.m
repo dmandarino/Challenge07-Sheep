@@ -46,9 +46,16 @@ RWGameData *data;
     
     [msgLabel runAction: msgAct];
     
-    _nHeartsParam = 45;
-    [self runAction:[SKAction repeatAction:createWaves count:2]completion:^{
-        [self runAction: [SKAction waitForDuration:9]completion:^{
+    int i = 1;
+    if (_level>=3) {
+        i = 2;
+        if (_level>=5) {
+            i = 3;
+        }
+    }
+    [self runAction:[SKAction repeatAction:createWaves count:i]completion:^{
+        [self runAction: [SKAction waitForDuration:(10-_level)]completion:^{
+            [_player stop];
             [self backGame];
         }];
     }];
@@ -60,14 +67,13 @@ RWGameData *data;
     
     
     msgAct = [SKAction sequence:@[
-                                  [SKAction fadeAlphaTo:1 duration:3],
-                                  [SKAction waitForDuration:1],
+                                  [SKAction fadeAlphaTo:1 duration:2],
                                   [SKAction fadeOutWithDuration:2]
                                   ]];
     
     createWaves = [SKAction sequence:@[
                                        //time after you want to fire a function
-                                       [SKAction waitForDuration:5],
+                                       [SKAction waitForDuration:2],
                                        [SKAction performSelector:@selector(sendWave)
                                                         onTarget:self]]];
     
@@ -229,7 +235,7 @@ RWGameData *data;
     fire.position = CGPointMake(CGRectGetMidX(self.frame) - positionX, CGRectGetMidY(self.frame) - positionY);
     [self addChild:fire];
     
-    SKAction *hotWave = [SKAction moveTo:_spriteParam.position duration:8];
+    SKAction *hotWave = [SKAction moveTo:_spriteParam.position duration:(10 - _level)];
     [fire runAction:hotWave];
     
     
@@ -301,9 +307,9 @@ RWGameData *data;
     if ( _nHeartsParam == 0 ){
         [self endGame];
         
-        //        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
+        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
     } else {
-        //        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
     }
 }
 

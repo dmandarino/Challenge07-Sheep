@@ -114,7 +114,7 @@ int numberOfAttacks;
                                       [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]]];
     
     
-    SKAction *runGameAnimations= [SKAction sequence:@[
+    SKAction *runGameAnimations = [SKAction sequence:@[
                                                       //time after you want to fire a function
                                                       [SKAction waitForDuration:intervalToAttack],
                                                       [SKAction performSelector:@selector(prepareAttack)
@@ -122,16 +122,13 @@ int numberOfAttacks;
     
     
     
-    [self runAction:[SKAction repeatAction:runGameAnimations count:1]completion:^{
+    [self runAction:[SKAction repeatAction:runGameAnimations count:4+_level]completion:^{
         
         [self runAction: [SKAction waitForDuration:3.5]completion:^{
             sprite.texture = sheepSheep;
             [self startBossScene];
         }];
     }];
-    
-    //    [self runAction:[SKAction repeatActionForever:runGameAnimations ]];
-    
     
 }
 
@@ -686,9 +683,9 @@ int numberOfAttacks;
     if ( newLife ==0 ){
         [self endGame];
         
-//        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
+        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
     } else {
-//        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
     }
 }
 
