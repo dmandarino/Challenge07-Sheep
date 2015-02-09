@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSMutableArray *scores;
 @property (nonatomic, copy) NSNumber *firstPlaying;
 @property (nonatomic, copy) NSNumber *soundOn;
+@property (nonatomic, copy) NSNumber *heartNum;
 
 
 - (NSMutableArray *)loadRanking;
@@ -28,4 +29,6 @@
 - (void)updateFirstPlaying:(NSNumber *)firstPlaying;
 - (NSNumber *)isSoundOn;
 - (void)updateSoundOn:(NSNumber *)sound;
+- (NSNumber *)heartNumber;
+- (void)updateHeartNumber:(NSNumber *)heart;
 @end

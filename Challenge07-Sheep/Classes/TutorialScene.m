@@ -25,8 +25,7 @@ RWGameData *data;
     
     SKSpriteNode *homeButtonNode = [self createHomeButton];
     [self addChild: homeButtonNode];
-    
-    [self createMuteButton];
+
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -36,8 +35,6 @@ RWGameData *data;
     SKNode *node = [self nodeAtPoint:location];
     if ([node.name isEqualToString:@"homeButtonNode"]) {
         [self goToHome];
-    } else if ([node.name isEqualToString:@"muteButtonNode"]) {
-        [self updateSoundSettings];
     }
 }
 
@@ -53,19 +50,6 @@ RWGameData *data;
     return homeButtonNode;
 }
 
--(void) createMuteButton {
-    soundButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"sound.png"];
-    soundButtonNode.position = CGPointMake(CGRectGetMidX(self.frame) - 120, CGRectGetMidY(self.frame));
-    soundButtonNode.name = @"muteButtonNode";//how the node is identified later
-    soundButtonNode.zPosition = 1.0;
-    soundButtonNode.xScale = 0.2;
-    soundButtonNode.yScale = 0.2;
-    
-    if (![[data isSoundOn] boolValue])
-        [soundButtonNode setTexture:[SKTexture textureWithImageNamed:@"mute.png"]];
-    
-    [self addChild:soundButtonNode];
-}
 
 -(void) goToHome {
     SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:1];
@@ -76,13 +60,4 @@ RWGameData *data;
     [self.view presentScene:scene transition:reveal];
 }
 
--(void) updateSoundSettings{
-    if (![[data isSoundOn] boolValue]){
-        [soundButtonNode setTexture:[SKTexture textureWithImageNamed:@"sound.png"]];
-        [data updateSoundOn:[NSNumber numberWithBool:YES]];
-    } else {
-        [soundButtonNode setTexture:[SKTexture textureWithImageNamed:@"mute.png"]];
-        [data updateSoundOn:[NSNumber numberWithBool:NO]];
-    }
-}
 @end

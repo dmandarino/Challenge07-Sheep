@@ -13,6 +13,7 @@
 #import "TutorialScene.h"
 #import <AVFoundation/AVFoundation.h>
 #import "RWGameData.h"
+#import "SettingsScene.h"
 
 @implementation InitialScreen
 RWGameData *data;
@@ -147,7 +148,7 @@ RWGameData *data;
 }
 
 -(void) goToTutorialScene {
-    TutorialScene *scene = [TutorialScene sceneWithSize:self.size];
+    SettingsScene *scene = [SettingsScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];

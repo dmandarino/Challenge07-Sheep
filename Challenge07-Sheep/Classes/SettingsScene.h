@@ -1,15 +1,13 @@
 //
-//  trailerScene.h
+//  SettingsScene.h
 //  Challenge07-Sheep
 //
-//  Created by Felipe Argento on 1/28/15.
+//  Created by Douglas Mandarino on 2/8/15.
 //  Copyright (c) 2015 Douglas Mandarino. All rights reserved.
 //
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface trailerScene : SKScene
-
-@property BOOL play;
+@interface SettingsScene : SKScene
 
 @end

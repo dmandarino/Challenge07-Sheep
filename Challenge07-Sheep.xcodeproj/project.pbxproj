@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5A06658E1A72CC4000163B47 /* animation.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5A06658D1A72CC4000163B47 /* animation.atlas */; };
+		5A509C5D1A8827500076B02A /* SettingsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A509C5C1A8827500076B02A /* SettingsScene.m */; };
+		5A509C5F1A8830750076B02A /* trailer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C5E1A8830750076B02A /* trailer.png */; };
+		5A509C611A8832250076B02A /* tutorialButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C601A8832250076B02A /* tutorialButton.png */; };
 		5AC744E81A868CAE002731DF /* cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744DF1A868CAE002731DF /* cart.png */; };
 		5AC744E91A868CAE002731DF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744E01A868CAE002731DF /* help.png */; };
 		5AC744EA1A868CAE002731DF /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744E11A868CAE002731DF /* home.png */; };
@@ -66,6 +69,10 @@
 
 /* Begin PBXFileReference section */
 		5A06658D1A72CC4000163B47 /* animation.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animation.atlas; sourceTree = "<group>"; };
+		5A509C5B1A8827500076B02A /* SettingsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsScene.h; path = Classes/SettingsScene.h; sourceTree = "<group>"; };
+		5A509C5C1A8827500076B02A /* SettingsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsScene.m; path = Classes/SettingsScene.m; sourceTree = "<group>"; };
+		5A509C5E1A8830750076B02A /* trailer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trailer.png; path = Images/buttons/trailer.png; sourceTree = "<group>"; };
+		5A509C601A8832250076B02A /* tutorialButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorialButton.png; path = Images/buttons/tutorialButton.png; sourceTree = "<group>"; };
 		5AC744DF1A868CAE002731DF /* cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cart.png; path = images/buttons/cart.png; sourceTree = "<group>"; };
 		5AC744E01A868CAE002731DF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help.png; path = images/buttons/help.png; sourceTree = "<group>"; };
 		5AC744E11A868CAE002731DF /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = images/buttons/home.png; sourceTree = "<group>"; };
@@ -151,6 +158,8 @@
 		06C303381A75D57100FFDF7F /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				5A509C601A8832250076B02A /* tutorialButton.png */,
+				5A509C5E1A8830750076B02A /* trailer.png */,
 				5AC744DF1A868CAE002731DF /* cart.png */,
 				5AC744E01A868CAE002731DF /* help.png */,
 				5AC744E11A868CAE002731DF /* home.png */,
@@ -296,6 +305,8 @@
 				5AC745471A86931F002731DF /* Store.m */,
 				5AC745481A86931F002731DF /* trailerScene.h */,
 				5AC745491A86931F002731DF /* trailerScene.m */,
+				5A509C5B1A8827500076B02A /* SettingsScene.h */,
+				5A509C5C1A8827500076B02A /* SettingsScene.m */,
 				5AC7454A1A86931F002731DF /* TutorialScene.h */,
 				5AC7454B1A86931F002731DF /* TutorialScene.m */,
 				5AC745331A869244002731DF /* AppDelegate.h */,
@@ -407,6 +418,7 @@
 				5AC744EA1A868CAE002731DF /* home.png in Resources */,
 				5AD8D00E1A6C013800BE3D59 /* LaunchScreen.xib in Resources */,
 				5AC744FC1A868E59002731DF /* background1.png in Resources */,
+				5A509C611A8832250076B02A /* tutorialButton.png in Resources */,
 				5AC744F51A868E49002731DF /* coins.png in Resources */,
 				5AC7451C1A868EFE002731DF /* cardSuper.png in Resources */,
 				5AC744ED1A868CAE002731DF /* play2.png in Resources */,
@@ -415,6 +427,7 @@
 				5AC744EF1A868CAE002731DF /* retry.png in Resources */,
 				5AC744F01A868CAE002731DF /* sound.png in Resources */,
 				5AC7451B1A868EFE002731DF /* cardHeart.png in Resources */,
+				5A509C5F1A8830750076B02A /* trailer.png in Resources */,
 				5AC744EC1A868CAE002731DF /* play.png in Resources */,
 				5AC744EB1A868CAE002731DF /* mute.png in Resources */,
 				5AC745071A868E82002731DF /* vikingEsq.png in Resources */,
@@ -461,6 +474,7 @@
 				5AC745511A86931F002731DF /* Store.m in Sources */,
 				5AC745501A86931F002731DF /* Sheep.m in Sources */,
 				5AC745381A869253002731DF /* GameViewController.m in Sources */,
+				5A509C5D1A8827500076B02A /* SettingsScene.m in Sources */,
 				5AC7454F1A86931F002731DF /* RWGameData.m in Sources */,
 				5AC745521A86931F002731DF /* trailerScene.m in Sources */,
 				5AC745551A869367002731DF /* InitialScreen.m in Sources */,

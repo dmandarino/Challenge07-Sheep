@@ -303,7 +303,7 @@ int numberOfAttacks;
     if (self.nHeartsParam >0 )
         life.text = [NSString stringWithFormat:@"%d", self.nHeartsParam];
     else
-        life.text = @"2";
+        life.text = [NSString stringWithFormat:@"%d", [[data heartNumber] intValue]];
     life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
     life.fontColor = [SKColor blackColor];
     life.zPosition = 1;
@@ -592,19 +592,6 @@ int numberOfAttacks;
                                                  
                                                  ]];
     [self runAction:[SKAction repeatAction:attackLaunch count: 1]];
-    
-    // ======= TESTANDO PASSADA DE LEVEL  =======//
-    
-    //    if ( numberOfAttacks == 3){
-    //        SKTransition *reveal = [SKTransition fadeWithDuration:1];
-    //        GameScene *scene = [GameScene sceneWithSize:self.size];
-    //        scene.scaleMode = SKSceneScaleModeAspectFill;
-    //        scene.level = self.level + 1;
-    //
-    //        [self.view presentScene:scene transition:reveal];
-    //    }
-    //
-    //    numberOfAttacks ++;
 }
 
 - (void) attack {

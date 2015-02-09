@@ -20,7 +20,7 @@ SKVideoNode *video;
     RWGameData *data = [[RWGameData alloc] init];
     
 //    [data updateFirstPlaying:[NSNumber numberWithBool:TRUE]]; 
-    [[data firstPlaying] boolValue] ? [self showTrailer] : [self skip:NO];
+    [[data firstPlaying] boolValue] || _play ? [self showTrailer] : [self skip:NO];
 }
 -(void) skip:(BOOL) fade{
     SKTransition *reveal;

@@ -16,6 +16,7 @@ static NSString* const CoinsKey = @"coins";
 static NSString* const SheepSkinKey = @"sheepList";
 static NSString* const FirstPlayingKey = @"FirstPlaying";
 static NSString* const SoundKey = @"Sound";
+static NSString* const HeartNumKey = @"HeartNum";
 
 
 // Gets the path to the app's Documents folder
@@ -148,6 +149,8 @@ static NSString* const SoundKey = @"Sound";
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
         _soundOn = [unarchiver decodeObjectForKey:SoundKey];
         [unarchiver finishDecoding];
+        if ([[self firstPlaying]boolValue])
+            _soundOn = [NSNumber numberWithFloat:1];
     } else {
         _soundOn = [NSNumber numberWithFloat:1];
     }
@@ -161,6 +164,33 @@ static NSString* const SoundKey = @"Sound";
     [archiver encodeObject:sound forKey:SoundKey];
     [archiver finishEncoding];
     [data writeToFile:[self dataFilePathForSettings] atomically:YES];
+}
+
+// Gets the path to the data file
+- (NSString *)dataFilePathForInventory {
+    return [[self documentsDirectory] stringByAppendingPathComponent:@"inventory.plist"];
+}
+
+- (NSNumber *)heartNumber {
+    NSString *path = [self dataFilePathForInventory];
+    if ( [self archiveExists:path] ) {
+        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        _heartNum = [unarchiver decodeObjectForKey:HeartNumKey];
+        [unarchiver finishDecoding];
+    } else {
+        _heartNum = [NSNumber numberWithFloat:2];
+    }
+    return _heartNum;
+}
+
+// Saves the array to a file
+- (void)updateHeartNumber:(NSNumber *)heart {
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:heart forKey:HeartNumKey];
+    [archiver finishEncoding];
+    [data writeToFile:[self dataFilePathForInventory] atomically:YES];
 }
 
 -(BOOL) archiveExists: (NSString *) path {
