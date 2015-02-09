@@ -30,6 +30,7 @@ SKSpriteNode *bgImage;
 SKAction *msgAct;
 SKAction *createWaves;
 SKAction *pulseRed;
+SKAction *createGiant;
 
 RWGameData *data;
 
@@ -55,8 +56,23 @@ RWGameData *data;
     }
     [self runAction:[SKAction repeatAction:createWaves count:i]completion:^{
         [self runAction: [SKAction waitForDuration:(10-_level)]completion:^{
-            [_player stop];
-            [self backGame];
+            
+            if(_level == 2 || _level == 4 || _level == 6){
+                int numb = 17;
+                if(_level == 2){
+                    numb = 12;
+                }
+                [self runAction:[SKAction repeatAction:createGiant count:1]completion:^{
+                    [self runAction: [SKAction waitForDuration:(numb)]completion:^{
+                        [_player stop];
+                        [self backGame];
+                    }];
+                }];
+            }else{
+                [_player stop];
+                [self backGame];
+            }
+
         }];
     }];
     
@@ -75,6 +91,9 @@ RWGameData *data;
                                        //time after you want to fire a function
                                        [SKAction waitForDuration:2],
                                        [SKAction performSelector:@selector(sendWave)
+                                                        onTarget:self]]];
+    createGiant = [SKAction sequence:@[
+                                       [SKAction performSelector:@selector(giantFireBall)
                                                         onTarget:self]]];
     
     pulseRed = [SKAction sequence:@[
@@ -244,9 +263,62 @@ RWGameData *data;
     
 }
 
+- (void)giantFireBall{
+    
+    SKSpriteNode *fire = [SKSpriteNode spriteNodeWithImageNamed:@"fireBall.png"];
+    fire.name = @"Giantfire";
+    fire.xScale = 0.15;
+    fire.yScale = 0.15;
+    fire.zPosition = 1;
+    
+    fire.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1];
+    fire.physicsBody.categoryBitMask = fireHitCategory;
+    fire.physicsBody.contactTestBitMask = spriteHitCategory;
+    fire.physicsBody.collisionBitMask =  spriteHitCategory;
+    fire.physicsBody.dynamic = YES;
+    fire.physicsBody.affectedByGravity = false;
+    
+    fire.position = CGPointMake(CGRectGetMidX(self.frame)-230, CGRectGetMidY(self.frame));
+    [self addChild:fire];
+    
+    SKAction *hotWave = [SKAction moveTo:_spriteParam.position duration:(11)];
+    
+    if(_level == 2){
+        [fire runAction:hotWave];
+    }
+    
+    if(_level == 4 || _level == 6){
+        
+        SKSpriteNode *fire2 = [SKSpriteNode spriteNodeWithImageNamed:@"fireBall.png"];
+        fire2.name = @"Giantfire";
+        fire2.xScale = 0.15;
+        fire2.yScale = 0.15;
+        fire2.zPosition = 1;
+        fire2.zRotation = M_PI;
+        
+        fire2.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1];
+        fire2.physicsBody.categoryBitMask = fireHitCategory;
+        fire2.physicsBody.contactTestBitMask = spriteHitCategory;
+        fire2.physicsBody.collisionBitMask =  spriteHitCategory;
+        fire2.physicsBody.dynamic = YES;
+        fire2.physicsBody.affectedByGravity = false;
+        
+        fire2.position = CGPointMake(CGRectGetMidX(self.frame)+230, CGRectGetMidY(self.frame));
+        [self addChild:fire2];
+        
+        
+        SKAction *launchWave = [SKAction sequence:@[
+                                        [SKAction waitForDuration:5],
+                                        [SKAction moveTo:_spriteParam.position duration:(11)]]];
+        
+        [fire runAction:hotWave];
+        [fire2 runAction:[SKAction repeatAction:launchWave count:1]];
+    }
+}
+
 - (void)sendWave{
     
-    for ( int i = 0; i < 12; i++){
+    for ( int i = 0; i < 10; i++){
         double x = (arc4random() % 300);
         double y = (arc4random() % 320);
         if ( x < 200){
@@ -295,6 +367,15 @@ RWGameData *data;
     //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"fire"]) {
         [node removeFromParent];
+    }
+    
+    if ([node.name isEqualToString:@"Giantfire"]) {
+        if (node.xScale >= 0.07) {
+            node.xScale = node.xScale - 0.002;
+            node.yScale = node.yScale - 0.002;
+        }else{
+            [node removeFromParent];
+        }
     }
     
 }
