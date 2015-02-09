@@ -122,7 +122,7 @@ int numberOfAttacks;
     
     
     
-    [self runAction:[SKAction repeatAction:runGameAnimations count:3]completion:^{
+    [self runAction:[SKAction repeatAction:runGameAnimations count:1]completion:^{
         
         [self runAction: [SKAction waitForDuration:3.5]completion:^{
             sprite.texture = sheepSheep;
@@ -686,9 +686,9 @@ int numberOfAttacks;
     if ( newLife ==0 ){
         [self endGame];
         
-        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
+//        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
     } else {
-        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+//        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
     }
 }
 

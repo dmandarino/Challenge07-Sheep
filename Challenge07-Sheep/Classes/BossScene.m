@@ -28,16 +28,17 @@ SKSpriteNode *heartImg;
 SKSpriteNode *bgImage;
 
 SKAction *msgAct;
+SKAction *createWaves;
+SKAction *pulseRed;
+
+RWGameData *data;
+
 
 -(void) didMoveToView:(SKView *)view {
     data = [[RWGameData alloc] init];
     playing = true;
-    
-    msgAct = [SKAction sequence:@[
-                                  [SKAction fadeAlphaTo:1 duration:3],
-                                  [SKAction waitForDuration:1],
-                                  [SKAction fadeOutWithDuration:2]
-                                  ]];
+
+    [self createActions];
     
     [self createBackground];
     
@@ -45,23 +46,41 @@ SKAction *msgAct;
     
     [msgLabel runAction: msgAct];
     
-    SKAction *runGameAnimations= [SKAction sequence:@[
-                                                      //time after you want to fire a function
-                                                      [SKAction waitForDuration:2],
-                                                      [SKAction performSelector:@selector(time)
-                                                                       onTarget:self]]];
-    
-    
-    [self runAction:[SKAction repeatAction:runGameAnimations count:3]completion:^{
-        [self runAction: [SKAction waitForDuration:3.5]completion:^{
-            //            sprite.texture = sheepSheep;
+    _nHeartsParam = 45;
+    [self runAction:[SKAction repeatAction:createWaves count:2]completion:^{
+        [self runAction: [SKAction waitForDuration:9]completion:^{
             [self backGame];
         }];
     }];
+   
+
+}
+
+-(void) createActions {
+    
+    
+    msgAct = [SKAction sequence:@[
+                                  [SKAction fadeAlphaTo:1 duration:3],
+                                  [SKAction waitForDuration:1],
+                                  [SKAction fadeOutWithDuration:2]
+                                  ]];
+    
+    createWaves = [SKAction sequence:@[
+                                       //time after you want to fire a function
+                                       [SKAction waitForDuration:5],
+                                       [SKAction performSelector:@selector(sendWave)
+                                                        onTarget:self]]];
+    
+    pulseRed = [SKAction sequence:@[
+                                              [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
+                                              [SKAction waitForDuration:0.1],
+                                              [SKAction colorizeWithColorBlendFactor:0.0 duration:0.15]]];
     
 }
 
 -(void) createBackground {
+    
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
     
     bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"backgroundBoss.png"];
     bgImage.size = CGSizeMake(self.frame.size.width, self.frame.size.height/2-100);
@@ -120,15 +139,12 @@ SKAction *msgAct;
     
     [_spriteParam removeFromParent];
     [self addChild:_spriteParam];
-    _spriteParam.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(_spriteParam.size.width, _spriteParam.size.height)];
+    _spriteParam.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:40];
     _spriteParam.physicsBody.categoryBitMask = spriteHitCategory;
     _spriteParam.physicsBody.contactTestBitMask = fireHitCategory;
     _spriteParam.physicsBody.collisionBitMask =  fireHitCategory;
     _spriteParam.physicsBody.dynamic = NO;
-    
-    
-    [self fireWave];
-    
+
 }
 
 -(void)playEffectBgSounds{
@@ -192,54 +208,145 @@ SKAction *msgAct;
     
     [self.view presentScene:scene transition:reveal];
 }
--(void) time {
-    
-}
--(void)fireWave {
+
+-(void)fireWave: (int) positionX: (int) positionY: (float) rotation {
     
     SKSpriteNode *fire = [SKSpriteNode spriteNodeWithImageNamed:@"fireBall.png"];
+    fire.name = @"fire";
     fire.xScale = 0.05;
     fire.yScale = 0.05;
     fire.zPosition = 1;
+    fire.zRotation = rotation;
     
-    fire.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:50];
+    fire.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1];
     fire.physicsBody.categoryBitMask = fireHitCategory;
     fire.physicsBody.contactTestBitMask = spriteHitCategory;
     fire.physicsBody.collisionBitMask =  spriteHitCategory;
-    fire.physicsBody.dynamic = NO;
+    fire.physicsBody.dynamic = YES;
+    fire.physicsBody.affectedByGravity = false;
     
     
-    fire.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)-20);
+    fire.position = CGPointMake(CGRectGetMidX(self.frame) - positionX, CGRectGetMidY(self.frame) - positionY);
     [self addChild:fire];
     
-    SKAction *hotWave = [SKAction moveTo:_spriteParam.position duration:3];
+    SKAction *hotWave = [SKAction moveTo:_spriteParam.position duration:8];
     [fire runAction:hotWave];
     
     
 }
 
--(void)didBeginContact:(SKPhysicsContact *)contact
-{
+- (void)sendWave{
+    for ( int i = 0; i < 12; i++){
+        if ( i < 2){
+            [self fireWave : 250 : 50 - ( (i -1) * 80 ) : 0.5];
+        }else if ( i < 4){
+            [self fireWave : 250 : 50 - ( i * 80 ) : -0.5];
+            
+        }
+        else if ( i < 6 ){
+            [self fireWave : 130 - ( ( i - 3)  * 50) : - 260 : -1 * M_PI/2.0f + 0.5];
+        }else if ( i < 8 ){
+            [self fireWave : 130 - ( ( i - 3)  * 50) : - 260 : -1 * M_PI/2.0f - 0.5];
+        }
+        else if ( i < 10 ){
+            [self fireWave : -250 : 50 - ( ( i - 9) * 80 ): - 1 * M_PI - 0.5];
+        }else{
+            [self fireWave : -250 : 50 - ( ( i - 8) * 80 ): - 1 * M_PI + 0.5];
+        }
+    }
+}
+
+-(void)didBeginContact:(SKPhysicsContact *)contact{
+    
     SKPhysicsBody *firstBody, *secondBody;
     
     firstBody = contact.bodyA;
     secondBody = contact.bodyB;
     
-    if(firstBody.categoryBitMask == fireHitCategory || secondBody.categoryBitMask == fireHitCategory)
-    {
-        
-        NSLog(@"colidiu pohaaa");
-        //setup your methods and other things here
-        
+    if(firstBody.categoryBitMask == fireHitCategory || secondBody.categoryBitMask == fireHitCategory){
+        [secondBody.node removeFromParent];
+        [self damageTaken];
     }
 }
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         self.physicsWorld.contactDelegate = self;
-        
     }
     return self;
 }
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+
+    UITouch *touch1 = [touches anyObject];
+    CGPoint location = [touch1 locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    
+    //if fire button touched, bring the rain
+    if ([node.name isEqualToString:@"fire"]) {
+        [node removeFromParent];
+    }
+    
+}
+
+-(void) damageTaken {
+    
+    _nHeartsParam--;
+   
+    [_spriteParam runAction: pulseRed];
+    
+    if (_nHeartsParam >= 0) {
+        heartLabel.text = [NSString stringWithFormat:@"%d", _nHeartsParam];
+    }
+    if ( _nHeartsParam == 0 ){
+        [self endGame];
+        
+        //        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
+    } else {
+        //        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+    }
+}
+
+-(void) endGame {
+    [_player stop];
+    [self saveGame];
+    playing = false;
+    SKTransition *reveal = [SKTransition fadeWithDuration:3];
+    HighScoreScene *scene = [HighScoreScene sceneWithSize:self.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    scene.score = _scoreParam;
+    scene.coins = _coinsParam;
+    
+    [self.view presentScene:scene transition:reveal];
+    
+}
+
+-(void) saveGame {
+    data = [[RWGameData alloc] init];
+    scoreLabel.fontColor = [SKColor blackColor];
+    NSNumber *scoreToSave = [[NSNumber alloc] init];
+    scoreToSave = [NSNumber numberWithFloat: _scoreParam];
+    
+    NSMutableArray *rankingToSave = [[NSMutableArray array] init];
+    
+    if ([data loadRanking] != nil)
+        rankingToSave = [data loadRanking];
+    
+    [rankingToSave addObject:scoreToSave];
+    
+    NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+    [rankingToSave sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
+    
+    if ( [rankingToSave count] > 5)
+        [rankingToSave removeLastObject];
+    
+    [data saveRanking:rankingToSave];
+    
+    float coinsToSave = [[data loadCoins] floatValue];
+    coinsToSave += _coinsParam;
+    
+    [data saveCoins:[NSNumber numberWithFloat:coinsToSave]];
+}
+
 
 @end

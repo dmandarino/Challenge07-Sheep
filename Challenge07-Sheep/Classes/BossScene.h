@@ -8,8 +8,10 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "HighScoreScene.h"
+#import "RWGameData.h"
 
-@interface BossScene : SKScene
+@interface BossScene : SKScene <SKPhysicsContactDelegate>
 
 @property AVAudioPlayer *player;
 @property SKSpriteNode *spriteParam;
