@@ -37,7 +37,7 @@ RWGameData *data;
 -(void) didMoveToView:(SKView *)view {
     data = [[RWGameData alloc] init];
     playing = true;
-
+    
     [self createActions];
     
     [self createBackground];
@@ -59,8 +59,8 @@ RWGameData *data;
             [self backGame];
         }];
     }];
-   
-
+    
+    
 }
 
 -(void) createActions {
@@ -78,9 +78,9 @@ RWGameData *data;
                                                         onTarget:self]]];
     
     pulseRed = [SKAction sequence:@[
-                                              [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
-                                              [SKAction waitForDuration:0.1],
-                                              [SKAction colorizeWithColorBlendFactor:0.0 duration:0.15]]];
+                                    [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
+                                    [SKAction waitForDuration:0.1],
+                                    [SKAction colorizeWithColorBlendFactor:0.0 duration:0.15]]];
     
 }
 
@@ -150,7 +150,7 @@ RWGameData *data;
     _spriteParam.physicsBody.contactTestBitMask = fireHitCategory;
     _spriteParam.physicsBody.collisionBitMask =  fireHitCategory;
     _spriteParam.physicsBody.dynamic = NO;
-
+    
 }
 
 -(void)playEffectBgSounds{
@@ -215,14 +215,13 @@ RWGameData *data;
     [self.view presentScene:scene transition:reveal];
 }
 
--(void)fireWave: (int) positionX: (int) positionY: (float) rotation {
+-(void)fireWave: (int) positionX: (int) positionY {
     
     SKSpriteNode *fire = [SKSpriteNode spriteNodeWithImageNamed:@"fireBall.png"];
     fire.name = @"fire";
     fire.xScale = 0.05;
     fire.yScale = 0.05;
     fire.zPosition = 1;
-    fire.zRotation = rotation;
     
     fire.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1];
     fire.physicsBody.categoryBitMask = fireHitCategory;
@@ -231,6 +230,10 @@ RWGameData *data;
     fire.physicsBody.dynamic = YES;
     fire.physicsBody.affectedByGravity = false;
     
+    SKRange *range = [SKRange rangeWithConstantValue:0.0f];
+    SKConstraint *orientConstraint = [SKConstraint orientToNode:_spriteParam offset:range];
+    
+    fire.constraints = @[orientConstraint];
     
     fire.position = CGPointMake(CGRectGetMidX(self.frame) - positionX, CGRectGetMidY(self.frame) - positionY);
     [self addChild:fire];
@@ -242,22 +245,23 @@ RWGameData *data;
 }
 
 - (void)sendWave{
+    
     for ( int i = 0; i < 12; i++){
-        if ( i < 2){
-            [self fireWave : 250 : 50 - ( (i -1) * 80 ) : 0.5];
-        }else if ( i < 4){
-            [self fireWave : 250 : 50 - ( i * 80 ) : -0.5];
-            
+        double x = (arc4random() % 300);
+        double y = (arc4random() % 320);
+        if ( x < 200){
+            y = (arc4random() % 320 ) + 300;
         }
-        else if ( i < 6 ){
-            [self fireWave : 130 - ( ( i - 3)  * 50) : - 260 : -1 * M_PI/2.0f + 0.5];
-        }else if ( i < 8 ){
-            [self fireWave : 130 - ( ( i - 3)  * 50) : - 260 : -1 * M_PI/2.0f - 0.5];
-        }
-        else if ( i < 10 ){
-            [self fireWave : -250 : 50 - ( ( i - 9) * 80 ): - 1 * M_PI - 0.5];
+        
+        float sign = arc4random_uniform(4);
+        if( sign == 1)
+            [self fireWave : x : -1 * y + 80];
+        else if (sign == 2){
+            [self fireWave : -1*x : -1 * y + 80];
+        }else if (sign == 3){
+            [self fireWave : x : -1 * y];
         }else{
-            [self fireWave : -250 : 50 - ( ( i - 8) * 80 ): - 1 * M_PI + 0.5];
+            [self fireWave : -1 * x : -1 * y];
         }
     }
 }
@@ -283,7 +287,7 @@ RWGameData *data;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-
+    
     UITouch *touch1 = [touches anyObject];
     CGPoint location = [touch1 locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
@@ -298,7 +302,7 @@ RWGameData *data;
 -(void) damageTaken {
     
     _nHeartsParam--;
-   
+    
     [_spriteParam runAction: pulseRed];
     
     if (_nHeartsParam >= 0) {
