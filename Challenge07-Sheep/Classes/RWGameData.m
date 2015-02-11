@@ -173,7 +173,7 @@ static NSString* const HeartNumKey = @"HeartNum";
 
 // Gets the path to the data file
 - (NSString *)dataFilePathForInventory {
-    return [[self documentsDirectory] stringByAppendingPathComponent:@"inventory.plist"];
+    return [[self documentsDirectory] stringByAppendingPathComponent:@"heart.plist"];
 }
 
 - (NSNumber *)heartNumber {
@@ -184,8 +184,10 @@ static NSString* const HeartNumKey = @"HeartNum";
         _heartNum = [unarchiver decodeObjectForKey:HeartNumKey];
         [unarchiver finishDecoding];
     } else {
-        _heartNum = [NSNumber numberWithFloat:3];
+        _heartNum = [NSNumber numberWithInt:2];
+        [self updateHeartNumber:_heartNum];
     }
+    [self updateHeartNumber:_heartNum];
     return _heartNum;
 }
 

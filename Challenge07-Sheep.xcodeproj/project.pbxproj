@@ -19,6 +19,12 @@
 		5A509C701A894EA80076B02A /* Tutorial2Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A509C6F1A894EA80076B02A /* Tutorial2Scene.m */; };
 		5A509C731A8951110076B02A /* Tutorial3Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A509C721A8951110076B02A /* Tutorial3Scene.m */; };
 		5A509C761A8957ED0076B02A /* Tutorial4Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A509C751A8957ED0076B02A /* Tutorial4Scene.m */; };
+		5A509C7A1A8BD7140076B02A /* medievalDir.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C771A8BD7140076B02A /* medievalDir.png */; };
+		5A509C7B1A8BD7140076B02A /* medievalEsq.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C781A8BD7140076B02A /* medievalEsq.png */; };
+		5A509C7C1A8BD7140076B02A /* medievalUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C791A8BD7140076B02A /* medievalUp.png */; };
+		5A509C801A8BD7250076B02A /* kingDir.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C7D1A8BD7250076B02A /* kingDir.png */; };
+		5A509C811A8BD7250076B02A /* kingEsq.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C7E1A8BD7250076B02A /* kingEsq.png */; };
+		5A509C821A8BD7250076B02A /* kingUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C7F1A8BD7250076B02A /* kingUp.png */; };
 		5AC744E81A868CAE002731DF /* cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744DF1A868CAE002731DF /* cart.png */; };
 		5AC744E91A868CAE002731DF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744E01A868CAE002731DF /* help.png */; };
 		5AC744EA1A868CAE002731DF /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744E11A868CAE002731DF /* home.png */; };
@@ -92,6 +98,12 @@
 		5A509C721A8951110076B02A /* Tutorial3Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tutorial3Scene.m; path = Classes/Tutorial3Scene.m; sourceTree = "<group>"; };
 		5A509C741A8957ED0076B02A /* Tutorial4Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial4Scene.h; path = Classes/Tutorial4Scene.h; sourceTree = "<group>"; };
 		5A509C751A8957ED0076B02A /* Tutorial4Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tutorial4Scene.m; path = Classes/Tutorial4Scene.m; sourceTree = "<group>"; };
+		5A509C771A8BD7140076B02A /* medievalDir.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = medievalDir.png; path = Images/Sheeps/Medieval/medievalDir.png; sourceTree = "<group>"; };
+		5A509C781A8BD7140076B02A /* medievalEsq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = medievalEsq.png; path = Images/Sheeps/Medieval/medievalEsq.png; sourceTree = "<group>"; };
+		5A509C791A8BD7140076B02A /* medievalUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = medievalUp.png; path = Images/Sheeps/Medieval/medievalUp.png; sourceTree = "<group>"; };
+		5A509C7D1A8BD7250076B02A /* kingDir.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kingDir.png; path = Images/Sheeps/King/kingDir.png; sourceTree = "<group>"; };
+		5A509C7E1A8BD7250076B02A /* kingEsq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kingEsq.png; path = Images/Sheeps/King/kingEsq.png; sourceTree = "<group>"; };
+		5A509C7F1A8BD7250076B02A /* kingUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kingUp.png; path = Images/Sheeps/King/kingUp.png; sourceTree = "<group>"; };
 		5AC744DF1A868CAE002731DF /* cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cart.png; path = images/buttons/cart.png; sourceTree = "<group>"; };
 		5AC744E01A868CAE002731DF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help.png; path = images/buttons/help.png; sourceTree = "<group>"; };
 		5AC744E11A868CAE002731DF /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = images/buttons/home.png; sourceTree = "<group>"; };
@@ -233,6 +245,9 @@
 		5AC744B11A86640D002731DF /* king */ = {
 			isa = PBXGroup;
 			children = (
+				5A509C7D1A8BD7250076B02A /* kingDir.png */,
+				5A509C7E1A8BD7250076B02A /* kingEsq.png */,
+				5A509C7F1A8BD7250076B02A /* kingUp.png */,
 				5AC745111A868EC2002731DF /* king.png */,
 			);
 			name = king;
@@ -241,6 +256,9 @@
 		5AC744B21A866414002731DF /* medieval */ = {
 			isa = PBXGroup;
 			children = (
+				5A509C771A8BD7140076B02A /* medievalDir.png */,
+				5A509C781A8BD7140076B02A /* medievalEsq.png */,
+				5A509C791A8BD7140076B02A /* medievalUp.png */,
 				5AC745131A868EDB002731DF /* medieval.png */,
 			);
 			name = medieval;
@@ -416,7 +434,7 @@
 				TargetAttributes = {
 					5AD8CFF41A6C013800BE3D59 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 26KBC7ZFTX;
+						DevelopmentTeam = N3GG8VLR9P;
 					};
 				};
 			};
@@ -443,6 +461,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A509C811A8BD7250076B02A /* kingEsq.png in Resources */,
 				5AC745141A868EDB002731DF /* medieval.png in Resources */,
 				5AC744F61A868E49002731DF /* fireBall.png in Resources */,
 				5AC744EA1A868CAE002731DF /* home.png in Resources */,
@@ -461,6 +480,7 @@
 				5AC744EC1A868CAE002731DF /* play.png in Resources */,
 				5AC744EB1A868CAE002731DF /* mute.png in Resources */,
 				5AC745071A868E82002731DF /* vikingEsq.png in Resources */,
+				5A509C821A8BD7250076B02A /* kingUp.png in Resources */,
 				5AC745191A868EFE002731DF /* cardBonus.png in Resources */,
 				5AC745001A868E70002731DF /* nakedSheep.png in Resources */,
 				5AC745101A868EB4002731DF /* pirateUp.png in Resources */,
@@ -470,8 +490,11 @@
 				5AC745251A869052002731DF /* dyingSheep.mp3 in Resources */,
 				5AC7450F1A868EB4002731DF /* pirateEsq.png in Resources */,
 				5AC744F71A868E49002731DF /* heart.png in Resources */,
+				5A509C7A1A8BD7140076B02A /* medievalDir.png in Resources */,
 				5AC745241A869052002731DF /* backgroundMusic.mp3 in Resources */,
 				5AC744E91A868CAE002731DF /* help.png in Resources */,
+				5A509C7C1A8BD7140076B02A /* medievalUp.png in Resources */,
+				5A509C7B1A8BD7140076B02A /* medievalEsq.png in Resources */,
 				5AC744FE1A868E59002731DF /* woodBackground.png in Resources */,
 				5AC745051A868E82002731DF /* viking.png in Resources */,
 				0857F3951A8A46D600964CFB /* poof.png in Resources */,
@@ -488,6 +511,7 @@
 				5AC744F81A868E49002731DF /* wooden.png in Resources */,
 				5AC7450E1A868EB4002731DF /* pirateDir.png in Resources */,
 				5AC744FD1A868E59002731DF /* backgroundBoss.png in Resources */,
+				5A509C801A8BD7250076B02A /* kingDir.png in Resources */,
 				5AC745061A868E82002731DF /* vikingDir.png in Resources */,
 				5AC7451E1A869045002731DF /* introMovie2.mov in Resources */,
 				5AC745571A86F6F6002731DF /* title.png in Resources */,

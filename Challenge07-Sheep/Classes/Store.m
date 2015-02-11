@@ -45,8 +45,8 @@ int used;
     
 //    NSMutableArray *array = [[NSMutableArray alloc] init];
 //    [data saveSheep:array];
-
-    [data saveCoins:[NSNumber numberWithFloat:415]];
+//
+//    [data saveCoins:[NSNumber numberWithFloat:2000]];
     
     [self createBackground];
     
@@ -75,6 +75,7 @@ int used;
     heartImg.yScale = 0.008;
     heartImg.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-69);
     heartImg.zPosition = 1;
+    heartImg.name = @"heartNode";
     [self addChild:heartImg];
     
     coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -135,7 +136,7 @@ int used;
     nHeart.fontSize = 8;
     nHeart.fontColor = [SKColor whiteColor];
     nHeart.position = CGPointMake(((self.frame.size.width/2)-10), (self.frame.size.height/2)-76);
-    nHeart.text = @"2";
+    nHeart.text = [NSString stringWithFormat:@"%d", [[data heartNumber] intValue]];
     nHeart.zPosition = 1;
     [self addChild:nHeart];
     
@@ -165,8 +166,6 @@ int used;
         coinsImg2.yScale = 0.03;
         coinsImg2.position = CGPointMake(CGRectGetMidX(self.frame)-210+i*75, CGRectGetMidY(self.frame)-32);
         coinsImg2.zPosition = 1;
-        
-        Sheep *mainSheep = [self getActivatedSheep];
         
         switch (i) {
             case 1:
@@ -259,7 +258,6 @@ int used;
     CGPoint location = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
     
-    Sheep *sheep = [[Sheep alloc] init];
     if ([node.name isEqualToString:@"homeButtonNode"]) {
         InitialScreen *scene = [InitialScreen sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -280,6 +278,8 @@ int used;
         [self sheepButton:@"medieval"];
     }else if([node.name isEqualToString:@"kingNode"]){
         [self sheepButton:@"king"];
+    }else if([node.name isEqualToString:@"heartNode"]){
+        [self buyHeart];
     }
     
 }
@@ -297,9 +297,10 @@ int used;
             [sheep setImageRight:[NSString stringWithFormat:@"%@Dir.png", sheepName]];
             [sheep setImageUp:[NSString stringWithFormat:@"%@Up.png", sheepName]];
             [self buySheep: sheep];
+            
+            [self successfullPurchase];
         }
     } else {
-        
         
     }
 }
@@ -370,6 +371,11 @@ int used;
     }
 }
 
+-(void) successfullPurchase {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulation, you bought this item" message:@"" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil ,nil];
+    [alert show];
+}
+
 -(Sheep *) getStoreSheep: (NSString*) name {
     for (Sheep *sheep in storeSheep){
         if ([[sheep getName] isEqualToString:name]){
@@ -377,6 +383,19 @@ int used;
         }
     }
     return nil;
+}
+
+-(void) buyHeart {
+    int numHeart = [[data heartNum] intValue];
+    numHeart ++;
+    [data updateHeartNumber:[NSNumber numberWithInt:numHeart]];
+
+    float newCoins = [[data loadCoins]floatValue] - 1000.0;
+    [data saveCoins:[NSNumber numberWithFloat:newCoins]];
+    coinsLabel.text = [NSString stringWithFormat:@"%.0f", newCoins];
+    
+    [self successfullPurchase];
+    
 }
 
 @end

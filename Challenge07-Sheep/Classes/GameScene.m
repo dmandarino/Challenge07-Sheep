@@ -127,7 +127,7 @@ int numberOfAttacks;
     
     
     
-    [self runAction:[SKAction repeatAction:runGameAnimations count:4+_level]completion:^{
+    [self runAction:[SKAction repeatAction:runGameAnimations count:6+_level]completion:^{
         
         [self runAction: [SKAction waitForDuration:2]completion:^{
             sprite.texture = sheepSheep;
@@ -320,7 +320,6 @@ int numberOfAttacks;
         life.text = [NSString stringWithFormat:@"%d", self.nHeartsParam];
     else
         life.text = [NSString stringWithFormat:@"%d", [[data heartNumber] intValue]];
-    life.text = [NSString stringWithFormat:@"%d", 4];
     life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
     life.fontColor = [SKColor blackColor];
     life.zPosition = 1;

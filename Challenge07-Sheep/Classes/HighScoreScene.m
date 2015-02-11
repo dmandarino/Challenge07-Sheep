@@ -212,7 +212,7 @@ RWGameData *data;
     //Play Sound
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
                                          pathForResource:@"backgroundMusic"
-                                         ofType:@"wav"]];
+                                         ofType:@"mp3"]];
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     _player.numberOfLoops = -1;
     
