@@ -388,15 +388,21 @@ int used;
 }
 
 -(void) buyHeart {
-    int numHeart = [[data heartNum] intValue];
-    numHeart ++;
-    [data updateHeartNumber:[NSNumber numberWithInt:numHeart]];
-
-    float newCoins = [[data loadCoins]floatValue] - 1000.0;
-    [data saveCoins:[NSNumber numberWithFloat:newCoins]];
-    coinsLabel.text = [NSString stringWithFormat:@"%.0f", newCoins];
-    
-    [self successfullPurchase];
+    if([data loadCoins].floatValue >= 1000){
+        int numHeart = [[data heartNum] intValue];
+        numHeart ++;
+        [data updateHeartNumber:[NSNumber numberWithInt:numHeart]];
+        
+        float newCoins = [[data loadCoins]floatValue] - 1000.0;
+        [data saveCoins:[NSNumber numberWithFloat:newCoins]];
+        coinsLabel.text = [NSString stringWithFormat:@"%.0f", newCoins];
+        
+        [self successfullPurchase];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You don't have enough coins" message:@"" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil ,nil];
+        [alert show];
+        
+    }
     
 }
 
