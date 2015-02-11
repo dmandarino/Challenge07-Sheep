@@ -131,11 +131,13 @@ RWGameData *data;
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.size.height, self.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    bgImage.zPosition = 0;
     [self addChild:bgImage];
 
     SKSpriteNode *sheep = [SKSpriteNode spriteNodeWithImageNamed:@"nakedSheep.png"];
     sheep.xScale = 0.06;
     sheep.yScale = 0.06;
+    sheep.zPosition = 1;
     sheep.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 10);
     [self addChild:sheep];
 
@@ -143,6 +145,7 @@ RWGameData *data;
     woodenSign.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 50);
     woodenSign.xScale = 0.3;
     woodenSign.yScale = 0.3;
+    woodenSign.zPosition = 1;
     [self addChild: woodenSign];
     
 }
