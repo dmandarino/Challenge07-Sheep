@@ -45,7 +45,8 @@ int used;
     
 //    NSMutableArray *array = [[NSMutableArray alloc] init];
 //    [data saveSheep:array];
-//    [data saveCoins:[NSNumber numberWithFloat:400]];
+
+    [data saveCoins:[NSNumber numberWithFloat:415]];
     
     [self createBackground];
     

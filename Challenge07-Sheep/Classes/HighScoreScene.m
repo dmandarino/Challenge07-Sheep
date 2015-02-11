@@ -70,11 +70,11 @@ RWGameData *data;
        retryButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"retry.png"];
     else
        retryButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play2.png"]; 
-    retryButtonNode.position = CGPointMake(CGRectGetMinX(self.frame)+40, CGRectGetMidY(self.frame)-60);
+    retryButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)-120, CGRectGetMidY(self.frame)-70);
     retryButtonNode.name = @"retryButtonNode";//how the node is identified later
     retryButtonNode.zPosition = 1.0;
-    retryButtonNode.xScale = 0.2;
-    retryButtonNode.yScale = 0.2;
+    retryButtonNode.xScale = 0.15;
+    retryButtonNode.yScale = 0.15;
     
     return retryButtonNode;
 }
@@ -89,22 +89,24 @@ RWGameData *data;
     coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+64);
     coinsLabel.fontColor = [SKColor blackColor];
     coinsLabel.text = [NSString stringWithFormat:@"%.0f", _coins];
+    coinsLabel.zPosition = 1;
     [self addChild:coinsLabel];
     
     coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
     coinsImg.xScale = 0.05;
     coinsImg.yScale = 0.05;
     coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+71);
+    coinsImg.zPosition = 1;
     [self addChild:coinsImg];
 }
 
 -(SKSpriteNode *) createHomeButton {
     SKSpriteNode *homeButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"home.png"];
-    homeButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)+120, CGRectGetMidY(self.frame)-60);
+    homeButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)+120, CGRectGetMidY(self.frame)-70);
     homeButtonNode.name = @"homeButtonNode";//how the node is identified later
     homeButtonNode.zPosition = 1.0;
-    homeButtonNode.xScale = 0.2;
-    homeButtonNode.yScale = 0.2;
+    homeButtonNode.xScale = 0.15;
+    homeButtonNode.yScale = 0.15;
     
     return homeButtonNode;
 }
@@ -116,6 +118,7 @@ RWGameData *data;
     titleLabel.fontSize = 20;
     titleLabel.fontColor = [SKColor blackColor];
     titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+60);
+    titleLabel.zPosition = 1;
     
     scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
 
@@ -132,6 +135,7 @@ RWGameData *data;
     scoreLabel.fontSize = 20;
     scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+37);
     scoreLabel.text = [NSString stringWithFormat:@"%.0f", _score];
+    scoreLabel.zPosition = 1;
     
     
     
@@ -146,6 +150,7 @@ RWGameData *data;
     titleLabel.text = @"Ranking";
     titleLabel.fontColor = [SKColor blackColor];
     titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+10);
+    titleLabel.zPosition = 1;
     
     [self addChild:titleLabel];
     
@@ -167,6 +172,7 @@ RWGameData *data;
         ranking.text = [NSString stringWithFormat:@"%@", value];
         ranking.position = CGPointMake(CGRectGetMidX(self.frame), y);
         ranking.fontColor = [SKColor blackColor];
+        ranking.zPosition = 1;
         
         [self addChild:ranking];
     }
@@ -178,6 +184,7 @@ RWGameData *data;
     highScoreTitle.fontColor = [SKColor redColor];
     highScoreTitle.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+70);
     highScoreTitle.text = @"High Score";
+    highScoreTitle.zPosition = 1;
     [self addChild:highScoreTitle];
     
     
@@ -187,6 +194,7 @@ RWGameData *data;
     highScore.fontColor = [SKColor redColor];
     highScore.position = CGPointMake(CGRectGetMidX(self.frame)+ 120, CGRectGetMidY(self.frame)+60);
     highScore.text = [NSMutableString stringWithFormat:@"%.0f", [[_ranking objectAtIndex:0] floatValue]];
+    highScoreTitle.zPosition = 1;
     [self addChild:highScore];
 
 }
@@ -195,6 +203,7 @@ RWGameData *data;
     SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
     bgImage.size = CGSizeMake(self.size.height, self.size.width);
     bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    bgImage.zPosition = 0;
     [self addChild:bgImage];
 }
 
@@ -207,9 +216,11 @@ RWGameData *data;
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     _player.numberOfLoops = -1;
     
-    [_player play];
+    if ([[data isSoundOn]boolValue]){
+        [_player play];
+    }
 }
-                                                                
+
 -(NSMutableArray *) getRankingList {
     _ranking = [data loadRanking];
     return _ranking;

@@ -31,6 +31,8 @@ SKAction *msgAct;
 SKAction *createWaves;
 SKAction *pulseRed;
 SKAction *createGiant;
+SKAction *fadeOutSheep;
+SKAction *fadeInSheep;
 
 RWGameData *data;
 
@@ -50,9 +52,6 @@ RWGameData *data;
     int i = 1;
     if (_level>=3) {
         i = 2;
-        if (_level>=5) {
-            i = 3;
-        }
     }
     [self runAction:[SKAction repeatAction:createWaves count:i]completion:^{
         [self runAction: [SKAction waitForDuration:(10-_level)]completion:^{
@@ -100,6 +99,9 @@ RWGameData *data;
                                     [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
                                     [SKAction waitForDuration:0.1],
                                     [SKAction colorizeWithColorBlendFactor:0.0 duration:0.15]]];
+    
+    fadeOutSheep = [SKAction fadeAlphaTo:0 duration:1];
+    fadeInSheep = [SKAction fadeAlphaTo:1 duration:1];
     
 }
 
@@ -162,8 +164,10 @@ RWGameData *data;
     [self showHighScore];
     
     
-    [_spriteParam removeFromParent];
+    //[_spriteParam removeFromParent];
     [self addChild:_spriteParam];
+    //[_spriteParam runAction:fadeInSheep];
+    _spriteParam.zPosition = 1;
     _spriteParam.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:40];
     _spriteParam.physicsBody.categoryBitMask = spriteHitCategory;
     _spriteParam.physicsBody.contactTestBitMask = fireHitCategory;
@@ -240,7 +244,7 @@ RWGameData *data;
     fire.name = @"fire";
     fire.xScale = 0.05;
     fire.yScale = 0.05;
-    fire.zPosition = 1;
+    fire.zPosition = 2;
     
     fire.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1];
     fire.physicsBody.categoryBitMask = fireHitCategory;
@@ -269,7 +273,7 @@ RWGameData *data;
     fire.name = @"Giantfire";
     fire.xScale = 0.15;
     fire.yScale = 0.15;
-    fire.zPosition = 1;
+    fire.zPosition = 2;
     
     fire.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1];
     fire.physicsBody.categoryBitMask = fireHitCategory;
@@ -321,8 +325,8 @@ RWGameData *data;
     for ( int i = 0; i < 10; i++){
         double x = (arc4random() % 300);
         double y = (arc4random() % 320);
-        if ( x < 200){
-            y = (arc4random() % 320 ) + 300;
+        if ( y < 200){
+            x = (arc4random() % 320 ) + 300;
         }
         
         float sign = arc4random_uniform(4);
@@ -370,9 +374,9 @@ RWGameData *data;
     }
     
     if ([node.name isEqualToString:@"Giantfire"]) {
-        if (node.xScale >= 0.07) {
-            node.xScale = node.xScale - 0.002;
-            node.yScale = node.yScale - 0.002;
+        if (node.xScale >= 0.05) {
+            node.xScale = node.xScale - 0.0022;
+            node.yScale = node.yScale - 0.0022;
         }else{
             [node removeFromParent];
         }
@@ -392,9 +396,13 @@ RWGameData *data;
     if ( _nHeartsParam == 0 ){
         [self endGame];
         
-        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
+        if ([[data isSoundOn]boolValue]){
+            [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
+        }
     } else {
-        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+        if ([[data isSoundOn]boolValue]){
+            [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+        }
     }
 }
 

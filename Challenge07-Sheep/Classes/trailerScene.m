@@ -19,7 +19,8 @@ SKVideoNode *video;
 - (void) didMoveToView:(SKView *)view{
     RWGameData *data = [[RWGameData alloc] init];
     
-//    [data updateFirstPlaying:[NSNumber numberWithBool:TRUE]]; 
+    [data updateFirstPlaying:[NSNumber numberWithBool:TRUE]];
+    [data updateSoundOn:[NSNumber numberWithBool:TRUE]];
     [[data firstPlaying] boolValue] || _play ? [self showTrailer] : [self skip:NO];
 }
 -(void) skip:(BOOL) fade{

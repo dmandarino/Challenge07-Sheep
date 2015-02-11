@@ -29,6 +29,22 @@ RWGameData *data;
     [self createTrailerButton];
     [self createPlayButton];
     [self createTutorialButton];
+    [self playEffectBgSounds];
+}
+
+-(void)playEffectBgSounds{
+
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+                                         pathForResource:@"initialScreen"
+                                         ofType:@"mp3"]];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    _player.numberOfLoops = -1;
+    
+    if ([[data isSoundOn]boolValue]){
+        [_player play];
+    }else{
+        [_player stop];
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -40,6 +56,7 @@ RWGameData *data;
         [self goToHome];
     } else if ([node.name isEqualToString:@"muteButtonNode"]) {
         [self updateSoundSettings];
+        [self playEffectBgSounds];
     } else if ([node.name isEqualToString:@"tutorialButtonNode"]) {
         [self goToTutorial];
     } else if ([node.name isEqualToString:@"trailerButtonNode"]) {

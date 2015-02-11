@@ -87,42 +87,42 @@ RWGameData *data;
 
 -(SKSpriteNode *) createPlayButton {
     SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play.png"];
-    backButtonNode.position = CGPointMake(self.size.width/2 , self.size.height/2 - 70);
+    backButtonNode.position = CGPointMake(self.size.width/2 , self.size.height/2 - 65);
     backButtonNode.name = @"playButtonNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
-    backButtonNode.xScale = 0.6;
-    backButtonNode.yScale = 0.6;
+    backButtonNode.xScale = 0.65;
+    backButtonNode.yScale = 0.65;
     
     return backButtonNode;
 }
 -(SKSpriteNode *) createScoreButton {
     SKSpriteNode *backButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"ranking.png"];
-    backButtonNode.position = CGPointMake(self.size.width/2 - 100 , self.size.height/2 - 70);
+    backButtonNode.position = CGPointMake(self.size.width/2 - 80 , self.size.height/2 - 65);
     backButtonNode.name = @"highScoreNode";//how the node is identified later
     backButtonNode.zPosition = 1.0;
-    backButtonNode.xScale = 0.1;
-    backButtonNode.yScale = 0.1;
+    backButtonNode.xScale = 0.15;
+    backButtonNode.yScale = 0.15;
     
     return backButtonNode;
 }
 -(SKSpriteNode *) createShopButton {
     SKSpriteNode *backShopNode = [SKSpriteNode spriteNodeWithImageNamed:@"cart.png"];
-    backShopNode.position = CGPointMake(self.size.width/2 - 130 , self.size.height/2 - 70);
+    backShopNode.position = CGPointMake(self.size.width/2 - 130 , self.size.height/2 - 65);
     backShopNode.name = @"shopNode";//how the node is identified later
     backShopNode.zPosition = 1.0;
-    backShopNode.xScale = 0.1;
-    backShopNode.yScale = 0.1;
+    backShopNode.xScale = 0.15;
+    backShopNode.yScale = 0.15;
     
     return backShopNode;
 }
 
 -(SKSpriteNode *) createHelpButton {
     SKSpriteNode *backShopNode = [SKSpriteNode spriteNodeWithImageNamed:@"help.png"];
-    backShopNode.position = CGPointMake(CGRectGetMidX(self.frame) - 70, CGRectGetMidY(self.frame)-70);
+    backShopNode.position = CGPointMake(CGRectGetMidX(self.frame) + 130, CGRectGetMidY(self.frame)-65);
     backShopNode.name = @"helpNode";//how the node is identified later
     backShopNode.zPosition = 1.0;
-    backShopNode.xScale = 0.1;
-    backShopNode.yScale = 0.1;
+    backShopNode.xScale = 0.15;
+    backShopNode.yScale = 0.15;
     
     return backShopNode;
 }

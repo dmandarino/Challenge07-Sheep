@@ -142,8 +142,13 @@ static NSString* const HeartNumKey = @"HeartNum";
     [data writeToFile:[self dataFilePathForSettings] atomically:YES];
 }
 
+// Gets the path to the data file
+- (NSString *)dataFilePathForSound {
+    return [[self documentsDirectory] stringByAppendingPathComponent:@"sound.plist"];
+}
+
 - (NSNumber *)isSoundOn {
-    NSString *path = [self dataFilePathForSettings];
+    NSString *path = [self dataFilePathForSound];
     if ( [self archiveExists:path] ) {
         NSData *data = [[NSData alloc] initWithContentsOfFile:path];
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
@@ -163,7 +168,7 @@ static NSString* const HeartNumKey = @"HeartNum";
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
     [archiver encodeObject:sound forKey:SoundKey];
     [archiver finishEncoding];
-    [data writeToFile:[self dataFilePathForSettings] atomically:YES];
+    [data writeToFile:[self dataFilePathForSound] atomically:YES];
 }
 
 // Gets the path to the data file
@@ -179,7 +184,7 @@ static NSString* const HeartNumKey = @"HeartNum";
         _heartNum = [unarchiver decodeObjectForKey:HeartNumKey];
         [unarchiver finishDecoding];
     } else {
-        _heartNum = [NSNumber numberWithFloat:2];
+        _heartNum = [NSNumber numberWithFloat:3];
     }
     return _heartNum;
 }

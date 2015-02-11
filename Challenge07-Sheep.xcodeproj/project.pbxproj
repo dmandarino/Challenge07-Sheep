@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0857F3951A8A46D600964CFB /* poof.png in Resources */ = {isa = PBXBuildFile; fileRef = 0857F3941A8A46D600964CFB /* poof.png */; };
 		5A06658E1A72CC4000163B47 /* animation.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5A06658D1A72CC4000163B47 /* animation.atlas */; };
 		5A509C5D1A8827500076B02A /* SettingsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A509C5C1A8827500076B02A /* SettingsScene.m */; };
 		5A509C5F1A8830750076B02A /* trailer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C5E1A8830750076B02A /* trailer.png */; };
@@ -75,6 +76,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0857F3941A8A46D600964CFB /* poof.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poof.png; sourceTree = "<group>"; };
 		5A06658D1A72CC4000163B47 /* animation.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = animation.atlas; sourceTree = "<group>"; };
 		5A509C5B1A8827500076B02A /* SettingsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsScene.h; path = Classes/SettingsScene.h; sourceTree = "<group>"; };
 		5A509C5C1A8827500076B02A /* SettingsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsScene.m; path = Classes/SettingsScene.m; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 		5AC744B41A8664AD002731DF /* Supporting Images */ = {
 			isa = PBXGroup;
 			children = (
+				0857F3941A8A46D600964CFB /* poof.png */,
 				5AC745561A86F6F6002731DF /* title.png */,
 				5AC744F11A868E49002731DF /* coins.png */,
 				5AC744F21A868E49002731DF /* fireBall.png */,
@@ -413,7 +416,7 @@
 				TargetAttributes = {
 					5AD8CFF41A6C013800BE3D59 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = N3GG8VLR9P;
+						DevelopmentTeam = 26KBC7ZFTX;
 					};
 				};
 			};
@@ -471,6 +474,7 @@
 				5AC744E91A868CAE002731DF /* help.png in Resources */,
 				5AC744FE1A868E59002731DF /* woodBackground.png in Resources */,
 				5AC745051A868E82002731DF /* viking.png in Resources */,
+				0857F3951A8A46D600964CFB /* poof.png in Resources */,
 				5AC744E81A868CAE002731DF /* cart.png in Resources */,
 				5AC745261A869052002731DF /* ImSheep.mp3 in Resources */,
 				5AD8D00B1A6C013800BE3D59 /* Images.xcassets in Resources */,

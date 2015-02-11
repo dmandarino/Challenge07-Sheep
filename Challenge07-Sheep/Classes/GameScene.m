@@ -23,6 +23,7 @@ float gameCoins;
 SKLabelNode *scoreLabel;
 SKLabelNode *coinsLabel;
 SKSpriteNode *coinsImg;
+SKSpriteNode *poofImg;
 CGPoint pointLocation;
 float counter = 0;
 float score;
@@ -59,6 +60,8 @@ SKTexture *cardBonus;
 
 SKAction *cardMove;
 SKAction *sheepSuper;
+SKAction *fadeOutSheep;
+SKAction *fadeInSheep;
 
 
 int cardStatus;
@@ -113,6 +116,8 @@ int numberOfAttacks;
                                       [SKAction waitForDuration:3.1],
                                       [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]]];
     
+    fadeOutSheep = [SKAction fadeAlphaTo:0 duration:0.5];
+    fadeInSheep = [SKAction fadeAlphaTo:1 duration:0.5];
     
     SKAction *runGameAnimations = [SKAction sequence:@[
                                                       //time after you want to fire a function
@@ -124,9 +129,14 @@ int numberOfAttacks;
     
     [self runAction:[SKAction repeatAction:runGameAnimations count:4+_level]completion:^{
         
-        [self runAction: [SKAction waitForDuration:3.5]completion:^{
+        [self runAction: [SKAction waitForDuration:2]completion:^{
             sprite.texture = sheepSheep;
-            [self startBossScene];
+            [sprite removeFromParent];
+            poofImg.hidden = false;
+            //[sprite runAction:fadeOutSheep];
+            [self runAction:[SKAction waitForDuration:1]completion:^{
+                [self startBossScene];
+            }];
         }];
     }];
     
@@ -279,6 +289,14 @@ int numberOfAttacks;
     coinsImg.zPosition = 1;
     [self addChild:coinsImg];
     
+    poofImg = [SKSpriteNode spriteNodeWithImageNamed:@"poof.png"];
+    poofImg.xScale = 0.3;
+    poofImg.yScale = 0.3;
+    poofImg.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
+    poofImg.zPosition = 1;
+    poofImg.hidden = true;
+    [self addChild:poofImg];
+    
     [self showSheep];
     
     sprite.xScale = 0.3;
@@ -287,6 +305,7 @@ int numberOfAttacks;
     sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
     sprite.zPosition = 1;
     [self addChild:sprite];
+    //[sprite runAction:fadeInSheep];
     
     SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
     heart.xScale = 0.01;
@@ -301,6 +320,7 @@ int numberOfAttacks;
         life.text = [NSString stringWithFormat:@"%d", self.nHeartsParam];
     else
         life.text = [NSString stringWithFormat:@"%d", [[data heartNumber] intValue]];
+    life.text = [NSString stringWithFormat:@"%d", 4];
     life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
     life.fontColor = [SKColor blackColor];
     life.zPosition = 1;
@@ -682,10 +702,13 @@ int numberOfAttacks;
     life.text = [NSString stringWithFormat:@"%d", newLife];
     if ( newLife ==0 ){
         [self endGame];
-        
-        [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
+        if ([[data isSoundOn]boolValue]){
+            [self runAction:[SKAction playSoundFileNamed:@"dyingSheep.mp3" waitForCompletion:NO]];
+        }
     } else {
-        [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+        if ([[data isSoundOn]boolValue]){
+            [self runAction:[SKAction playSoundFileNamed:@"ImSheep.mp3" waitForCompletion:NO]];
+        }
     }
 }
 
@@ -706,9 +729,10 @@ int numberOfAttacks;
 -(void) startBossScene {
     int scoreAux = score+1;
     int coinsAux = gameCoins+1;
-    
+
     [_player stop];
     playing = false;
+
     SKTransition *reveal = [SKTransition crossFadeWithDuration:2];
     BossScene *scene = [BossScene sceneWithSize:self.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -769,6 +793,9 @@ int numberOfAttacks;
     numberOfAttacks = 0;
     playing = true;
     
+    if(_level <1 )
+        _level =1;
+    
     [self setLevelValues];
     
     data = [[RWGameData alloc] init];
@@ -782,7 +809,7 @@ int numberOfAttacks;
 -(void) setLevelValues {
     [self setDefaultLevelValues];
     float actualLevel = 0;
-    if (self.level > 1){
+    if (self.level > 0){
         if (self.level > 5){
             actualLevel = self.level;
             self.level = 5;
