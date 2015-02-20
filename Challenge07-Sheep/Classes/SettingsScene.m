@@ -12,9 +12,11 @@
 #import "trailerScene.h"
 #import "GameScene.h"
 #import "RWGameData.h"
+#import "Services.h"
 
 SKSpriteNode *soundButtonNode;
 RWGameData *data;
+Services *services;
 
 @implementation SettingsScene
 - (void) didMoveToView:(SKView *)view{
@@ -33,13 +35,7 @@ RWGameData *data;
 }
 
 -(void)playEffectBgSounds{
-
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                         pathForResource:@"initialScreen"
-                                         ofType:@"mp3"]];
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    _player.numberOfLoops = -1;
-    
+    _player = [services playEffectBgSounds:@"initialScreen"];
     if ([[data isSoundOn]boolValue]){
         [_player play];
     }else{

@@ -10,10 +10,12 @@
 #import "GameScene.h"
 #import "RWGameData.h"
 #import "InitialScreen.h"
+#import "Services.h"
 
 @implementation HighScoreScene
 SKLabelNode *scoreLabel;
 RWGameData *data;
+Services *services;
 
 -(void) didMoveToView:(SKView *)view {
     [self createBackground];
@@ -208,17 +210,9 @@ RWGameData *data;
 }
 
 -(void)playEffectBgSounds{
-    
-    //Play Sound
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                         pathForResource:@"backgroundMusic"
-                                         ofType:@"mp3"]];
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    _player.numberOfLoops = -1;
-    
-    if ([[data isSoundOn]boolValue]){
+    _player = [services playEffectBgSounds:@"backgroundMusic"];
+    if ([[data isSoundOn]boolValue])
         [_player play];
-    }
 }
 
 -(NSMutableArray *) getRankingList {
@@ -228,7 +222,7 @@ RWGameData *data;
 
 -(void) loadValues {
     data = [[RWGameData alloc] init];
-    
+    services = [[Services alloc] init];
     _ranking = [self getRankingList];
 }
 

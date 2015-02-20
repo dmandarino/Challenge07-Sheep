@@ -13,24 +13,25 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Sheep.h"
 #import "BossScene.h"
+#import "Services.h"
 
+static NSString* const SHEEP = @"sheepSheep";
+static NSString* const SHEEP_DIR = @"sheepDir";
+static NSString* const SHEEP_ESQ = @"sheepEsq";
+static NSString* const SHEEP_UP = @"sheepUp";
 
 @implementation GameScene
 
+//Match Status
 SKLabelNode *life;
-
-float gameCoins;
 SKLabelNode *scoreLabel;
 SKLabelNode *coinsLabel;
 SKSpriteNode *coinsImg;
-SKSpriteNode *poofImg;
-CGPoint pointLocation;
-float counter = 0;
 float score;
+float gameCoins;
 int randomSide;
-int defenseSide;
 
-NSTimer *timer;
+//Attacking Status
 bool attackLeft = false;
 bool attackRight = false;
 bool attackUp = false;
@@ -40,18 +41,18 @@ bool defenseLeft = false;
 bool defenseUp = false;
 bool playing  = true;
 
-SKSpriteNode *sprite;
-SKAction *runAnimation;
+
+//Dragon Node
 NSMutableArray *dragonFrames;
 SKTextureAtlas *dragonAnimatedAtlas;
 NSMutableArray *clawsFrames;
-SKTextureAtlas *clawsAnimatedAtlas;
 SKSpriteNode *_dragon;
 NSArray *_dragonFireFrames;
 SKSpriteNode *_claws;
 NSArray *_clawsAttackingFrames;
 SKAction *pulseRed;
 
+//Cards Node
 SKSpriteNode *card;
 SKTexture *cardHeart;
 SKTexture *cardCoin;
@@ -63,21 +64,21 @@ SKAction *sheepSuper;
 SKAction *fadeOutSheep;
 SKAction *fadeInSheep;
 
-
+SKLabelNode *msgLabel;
 int cardStatus;
 bool invencible;
-SKLabelNode *msgLabel;
 
-SKTexture *sheepDir;
-SKTexture *sheepEsq;
-SKTexture *sheepUp;
-SKTexture *sheepSheep;
 
-NSMutableArray *sheepSkin;
+//Sheep Node
+SKSpriteNode *sprite;
+SKSpriteNode *poofImg;
+NSMutableDictionary *sheepTextures;
 
+// Others
 RWGameData *data;
+Services *services;
 float ranking;
-
+CGPoint pointLocation;
 
 // ==== LEVEL DE DIFICULDADE ===== //
 
@@ -88,24 +89,23 @@ float intervalDuringAttack;
 int numberOfAttacks;
 
 -(void)didMoveToView:(SKView *)view {
-    
-    
     /* Setup your scene here */
-    
-    sheepSkin = [[NSMutableArray alloc] init];
     
     [self loadValues];
     
-    [self prepareGameBackground];
+    [self prepareScene];
     
     [self playEffectBgSounds];
     
     [self prepareDragonImages];
     
-    [self showHighScore];
-    
     [self prepareCards];
     
+    [self createActions];
+    
+}
+
+-(void)createActions {
     pulseRed = [SKAction sequence:@[
                                     [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:1.0 duration:0.15],
                                     [SKAction waitForDuration:0.1],
@@ -116,21 +116,18 @@ int numberOfAttacks;
                                       [SKAction waitForDuration:3.1],
                                       [SKAction colorizeWithColorBlendFactor:0.0 duration:3.15]]];
     
-    fadeOutSheep = [SKAction fadeAlphaTo:0 duration:0.5];
-    fadeInSheep = [SKAction fadeAlphaTo:1 duration:0.5];
-    
     SKAction *runGameAnimations = [SKAction sequence:@[
-                                                      //time after you want to fire a function
-                                                      [SKAction waitForDuration:intervalToAttack],
-                                                      [SKAction performSelector:@selector(prepareAttack)
-                                                                       onTarget:self]]];
+                                                       //time after you want to fire a function
+                                                       [SKAction waitForDuration:intervalToAttack],
+                                                       [SKAction performSelector:@selector(prepareAttack)
+                                                                        onTarget:self]]];
     
     
     
     [self runAction:[SKAction repeatAction:runGameAnimations count:6+_level]completion:^{
         
         [self runAction: [SKAction waitForDuration:2]completion:^{
-            sprite.texture = sheepSheep;
+            sprite.texture = [sheepTextures objectForKey:SHEEP];
             [sprite removeFromParent];
             poofImg.hidden = false;
             //[sprite runAction:fadeOutSheep];
@@ -139,38 +136,7 @@ int numberOfAttacks;
             }];
         }];
     }];
-    
-}
 
--(void)playEffectBgSounds{
-    if ([[data isSoundOn]boolValue]){
-        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                             pathForResource:@"backgroundMusic"
-                                             ofType:@"mp3"]];
-        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-        _player.numberOfLoops = -1;
-        
-        [_player play];
-    }
-}
-
-
--(void)prepareCards{
-    cardHeart = [SKTexture textureWithImageNamed:@"cardHeart.png"];
-    cardCoin = [SKTexture textureWithImageNamed:@"cardCoin.png"];
-    cardSuper = [SKTexture textureWithImageNamed:@"cardSuper.png"];
-    cardBonus = [SKTexture textureWithImageNamed:@"cardBonus.png"];
-    card = [SKSpriteNode spriteNodeWithTexture:cardHeart];
-    cardStatus = 0;
-    card.name = @"cardNode";
-    card.xScale = 0.08;
-    card.yScale = 0.08;
-    card.zPosition = 3;
-    card.position = CGPointMake(350, 170);// Y varia de 390 ateh 175 nao visivel
-    cardMove = [SKAction moveToY:170 duration:2.5];
-    invencible = false;
-    
-    [self addChild: card];
 }
 
 -(void)chooseCard{
@@ -246,84 +212,13 @@ int numberOfAttacks;
 -(void) showSheep {
     Sheep *sheep = [[Sheep alloc] init];
     sheep = [self getSheep];
-    sheepSheep = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImage]]];
-    sheepEsq = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageLeft]]];
-    sheepDir = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageRight]]];
-    sheepUp = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageUp]]];
-    sprite = [SKSpriteNode spriteNodeWithTexture:sheepSheep];
-}
-
--(void)prepareGameBackground{
     
-    SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
-    bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
-    bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-    bgImage.zPosition = 0;
-    [self addChild:bgImage];
-    
-    msgLabel= [SKLabelNode labelNodeWithFontNamed:@"HoeflerText-BlackItalic"];
-    msgLabel.fontSize = 20;
-    msgLabel.fontColor = [SKColor blueColor];
-    msgLabel.position = CGPointMake((self.frame.size.width/2+10), (self.frame.size.height/2+45));
-    msgLabel.text = @"";
-    msgLabel.zPosition = 1;
-    [self addChild:msgLabel];
-    
-    scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    scoreLabel.fontSize = 15;
-    scoreLabel.position = CGPointMake((self.frame.size.width/8), (self.frame.size.height/2.8));
-    scoreLabel.zPosition = 1;
-    [self addChild:scoreLabel];
-    
-    coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    coinsLabel.fontSize = 12;
-    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+45);
-    coinsLabel.fontColor = [SKColor blackColor];
-    coinsLabel.zPosition = 1;
-    [self addChild:coinsLabel];
-    
-    coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
-    coinsImg.xScale = 0.05;
-    coinsImg.yScale = 0.05;
-    coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)+52);
-    coinsImg.zPosition = 1;
-    [self addChild:coinsImg];
-    
-    poofImg = [SKSpriteNode spriteNodeWithImageNamed:@"poof.png"];
-    poofImg.xScale = 0.3;
-    poofImg.yScale = 0.3;
-    poofImg.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
-    poofImg.zPosition = 1;
-    poofImg.hidden = true;
-    [self addChild:poofImg];
-    
-    [self showSheep];
-    
-    sprite.xScale = 0.3;
-    sprite.yScale = 0.3;
-    sprite.zPosition = 1;
-    sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
-    sprite.zPosition = 1;
-    [self addChild:sprite];
-    //[sprite runAction:fadeInSheep];
-    
-    SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
-    heart.xScale = 0.01;
-    heart.yScale = 0.01;
-    heart.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+72);
-    heart.zPosition = 1;
-    [self addChild:heart];
-    
-    life= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    life.fontSize = 20;
-    if (self.nHeartsParam >0 )
-        life.text = [NSString stringWithFormat:@"%d", self.nHeartsParam];
-    else
-        life.text = [NSString stringWithFormat:@"%d", [[data heartNumber] intValue]];
-    life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
-    life.fontColor = [SKColor blackColor];
-    life.zPosition = 1;
-    [self addChild:life];
+    sheepTextures = [NSMutableDictionary dictionary];
+    sheepTextures[SHEEP] = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImage]]];
+    sheepTextures[SHEEP_ESQ] = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageLeft]]];
+    sheepTextures[SHEEP_DIR] = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageRight]]];
+    sheepTextures[SHEEP_UP] = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageUp]]];
+    sprite = [SKSpriteNode spriteNodeWithTexture:[sheepTextures objectForKey:@"sheepSheep"]];
 }
 
 -(void)prepareDragonImages{
@@ -527,7 +422,7 @@ int numberOfAttacks;
             defenseLeft = false;
             defenseUp = false;
             defenseRight = true;
-            sprite.texture = sheepDir;
+            sprite.texture = [sheepTextures objectForKey:SHEEP_DIR];
             
         }else {
             if(defenseLeft == false){
@@ -536,8 +431,7 @@ int numberOfAttacks;
             defenseLeft = true;
             defenseUp = false;
             defenseRight = false;
-            
-            sprite.texture = sheepEsq;
+            sprite.texture = [sheepTextures objectForKey:SHEEP_ESQ];
             
         }
     }else if (pointLocation.y > endPosition.y){
@@ -548,9 +442,7 @@ int numberOfAttacks;
         defenseUp = true;
         defenseLeft = false;
         defenseRight = false;
-        
-        
-        sprite.texture = sheepUp;
+        sprite.texture = [sheepTextures objectForKey:SHEEP_UP];
         
     }
 }
@@ -568,10 +460,6 @@ int numberOfAttacks;
             scoreLabel.fontColor = [SKColor redColor];
     }
     
-}
-
-- (void)incrementCounter {
-    counter++;
 }
 
 - (void) prepareAttack {
@@ -646,25 +534,19 @@ int numberOfAttacks;
 }
 
 -(void) stopAttackLeft {
-    if( defenseLeft == true ){
-        sprite.texture = sheepSheep;
+    if( defenseLeft == true )
         defenseLeft = false;
-    }
-    
+    sprite.texture = [sheepTextures objectForKey:SHEEP];
 }
 -(void) stopAttackRight {
-    if( defenseRight == true ){
-        sprite.texture = sheepSheep;
+    if( defenseRight == true )
         defenseRight = false;
-    }
-    
+    sprite.texture = [sheepTextures objectForKey:SHEEP];
 }
 -(void) stopAttackUp {
-    if( defenseUp == true ){
-        sprite.texture = sheepSheep;
+    if( defenseUp == true )
         defenseUp = false;
-    }
-    
+    sprite.texture = [sheepTextures objectForKey:SHEEP];
 }
 
 -(void) showHighScore {
@@ -747,6 +629,17 @@ int numberOfAttacks;
 }
 
 -(void) saveGame {
+    
+    [data saveRanking:[self setRanking]];
+    
+    float coinsToSave = [[data loadCoins] floatValue];
+    coinsToSave += gameCoins;
+    
+    [data saveCoins:[NSNumber numberWithFloat:coinsToSave]];
+}
+
+-(NSMutableArray *) setRanking {
+    
     scoreLabel.fontColor = [SKColor blackColor];
     NSNumber *scoreToSave = [[NSNumber alloc] init];
     scoreToSave = [NSNumber numberWithFloat: score];
@@ -764,32 +657,13 @@ int numberOfAttacks;
     if ( [rankingToSave count] > 5)
         [rankingToSave removeLastObject];
     
-    [data saveRanking:rankingToSave];
-    
-    float coinsToSave = [[data loadCoins] floatValue];
-    coinsToSave += gameCoins;
-    
-    [data saveCoins:[NSNumber numberWithFloat:coinsToSave]];
-}
-
--(NSMutableArray *) setRanking: (NSMutableArray *) array {
-    
-    [array addObject:[NSNumber numberWithFloat: score]];
-    
-    NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    [array sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
-    
-    if ( [array count] > 5)
-        [array removeLastObject];
-    
-    return array;
+    return rankingToSave;
 }
 
 - (void) loadValues {
+    numberOfAttacks = 0;
     score = self.scoreParam;
     gameCoins = self.coinsParam;
-    
-    numberOfAttacks = 0;
     playing = true;
     
     if(_level <1 )
@@ -798,6 +672,7 @@ int numberOfAttacks;
     [self setLevelValues];
     
     data = [[RWGameData alloc] init];
+    services = [[Services alloc] init];
     
     if ([[data loadRanking] objectAtIndex:0]!= nil)
         ranking = [[[data loadRanking] objectAtIndex:0] floatValue];
@@ -834,4 +709,103 @@ int numberOfAttacks;
     intervalToCancelAttack = 0.5f;
 }
 
+
+-(void)prepareCards{
+    cardHeart = [SKTexture textureWithImageNamed:@"cardHeart.png"];
+    cardCoin = [SKTexture textureWithImageNamed:@"cardCoin.png"];
+    cardSuper = [SKTexture textureWithImageNamed:@"cardSuper.png"];
+    cardBonus = [SKTexture textureWithImageNamed:@"cardBonus.png"];
+    card = [SKSpriteNode spriteNodeWithTexture:cardHeart];
+    cardStatus = 0;
+    card.name = @"cardNode";
+    card.xScale = 0.08;
+    card.yScale = 0.08;
+    card.zPosition = 3;
+    card.position = CGPointMake(350, 170);// Y varia de 390 ateh 175 nao visivel
+    cardMove = [SKAction moveToY:170 duration:2.5];
+    invencible = false;
+    
+    [self addChild: card];
+}
+
+-(void)prepareScene{
+    
+    SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
+    bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
+    bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    bgImage.zPosition = 0;
+    [self addChild:bgImage];
+    
+    msgLabel= [SKLabelNode labelNodeWithFontNamed:@"HoeflerText-BlackItalic"];
+    msgLabel.fontSize = 20;
+    msgLabel.fontColor = [SKColor blueColor];
+    msgLabel.position = CGPointMake((self.frame.size.width/2+10), (self.frame.size.height/2+45));
+    msgLabel.text = @"";
+    msgLabel.zPosition = 1;
+    [self addChild:msgLabel];
+    
+    scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    scoreLabel.fontSize = 15;
+    scoreLabel.position = CGPointMake((self.frame.size.width/8), (self.frame.size.height/2.8));
+    scoreLabel.zPosition = 1;
+    [self addChild:scoreLabel];
+    
+    coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    coinsLabel.fontSize = 12;
+    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+45);
+    coinsLabel.fontColor = [SKColor blackColor];
+    coinsLabel.zPosition = 1;
+    [self addChild:coinsLabel];
+    
+    coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
+    coinsImg.xScale = 0.05;
+    coinsImg.yScale = 0.05;
+    coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)+52);
+    coinsImg.zPosition = 1;
+    [self addChild:coinsImg];
+    
+    poofImg = [SKSpriteNode spriteNodeWithImageNamed:@"poof.png"];
+    poofImg.xScale = 0.3;
+    poofImg.yScale = 0.3;
+    poofImg.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
+    poofImg.zPosition = 1;
+    poofImg.hidden = true;
+    [self addChild:poofImg];
+    
+    [self showSheep];
+    
+    sprite.xScale = 0.3;
+    sprite.yScale = 0.3;
+    sprite.zPosition = 1;
+    sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
+    sprite.zPosition = 1;
+    [self addChild:sprite];
+    //[sprite runAction:fadeInSheep];
+    
+    SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
+    heart.xScale = 0.01;
+    heart.yScale = 0.01;
+    heart.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+72);
+    heart.zPosition = 1;
+    [self addChild:heart];
+    
+    life= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    life.fontSize = 20;
+    if (self.nHeartsParam >0 )
+        life.text = [NSString stringWithFormat:@"%d", self.nHeartsParam];
+    else
+        life.text = [NSString stringWithFormat:@"%d", [[data heartNumber] intValue]];
+    life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
+    life.fontColor = [SKColor blackColor];
+    life.zPosition = 1;
+    [self addChild:life];
+    
+    [self showHighScore];
+}
+
+-(void) playEffectBgSounds{
+    _player = [services playEffectBgSounds:@"backgroundMusic"];
+    if ([data isSoundOn])
+        [_player play];
+}
 @end

@@ -14,13 +14,15 @@
 #import <AVFoundation/AVFoundation.h>
 #import "RWGameData.h"
 #import "SettingsScene.h"
+#import "Services.h"
 
 @implementation InitialScreen
 RWGameData *data;
-
+Services *services;
 
 -(void) didMoveToView:(SKView *)view {
     data = [[RWGameData alloc] init];
+    services = [[Services alloc] init];
     
     [self createBackground];
     
@@ -40,15 +42,9 @@ RWGameData *data;
 }
 
 -(void)playEffectBgSounds{
-    if ([[data isSoundOn]boolValue]){
-        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                             pathForResource:@"initialScreen"
-                                             ofType:@"mp3"]];
-        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-        _player.numberOfLoops = -1;
-        
+    _player = [services playEffectBgSounds:@"initialScreen"];
+    if ([[data isSoundOn]boolValue])
         [_player play];
-    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

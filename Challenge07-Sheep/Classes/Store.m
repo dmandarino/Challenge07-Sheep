@@ -11,10 +11,12 @@
 #import "RWGameData.h"
 #import "InitialScreen.h"
 #import "Sheep.h"
+#import "Services.h"
 
 @implementation Store
 
 RWGameData *data;
+Services *services;
 
 SKSpriteNode *bgImage;
 SKLabelNode *generalStoreLabel;
@@ -232,15 +234,9 @@ int used;
 }
 
 -(void)playEffectBgSounds{
-    if ([[data isSoundOn]boolValue]){
-        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                             pathForResource:@"store"
-                                             ofType:@"mp3"]];
-        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-        _player.numberOfLoops = -1;
-        
+    _player = [services playEffectBgSounds:@"store"];
+    if ([[data isSoundOn]boolValue])
         [_player play];
-    }
 }
 
 -(SKSpriteNode *) createHomeButton {

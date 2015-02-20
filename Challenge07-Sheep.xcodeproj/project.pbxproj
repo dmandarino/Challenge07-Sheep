@@ -25,6 +25,7 @@
 		5A509C801A8BD7250076B02A /* kingDir.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C7D1A8BD7250076B02A /* kingDir.png */; };
 		5A509C811A8BD7250076B02A /* kingEsq.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C7E1A8BD7250076B02A /* kingEsq.png */; };
 		5A509C821A8BD7250076B02A /* kingUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A509C7F1A8BD7250076B02A /* kingUp.png */; };
+		5A8E473B1A960C5D00BE11EB /* Services.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8E473A1A960C5D00BE11EB /* Services.m */; };
 		5AC744E81A868CAE002731DF /* cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744DF1A868CAE002731DF /* cart.png */; };
 		5AC744E91A868CAE002731DF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744E01A868CAE002731DF /* help.png */; };
 		5AC744EA1A868CAE002731DF /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AC744E11A868CAE002731DF /* home.png */; };
@@ -104,6 +105,8 @@
 		5A509C7D1A8BD7250076B02A /* kingDir.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kingDir.png; path = Images/Sheeps/King/kingDir.png; sourceTree = "<group>"; };
 		5A509C7E1A8BD7250076B02A /* kingEsq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kingEsq.png; path = Images/Sheeps/King/kingEsq.png; sourceTree = "<group>"; };
 		5A509C7F1A8BD7250076B02A /* kingUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kingUp.png; path = Images/Sheeps/King/kingUp.png; sourceTree = "<group>"; };
+		5A8E47391A960C5D00BE11EB /* Services.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Services.h; path = Classes/Services.h; sourceTree = "<group>"; };
+		5A8E473A1A960C5D00BE11EB /* Services.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Services.m; path = Classes/Services.m; sourceTree = "<group>"; };
 		5AC744DF1A868CAE002731DF /* cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cart.png; path = images/buttons/cart.png; sourceTree = "<group>"; };
 		5AC744E01A868CAE002731DF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help.png; path = images/buttons/help.png; sourceTree = "<group>"; };
 		5AC744E11A868CAE002731DF /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = images/buttons/home.png; sourceTree = "<group>"; };
@@ -215,6 +218,81 @@
 				5AC7451D1A869045002731DF /* introMovie2.mov */,
 			);
 			name = sounds/videos;
+			sourceTree = "<group>";
+		};
+		5A8E473C1A96AB6B00BE11EB /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				5AC7454A1A86931F002731DF /* TutorialScene.h */,
+				5AC7454B1A86931F002731DF /* TutorialScene.m */,
+				5A509C6E1A894EA80076B02A /* Tutorial2Scene.h */,
+				5A509C6F1A894EA80076B02A /* Tutorial2Scene.m */,
+				5A509C711A8951110076B02A /* Tutorial3Scene.h */,
+				5A509C721A8951110076B02A /* Tutorial3Scene.m */,
+				5A509C741A8957ED0076B02A /* Tutorial4Scene.h */,
+				5A509C751A8957ED0076B02A /* Tutorial4Scene.m */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
+		5AB1A1271A97BD2D00735E03 /* GameScenes */ = {
+			isa = PBXGroup;
+			children = (
+				5AC7453B1A86931F002731DF /* BossScene.h */,
+				5AC7453C1A86931F002731DF /* BossScene.m */,
+				5AC7453D1A86931F002731DF /* GameScene.h */,
+				5AC7453E1A86931F002731DF /* GameScene.m */,
+			);
+			name = GameScenes;
+			sourceTree = "<group>";
+		};
+		5AB1A1281A97BD4E00735E03 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				5AC7453F1A86931F002731DF /* HighScoreScene.h */,
+				5AC745401A86931F002731DF /* HighScoreScene.m */,
+				5AC745411A86931F002731DF /* InitialScreen.h */,
+				5AC745541A869367002731DF /* InitialScreen.m */,
+				5AC745461A86931F002731DF /* Store.h */,
+				5AC745471A86931F002731DF /* Store.m */,
+				5AC745481A86931F002731DF /* trailerScene.h */,
+				5AC745491A86931F002731DF /* trailerScene.m */,
+				5A509C5B1A8827500076B02A /* SettingsScene.h */,
+				5A509C5C1A8827500076B02A /* SettingsScene.m */,
+			);
+			name = Screens;
+			sourceTree = "<group>";
+		};
+		5AB1A1291A97BD6500735E03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5AC745441A86931F002731DF /* Sheep.h */,
+				5AC745451A86931F002731DF /* Sheep.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		5AB1A12A1A97BD7600735E03 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5AC745421A86931F002731DF /* RWGameData.h */,
+				5AC745431A86931F002731DF /* RWGameData.m */,
+				5A8E47391A960C5D00BE11EB /* Services.h */,
+				5A8E473A1A960C5D00BE11EB /* Services.m */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		5AB1A12B1A97BDF500735E03 /* Base Classes */ = {
+			isa = PBXGroup;
+			children = (
+				5AC745331A869244002731DF /* AppDelegate.h */,
+				5AC745341A869244002731DF /* AppDelegate.m */,
+				5AD8D0021A6C013800BE3D59 /* GameScene.sks */,
+				5AC745361A869253002731DF /* GameViewController.h */,
+				5AC745371A869253002731DF /* GameViewController.m */,
+			);
+			name = "Base Classes";
 			sourceTree = "<group>";
 		};
 		5AC744AF1A8663CE002731DF /* cards */ = {
@@ -331,37 +409,12 @@
 		5AD8CFF71A6C013800BE3D59 /* Challenge07-Sheep */ = {
 			isa = PBXGroup;
 			children = (
-				5AC7453B1A86931F002731DF /* BossScene.h */,
-				5AC7453C1A86931F002731DF /* BossScene.m */,
-				5AC7453D1A86931F002731DF /* GameScene.h */,
-				5AC7453E1A86931F002731DF /* GameScene.m */,
-				5AC7453F1A86931F002731DF /* HighScoreScene.h */,
-				5AC745401A86931F002731DF /* HighScoreScene.m */,
-				5AC745411A86931F002731DF /* InitialScreen.h */,
-				5AC745541A869367002731DF /* InitialScreen.m */,
-				5AC745421A86931F002731DF /* RWGameData.h */,
-				5AC745431A86931F002731DF /* RWGameData.m */,
-				5AC745441A86931F002731DF /* Sheep.h */,
-				5AC745451A86931F002731DF /* Sheep.m */,
-				5AC745461A86931F002731DF /* Store.h */,
-				5AC745471A86931F002731DF /* Store.m */,
-				5AC745481A86931F002731DF /* trailerScene.h */,
-				5AC745491A86931F002731DF /* trailerScene.m */,
-				5A509C5B1A8827500076B02A /* SettingsScene.h */,
-				5A509C5C1A8827500076B02A /* SettingsScene.m */,
-				5AC7454A1A86931F002731DF /* TutorialScene.h */,
-				5AC7454B1A86931F002731DF /* TutorialScene.m */,
-				5A509C6E1A894EA80076B02A /* Tutorial2Scene.h */,
-				5A509C6F1A894EA80076B02A /* Tutorial2Scene.m */,
-				5A509C711A8951110076B02A /* Tutorial3Scene.h */,
-				5A509C721A8951110076B02A /* Tutorial3Scene.m */,
-				5A509C741A8957ED0076B02A /* Tutorial4Scene.h */,
-				5A509C751A8957ED0076B02A /* Tutorial4Scene.m */,
-				5AC745331A869244002731DF /* AppDelegate.h */,
-				5AC745341A869244002731DF /* AppDelegate.m */,
-				5AD8D0021A6C013800BE3D59 /* GameScene.sks */,
-				5AC745361A869253002731DF /* GameViewController.h */,
-				5AC745371A869253002731DF /* GameViewController.m */,
+				5AB1A1271A97BD2D00735E03 /* GameScenes */,
+				5AB1A1281A97BD4E00735E03 /* Screens */,
+				5AB1A12A1A97BD7600735E03 /* Services */,
+				5AB1A1291A97BD6500735E03 /* Model */,
+				5A8E473C1A96AB6B00BE11EB /* Tutorial */,
+				5AB1A12B1A97BDF500735E03 /* Base Classes */,
 				5AD8D0071A6C013800BE3D59 /* Main.storyboard */,
 				5AD8D00A1A6C013800BE3D59 /* Images.xcassets */,
 				5AD8D00C1A6C013800BE3D59 /* LaunchScreen.xib */,
@@ -541,6 +594,7 @@
 				5AC745551A869367002731DF /* InitialScreen.m in Sources */,
 				5AC745351A869244002731DF /* AppDelegate.m in Sources */,
 				5AC7454D1A86931F002731DF /* GameScene.m in Sources */,
+				5A8E473B1A960C5D00BE11EB /* Services.m in Sources */,
 				5AC7453A1A86925C002731DF /* main.m in Sources */,
 				5A509C701A894EA80076B02A /* Tutorial2Scene.m in Sources */,
 			);

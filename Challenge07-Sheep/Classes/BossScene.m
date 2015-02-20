@@ -9,13 +9,13 @@
 #import "BossScene.h"
 #import "GameScene.h"
 #import "RWGameData.h"
+#import "Services.h"
 
 @implementation BossScene
 
 static const int spriteHitCategory = 1;
 static const int fireHitCategory = 2;
 
-RWGameData *data;
 bool playing;
 
 SKLabelNode *coinsLabel;
@@ -35,10 +35,13 @@ SKAction *fadeOutSheep;
 SKAction *fadeInSheep;
 
 RWGameData *data;
+Services *services;
 
 
 -(void) didMoveToView:(SKView *)view {
     data = [[RWGameData alloc] init];
+    services = [[Services alloc]init];
+    
     playing = true;
     
     [self createActions];
@@ -177,15 +180,9 @@ RWGameData *data;
 }
 
 -(void)playEffectBgSounds{
-    if ([[data isSoundOn]boolValue]){
-        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                             pathForResource:@"backgroundMusic"
-                                             ofType:@"mp3"]];
-        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-        _player.numberOfLoops = -1;
-        
+    _player = [services playEffectBgSounds:@"backgroundMusic"];
+    if ([data isSoundOn])
         [_player play];
-    }
 }
 
 -(void) showHighScore {
