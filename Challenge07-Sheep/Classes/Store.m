@@ -38,7 +38,8 @@ SKSpriteNode *outfitImg;
 SKSpriteNode *coinsImg2;
 NSString *sheepName;
 float sheepPrice;
-
+float screenWidth;
+float screenHeight;
 int used;
 
 -(void) didMoveToView:(SKView *)view {
@@ -56,12 +57,7 @@ int used;
     
     [self playEffectBgSounds];
     
-    SKSpriteNode *homeButtonNode = [self createHomeButton];
-    [self addChild: homeButtonNode];
-    
-    SKSpriteNode *retryButtonNode = [self createRetryButton];
-    [self addChild: retryButtonNode];
-    
+    [self createButtons];
 }
 
 -(void) createBackground {
@@ -219,35 +215,18 @@ int used;
     
 }
 
--(SKSpriteNode *) createRetryButton {
+-(void)createButtons {
+    SKSpriteNode *playButtonNode = [services createButton:@"play2.png" :@"playButtonNode" :CGRectGetMidX(self.frame)-120 :CGRectGetMidY(self.frame)-70 :screenWidth / 9 : screenHeight / 18];
+    [self addChild: playButtonNode];
     
-    SKSpriteNode *retryButtonNode;
-    
-    retryButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"play2.png"];
-    retryButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)-120, CGRectGetMidY(self.frame)-70);
-    retryButtonNode.name = @"retryButtonNode";//how the node is identified later
-    retryButtonNode.zPosition = 1.0;
-    retryButtonNode.xScale = 0.15;
-    retryButtonNode.yScale = 0.15;
-    
-    return retryButtonNode;
+    SKSpriteNode *homeButton = [services createButton:@"home.png" :@"homeButtonNode" :CGRectGetMidX(self.frame)+120 :CGRectGetMidY(self.frame)-70 :screenWidth / 9 : screenHeight / 18];
+    [self addChild: homeButton];
 }
 
 -(void)playEffectBgSounds{
     _player = [services playEffectBgSounds:@"store"];
     if ([[data isSoundOn]boolValue])
         [_player play];
-}
-
--(SKSpriteNode *) createHomeButton {
-    SKSpriteNode *homeButtonNode = [SKSpriteNode spriteNodeWithImageNamed:@"home.png"];
-    homeButtonNode.position = CGPointMake(CGRectGetMidX(self.frame)+120, CGRectGetMidY(self.frame)-70);
-    homeButtonNode.name = @"homeButtonNode";//how the node is identified later
-    homeButtonNode.zPosition = 1.0;
-    homeButtonNode.xScale = 0.15;
-    homeButtonNode.yScale = 0.15;
-    
-    return homeButtonNode;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -261,7 +240,7 @@ int used;
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:[SKTransition doorsOpenHorizontalWithDuration:1]];
         
-    }else if([node.name isEqualToString:@"retryButtonNode"]){
+    }else if([node.name isEqualToString:@"playButtonNode"]){
         GameScene *scene = [GameScene sceneWithSize:self.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         scene.level = 1;
@@ -344,6 +323,8 @@ int used;
     if ([data loadSheeps] != nil)
         sheepArray = [data loadSheeps];
     
+    screenWidth = self.frame.size.width;
+    screenHeight = self.frame.size.height;
 }
 
 -(Sheep *) getActivatedSheep {
