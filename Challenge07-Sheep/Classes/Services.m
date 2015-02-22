@@ -23,4 +23,14 @@ RWGameData *data;
     return _player;
 }
 
+-(SKSpriteNode *) createButton:(NSString*) imageName:(NSString*) nodeName:(float) xPosition:(float) yPosition:(float) width:(float) height{
+    SKSpriteNode *button = [SKSpriteNode spriteNodeWithImageNamed:imageName];
+    button.position = CGPointMake(xPosition, yPosition);
+    button.name = nodeName;//how the node is identified later
+    button.zPosition = 1.0;
+    button.size = CGSizeMake(width, height);
+    
+    return button;
+}
+
 @end
