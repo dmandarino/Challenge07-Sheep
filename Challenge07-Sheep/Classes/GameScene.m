@@ -101,6 +101,8 @@ int numberOfAttacks;
     
     [self prepareCards];
     
+    [self createRecognizers];
+    
     [self createActions];
     
 }
@@ -337,6 +339,71 @@ int numberOfAttacks;
     return;
 }
 
+- (void)handleSwipe:(UISwipeGestureRecognizer *)sender {
+    
+    
+    SKAction *cancelAttackLeft= [SKAction sequence:@[
+                                                     //time after you want to fire a function
+                                                     [SKAction waitForDuration:intervalToCancelAttack],
+                                                     [SKAction performSelector:@selector(stopAttackLeft)
+                                                                      onTarget:self]
+                                                     
+                                                     ]];
+    SKAction *cancelAttackRight= [SKAction sequence:@[
+                                                      //time after you want to fire a function
+                                                      [SKAction waitForDuration:intervalToCancelAttack],
+                                                      [SKAction performSelector:@selector(stopAttackRight)
+                                                                       onTarget:self]
+                                                      
+                                                      ]];
+//    [self runAction:[SKAction repeatAction:cancelAttackRight count: 1]];
+    
+    SKAction *cancelAttackUp= [SKAction sequence:@[
+                                                   //time after you want to fire a function
+                                                   [SKAction waitForDuration:intervalToCancelAttack],
+                                                   [SKAction performSelector:@selector(stopAttackUp)
+                                                                    onTarget:self]
+                                                   
+                                                   ]];
+    
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        if (sender.direction == UISwipeGestureRecognizerDirectionUp){
+           
+            if( defenseUp == false){
+                [self runAction:[SKAction repeatAction:cancelAttackUp count: 1]];
+            }
+            
+            defenseUp = true;
+            defenseLeft = false;
+            defenseRight = false;
+            sprite.texture = [sheepTextures objectForKey:SHEEP_UP];
+
+        }else if( sender.direction == UISwipeGestureRecognizerDirectionRight){
+            
+            if( defenseRight == false){
+                [self runAction:[SKAction repeatAction:cancelAttackRight count: 1]];
+            }
+            
+            defenseLeft = false;
+            defenseUp = false;
+            defenseRight = true;
+            sprite.texture = [sheepTextures objectForKey:SHEEP_DIR];
+            
+        }else if( sender.direction == UISwipeGestureRecognizerDirectionLeft){
+
+            if(defenseLeft == false){
+                [self runAction:[SKAction repeatAction:cancelAttackLeft count: 1]];
+            }
+            defenseLeft = true;
+            defenseUp = false;
+            defenseRight = false;
+            sprite.texture = [sheepTextures objectForKey:SHEEP_ESQ];
+
+        }
+    }
+}
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     /* Called when a touch begins */
@@ -384,75 +451,20 @@ int numberOfAttacks;
     
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint endPosition = [touch locationInView:touch.view];
-    int deltaX = (endPosition.x - pointLocation.x);
-    int deltaY = (endPosition.y - pointLocation.y);
-    
-    SKAction *cancelAttackLeft= [SKAction sequence:@[
-                                                     //time after you want to fire a function
-                                                     [SKAction waitForDuration:intervalToCancelAttack],
-                                                     [SKAction performSelector:@selector(stopAttackLeft)
-                                                                      onTarget:self]
-                                                     
-                                                     ]];
-    SKAction *cancelAttackRight= [SKAction sequence:@[
-                                                      //time after you want to fire a function
-                                                      [SKAction waitForDuration:intervalToCancelAttack],
-                                                      [SKAction performSelector:@selector(stopAttackRight)
-                                                                       onTarget:self]
-                                                      
-                                                      ]];
-    [self runAction:[SKAction repeatAction:cancelAttackRight count: 1]];
-    
-    SKAction *cancelAttackUp= [SKAction sequence:@[
-                                                   //time after you want to fire a function
-                                                   [SKAction waitForDuration:intervalToCancelAttack],
-                                                   [SKAction performSelector:@selector(stopAttackUp)
-                                                                    onTarget:self]
-                                                   
-                                                   ]];
-    if( deltaY == 0){
-        deltaY = 1;
-    }
-    int tang = deltaX/deltaY;
-    
-    if ( abs(tang) >= 1 ){
-        
-        if ( pointLocation.x < endPosition.x){
-            if( defenseRight == false){
-                [self runAction:[SKAction repeatAction:cancelAttackRight count: 1]];
-            }
-            defenseLeft = false;
-            defenseUp = false;
-            defenseRight = true;
-            sprite.texture = [sheepTextures objectForKey:SHEEP_DIR];
-            
-        }else {
-            if(defenseLeft == false){
-                [self runAction:[SKAction repeatAction:cancelAttackLeft count: 1]];
-            }
-            defenseLeft = true;
-            defenseUp = false;
-            defenseRight = false;
-            sprite.texture = [sheepTextures objectForKey:SHEEP_ESQ];
-            
-        }
-    }else if (pointLocation.y > endPosition.y){
-        if( defenseUp == false){
-            [self runAction:[SKAction repeatAction:cancelAttackUp count: 1]];
-        }
-        
-        defenseUp = true;
-        defenseLeft = false;
-        defenseRight = false;
-        sprite.texture = [sheepTextures objectForKey:SHEEP_UP];
-        
-    }
-}
 
+-(void) createRecognizers {
+    UISwipeGestureRecognizer *recognizerUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    recognizerUp.direction = UISwipeGestureRecognizerDirectionUp;
+    [[self view] addGestureRecognizer:recognizerUp];
+    
+    UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    recognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [[self view] addGestureRecognizer:recognizerRight];
+    
+    UISwipeGestureRecognizer *recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    recognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [[self view] addGestureRecognizer:recognizerLeft];
+}
 
 -(void)update:(NSTimeInterval)currentTime {
     if(playing){
@@ -736,7 +748,7 @@ int numberOfAttacks;
 
 -(void)prepareScene{
     
-    SKSpriteNode *bgImage = [services createImage:@"background1.png" : CGRectGetMidX(self.frame) : CGRectGetMidY(self.frame) : 1 : self.frame.size.width : self.frame.size.height/2];
+    SKSpriteNode *bgImage = [services createImage:@"background1.png" : CGRectGetMidX(self.frame) : CGRectGetMidY(self.frame) : 0 : self.frame.size.width : self.frame.size.height/2];
     [self addChild:bgImage];
     
     SKSpriteNode *heart = [services createImage:@"heart.png" :CGRectGetMidX(self.frame)-135 :CGRectGetMidY(self.frame)+72 : 1 :self.frame.size.width/15 :self.frame.size.height/30];

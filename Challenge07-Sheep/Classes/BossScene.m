@@ -50,6 +50,8 @@ Services *services;
     
     [self playEffectBgSounds];
     
+    [self createRecognizers];
+    
     [msgLabel runAction: msgAct];
     
     int i = 1;
@@ -381,6 +383,9 @@ Services *services;
     
 }
 
+- (void)handleSwipe:(UISwipeGestureRecognizer *)sender {
+}
+
 -(void) damageTaken {
     
     _nHeartsParam--;
@@ -443,6 +448,18 @@ Services *services;
     
     [data saveCoins:[NSNumber numberWithFloat:coinsToSave]];
 }
-
+-(void) createRecognizers {
+    UISwipeGestureRecognizer *recognizerUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    recognizerUp.direction = UISwipeGestureRecognizerDirectionUp;
+    [[self view] addGestureRecognizer:recognizerUp];
+    
+    UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    recognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [[self view] addGestureRecognizer:recognizerRight];
+    
+    UISwipeGestureRecognizer *recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    recognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [[self view] addGestureRecognizer:recognizerLeft];
+}
 
 @end
