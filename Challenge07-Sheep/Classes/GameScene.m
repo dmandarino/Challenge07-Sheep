@@ -219,6 +219,12 @@ int numberOfAttacks;
     sheepTextures[SHEEP_DIR] = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageRight]]];
     sheepTextures[SHEEP_UP] = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@", [sheep getImageUp]]];
     sprite = [SKSpriteNode spriteNodeWithTexture:[sheepTextures objectForKey:@"sheepSheep"]];
+    
+    sprite.zPosition = 1;
+    sprite.size = CGSizeMake( self.frame.size.width/2.5 , self.frame.size.height/5 );
+    sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
+    sprite.zPosition = 1;
+    [self addChild:sprite];
 }
 
 -(void)prepareDragonImages{
@@ -730,74 +736,35 @@ int numberOfAttacks;
 
 -(void)prepareScene{
     
-    SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background1.png"];
-    bgImage.size = CGSizeMake(self.frame.size.height, self.frame.size.width);
-    bgImage.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-    bgImage.zPosition = 0;
+    SKSpriteNode *bgImage = [services createImage:@"background1.png" : CGRectGetMidX(self.frame) : CGRectGetMidY(self.frame) : 1 : self.frame.size.width : self.frame.size.height/2];
     [self addChild:bgImage];
     
-    msgLabel= [SKLabelNode labelNodeWithFontNamed:@"HoeflerText-BlackItalic"];
-    msgLabel.fontSize = 20;
-    msgLabel.fontColor = [SKColor blueColor];
-    msgLabel.position = CGPointMake((self.frame.size.width/2+10), (self.frame.size.height/2+45));
-    msgLabel.text = @"";
-    msgLabel.zPosition = 1;
-    [self addChild:msgLabel];
+    SKSpriteNode *heart = [services createImage:@"heart.png" :CGRectGetMidX(self.frame)-135 :CGRectGetMidY(self.frame)+72 : 1 :self.frame.size.width/15 :self.frame.size.height/30];
+    [self addChild:heart];
     
-    scoreLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    scoreLabel.fontSize = 15;
-    scoreLabel.position = CGPointMake((self.frame.size.width/8), (self.frame.size.height/2.8));
-    scoreLabel.zPosition = 1;
-    [self addChild:scoreLabel];
-    
-    coinsLabel= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    coinsLabel.fontSize = 12;
-    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame)-108, CGRectGetMidY(self.frame)+45);
-    coinsLabel.fontColor = [SKColor blackColor];
-    coinsLabel.zPosition = 1;
-    [self addChild:coinsLabel];
-    
-    coinsImg = [SKSpriteNode spriteNodeWithImageNamed:@"coins.png"];
-    coinsImg.xScale = 0.05;
-    coinsImg.yScale = 0.05;
-    coinsImg.position = CGPointMake(CGRectGetMidX(self.frame)-130, CGRectGetMidY(self.frame)+52);
-    coinsImg.zPosition = 1;
+    coinsImg = [services createImage:@"coins.png" : CGRectGetMidX(self.frame)-130 : CGRectGetMidY(self.frame)+52 : 1 : self.frame.size.width/17 : self.frame.size.height/34];
     [self addChild:coinsImg];
     
-    poofImg = [SKSpriteNode spriteNodeWithImageNamed:@"poof.png"];
-    poofImg.xScale = 0.3;
-    poofImg.yScale = 0.3;
-    poofImg.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
-    poofImg.zPosition = 1;
+    poofImg = [services createImage:@"poof.png" : CGRectGetMidX(self.frame) : CGRectGetMidY(self.frame) * 0.95 : 1 : self.frame.size.width/5 : self.frame.size.height/10];
     poofImg.hidden = true;
     [self addChild:poofImg];
     
     [self showSheep];
     
-    sprite.xScale = 0.3;
-    sprite.yScale = 0.3;
-    sprite.zPosition = 1;
-    sprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 0.95);
-    sprite.zPosition = 1;
-    [self addChild:sprite];
-    //[sprite runAction:fadeInSheep];
+    msgLabel = [services createLabel:@"" :@"HoeflerText-BlackItalic" :20 : [SKColor blueColor] : (self.frame.size.width/2+10) : (self.frame.size.height/2+45)];
+    [self addChild:msgLabel];
     
-    SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
-    heart.xScale = 0.01;
-    heart.yScale = 0.01;
-    heart.position = CGPointMake(CGRectGetMidX(self.frame)-135, CGRectGetMidY(self.frame)+72);
-    heart.zPosition = 1;
-    [self addChild:heart];
+    scoreLabel = [services createLabel:@"" :@"Chalkduster" :15 : [SKColor blackColor] : (self.frame.size.width/8) : (self.frame.size.height/2.8)];
+    [self addChild:scoreLabel];
     
-    life= [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    life.fontSize = 20;
+    coinsLabel = [services createLabel:@"" :@"Chalkduster" :12 : [SKColor blackColor] : CGRectGetMidX(self.frame)-108 : CGRectGetMidY(self.frame)+45];
+    [self addChild:coinsLabel];
+    
+    life = [services createLabel:@"" :@"Chalkduster" :20 : [SKColor blackColor] : CGRectGetMidX(self.frame)-110 : CGRectGetMidY(self.frame)+65];
     if (self.nHeartsParam >0 )
         life.text = [NSString stringWithFormat:@"%d", self.nHeartsParam];
     else
         life.text = [NSString stringWithFormat:@"%d", [[data heartNumber] intValue]];
-    life.position = CGPointMake(CGRectGetMidX(self.frame)-110, CGRectGetMidY(self.frame)+65);
-    life.fontColor = [SKColor blackColor];
-    life.zPosition = 1;
     [self addChild:life];
     
     [self showHighScore];

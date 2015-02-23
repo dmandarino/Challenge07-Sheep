@@ -33,4 +33,24 @@ RWGameData *data;
     return button;
 }
 
+-(SKSpriteNode *) createImage:(NSString*) imageName : (float) xPosition : (float) yPosition : (float) zPosition : (float) width : (float) height{
+    SKSpriteNode *img = [SKSpriteNode spriteNodeWithImageNamed:imageName];
+    img.position = CGPointMake(xPosition, yPosition);
+    img.zPosition = zPosition;
+    img.size = CGSizeMake(width, height);
+    
+    return img;
+}
+
+-(SKLabelNode *) createLabel: (NSString*) text : (NSString*)fontFamily : (int) fontSize : (SKColor*) color : (float) width : (float) height {
+    SKLabelNode  *label= [SKLabelNode labelNodeWithFontNamed:fontFamily];
+    label.fontSize = fontSize;
+    label.fontColor = color;
+    label.position = CGPointMake( width, height );
+    label.text = text;
+    label.zPosition = 1;
+    
+    return label;
+}
+
 @end

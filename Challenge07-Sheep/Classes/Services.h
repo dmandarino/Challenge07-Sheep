@@ -16,5 +16,7 @@
 
 -(AVAudioPlayer*)playEffectBgSounds:(NSString*)sound;
 -(SKSpriteNode *) createButton:(NSString*) imageName:(NSString*) nodeName:(float) xPosition:(float) yPosition:(float) width:(float) height;
+-(SKSpriteNode *) createImage:(NSString*) imageName : (float) xPosition : (float) yPosition : (float) zPosition : (float) width : (float) height;
+-(SKLabelNode *) createLabel: (NSString*) text : (NSString*)fontFamily : (int) fontSize : (SKColor*) color : (float) width : (float) height;
 
 @end
