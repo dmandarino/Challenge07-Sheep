@@ -183,7 +183,7 @@ Services *services;
 
 -(void)playEffectBgSounds{
     _player = [services playEffectBgSounds:@"backgroundMusic"];
-    if ([data isSoundOn])
+    if ([[data isSoundOn] boolValue])
         [_player play];
 }
 

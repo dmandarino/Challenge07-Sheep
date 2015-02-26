@@ -171,14 +171,11 @@ int numberOfAttacks;
     int randomX = arc4random_uniform(290);
     randomX = randomX + 15;
     
-    if (randomFall == 0 && card.position.y == 170 && invencible == false) {
+    if (randomFall == 0 && card.position.y == CGRectGetMinY(self.frame) && invencible == false) {
         [self chooseCard];
-        card.xScale = 0.06;
-        card.yScale = 0.06;
-        card.position = CGPointMake(randomX, 380);
+        card.position = CGPointMake(randomX, CGRectGetMaxY(self.frame));
         [card runAction:cardMove];
     }
-    
 }
 
 -(Sheep *) getSheep {
@@ -257,8 +254,7 @@ int numberOfAttacks;
     
     SKTexture *temp = _dragonFireFrames[0];
     _dragon = [SKSpriteNode spriteNodeWithTexture:temp];
-    _dragon.xScale = 0.1;
-    _dragon.yScale = 0.1;
+    _dragon.size = CGSizeMake(self.view.bounds.size.width/4, self.view.bounds.size.height/4);
     _dragon.zPosition = 2;
     _dragon.hidden = true;
     
@@ -292,8 +288,9 @@ int numberOfAttacks;
     SKTexture *temp2 = _clawsAttackingFrames[0];
     _claws = [SKSpriteNode spriteNodeWithTexture:temp2];
     _claws.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)+75);
-    _claws.xScale = 0.11;
-    _claws.yScale = 0.13;
+//    _claws.size = CGSizeMake(self.view.bounds.size.width/4, self.view.bounds.size.height/4);
+    _claws.yScale = 0.08;
+    _claws.xScale = 0.08;
     _claws.zPosition = 2;
     _claws.hidden = true;
     [self addChild:_claws];
@@ -418,6 +415,8 @@ int numberOfAttacks;
     if ([node.name isEqualToString:@"cardNode"]) {
         
         int newLife;
+        float newPositionY = CGRectGetMinY(self.frame);
+        float newPositionX = CGRectGetMaxX(self.frame) * 2;
         
         switch (cardStatus) {
             case 0://heart
@@ -425,18 +424,18 @@ int numberOfAttacks;
                 newLife = life.text.intValue;
                 newLife++;
                 life.text = [NSString stringWithFormat:@"%d", newLife];
-                card.position = CGPointMake(350, 170);
+                card.position = CGPointMake(newPositionX, newPositionY);
                 break;
             case 1://coin
                 //NSLog(@"coin");
                 gameCoins+=10;
-                card.position = CGPointMake(350, 170);
+                card.position = CGPointMake(newPositionX, newPositionY);
                 break;
             case 2://super
                 //NSLog(@"super");
                 invencible = true;
                 msgLabel.text = @"Super Invincible Sheep";
-                card.position = CGPointMake(350, 170);
+                card.position = CGPointMake(newPositionX, newPositionY);
                 [sprite runAction:sheepSuper completion:^{
                     msgLabel.text = @"";
                     invencible = false;
@@ -444,7 +443,7 @@ int numberOfAttacks;
                 break;
             case 3://bonus
                 score += 250;
-                card.position = CGPointMake(350, 170);
+                card.position = CGPointMake(newPositionX, newPositionY);
                 break;
         }
     }
@@ -736,14 +735,17 @@ int numberOfAttacks;
     card = [SKSpriteNode spriteNodeWithTexture:cardHeart];
     cardStatus = 0;
     card.name = @"cardNode";
-    card.xScale = 0.08;
-    card.yScale = 0.08;
+    card.size = CGSizeMake(self.view.bounds.size.width/14, self.view.bounds.size.height/7);
     card.zPosition = 3;
-    card.position = CGPointMake(350, 170);// Y varia de 390 ateh 175 nao visivel
-    cardMove = [SKAction moveToY:170 duration:2.5];
+    card.position = CGPointMake(CGRectGetMinX(self.frame) , CGRectGetMinY(self.frame));
+    cardMove = [SKAction moveToY: CGRectGetMinY(self.frame) duration:3.8];
     invencible = false;
     
     [self addChild: card];
+    
+//    card.position = CGPointMake(350, 170);// Y varia de 390 ateh 175 nao visivel
+//    cardMove = [SKAction moveToY:self.view.bounds.size.height/2 duration:2.5];
+
 }
 
 -(void)prepareScene{
@@ -784,7 +786,7 @@ int numberOfAttacks;
 
 -(void) playEffectBgSounds{
     _player = [services playEffectBgSounds:@"backgroundMusic"];
-    if ([data isSoundOn])
+    if ([[data isSoundOn] boolValue])
         [_player play];
 }
 @end
