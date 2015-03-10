@@ -130,7 +130,7 @@ static NSString* const HeartNumKey = @"HeartNum";
     } else {
         _firstPlaying = [NSNumber numberWithFloat:1];
     }
-    return _firstPlaying;
+    return _firstPlaying; 
 }
 
 // Saves the array to a file
